@@ -1,0 +1,16 @@
+name: ml4opf_build
+description: 'Build ml4opf.'
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      shell: bash
+      run: |
+        python3 -m venv env
+        . env/bin/activate
+        python -m pip install --upgrade pip
+        python -m pip install -e '.[all]'

@@ -1,0 +1,37 @@
+name: docs
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run_docs:
+    name: Run docs
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/build
+
+      - name: Reset branch
+        run: |
+          git config user.name "Michael Klamkin (autodoc)"
+          git config user.email "klam@gatech.edu"
+          git branch -f gh-docs main
+          git checkout gh-docs
+
+      - name: Make docs
+        run: |
+          . env/bin/activate
+          python -m pip install pdoc3
+          PYTORCH_JIT=0 python -m pdoc --html ml4opf --force --output-dir docs -c latex_math=True -c show_source_code=False -c list_variables_in_index=False -c git_link_template=\"https://github.com/AI4OPT/ML4OPF/blob/{commit}/{path}#L{start_line}-L{end_line}\"
+          mv docs/ml4opf/ tdocs
+          rmdir docs
+          mv tdocs docs
+          git add -f docs
+          git commit -m "autodoc"
+
+      - name: Push branch
+        run: |
+          git push -f -u origin gh-docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

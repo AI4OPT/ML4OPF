@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ML4OPF"
+version = "0.0.1"
+description = "ML4OPF: Machine Learning for OPF"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Michael Klamkin", email = "klam@gatech.edu" }]
+dependencies = ["torch", "h5py", "lightning"]
+
+[project.optional-dependencies]
+dev = [
+    "jupyter",
+    "notebook",
+    "ipykernel",
+    "ipywidgets",
+    "ipython",
+    "pytest",
+    "rich",
+]
+viz = [
+    "scipy",
+    "scikit-learn",
+    "pandas",
+    "matplotlib",
+    "rich",
+]
+all = [
+    "scipy",
+    "scikit-learn",
+    "pandas",
+    "matplotlib",
+    "jupyter",
+    "notebook",
+    "ipykernel",
+    "ipywidgets",
+    "ipython",
+    "pytest",
+    "rich",
+]
+
+[tool.setuptools.packages.find]
+include = ["ml4opf", "ml4opf.*"]
+
+[tool.coverage.report]
+omit = ["ml4opf/viz/report/*", "ml4opf/viz/plot.py", "ml4opf/models/e2elr/reserve_repair.py"]
+exclude_also = ["raise NotImplementedError", "@(abc\\.)?abstractmethod"]

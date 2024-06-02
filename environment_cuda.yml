@@ -1,0 +1,8 @@
+name: ml4opf
+channels:
+  - defaults
+  - nvidia
+dependencies:
+  - python=3
+  - pytorch::pytorch
+  - pytorch::pytorch-cuda

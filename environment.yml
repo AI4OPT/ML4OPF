@@ -1,0 +1,6 @@
+name: ml4opf
+channels:
+  - defaults
+dependencies:
+  - python=3
+  - pytorch::pytorch

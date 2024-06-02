@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+title: ML4OPF
+message: If you use this software, please cite it as below.
+type: software
+authors:
+  - given-names: Michael
+    family-names: Klamkin
+    email: klam@gatech.edu
+    affiliation: >-
+      Artificial Intelligence Institute for Advances in
+      Optimization
+    orcid: 'https://orcid.org/0000-0002-2131-8603'
+repository-code: 'https://github.com/AI4OPT/ML4OPF'
+license: MIT
