@@ -24,7 +24,7 @@ ML4OPF is a Python package for developing machine learning proxy models for opti
 
 - [`viz`](ml4opf/viz): Visualization helpers for plots and tables.
 
-Documentation based on docstrings is live [here](https://pages.github.com/AI4OPT/ML4OPF/index.html).
+Documentation based on docstrings is live [here](https://ai4opt.github.io/ML4OPF/).
 
 
 ## Installation
