@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>ml4opf.formulations.ed API documentation</title>
+<meta name="description" content="Economic Dispatch" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ml4opf.formulations.ed</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="economic-dispatch">Economic Dispatch</h1>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/__init__.py#L1-L15" class="git-link">Browse git</a></div>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ml4opf.formulations.ed.model" href="model.html">ml4opf.formulations.ed.model</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ml4opf.formulations.ed.problem" href="problem.html">ml4opf.formulations.ed.problem</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ml4opf.formulations.ed.violation" href="violation.html">ml4opf.formulations.ed.violation</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ml4opf.formulations.ed.EDModel"><code class="flex name class">
+<span>class <span class="ident">EDModel</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>An abstract base class for ACOPF models.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/model.py#L10-L34" class="git-link">Browse git</a></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.model.OPFModel" href="../model.html#ml4opf.formulations.model.OPFModel">OPFModel</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.ed.model.PerfectEDModel" href="model.html#ml4opf.formulations.ed.model.PerfectEDModel">PerfectEDModel</a></li>
+<li><a title="ml4opf.models.basic_nn.ed_basic_nn.EDBasicNeuralNet" href="../../models/basic_nn/ed_basic_nn.html#ml4opf.models.basic_nn.ed_basic_nn.EDBasicNeuralNet">EDBasicNeuralNet</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ml4opf.formulations.ed.EDModel.problem"><code class="name">var <span class="ident">problem</span> : <a title="ml4opf.formulations.ed.problem.EDProblem" href="problem.html#ml4opf.formulations.ed.problem.EDProblem">EDProblem</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDModel.violation"><code class="name">var <span class="ident">violation</span> : <a title="ml4opf.formulations.ed.violation.EDViolation" href="violation.html#ml4opf.formulations.ed.violation.EDViolation">EDViolation</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ml4opf.formulations.model.OPFModel" href="../model.html#ml4opf.formulations.model.OPFModel">OPFModel</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ml4opf.formulations.model.OPFModel.evaluate_model" href="../model.html#ml4opf.formulations.model.OPFModel.evaluate_model">evaluate_model</a></code></li>
+<li><code><a title="ml4opf.formulations.model.OPFModel.load_from_checkpoint" href="../model.html#ml4opf.formulations.model.OPFModel.load_from_checkpoint">load_from_checkpoint</a></code></li>
+<li><code><a title="ml4opf.formulations.model.OPFModel.predict" href="../model.html#ml4opf.formulations.model.OPFModel.predict">predict</a></code></li>
+<li><code><a title="ml4opf.formulations.model.OPFModel.save_checkpoint" href="../model.html#ml4opf.formulations.model.OPFModel.save_checkpoint">save_checkpoint</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ml4opf.formulations.ed.EDProblem"><code class="flex name class">
+<span>class <span class="ident">EDProblem</span></span>
+<span>(</span><span>data_directory: str, case_name: str, ptdf_path: str, dataset_name: str = 'ED', **parse_kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="opf-problem">OPF Problem</h1>
+<p>This class parses the JSON/HDF5 files on initialization, providing a standard interface for accessing OPF data.</p>
+<p>OPFProblem also includes methods for creating input/target tensors from the HDF5 data by concatenating keys,
+though more complex datasets (e.g., for graph neural networks) can be created by accessing <code>train_data</code> and <code>json_data</code> directly.</p>
+<p>By default, initializing OPFProblem will parse the HDF5/JSON files, remove infeasible samples, and set aside 5000 samples for testing.
+The test data can be accessed via <code>test_data</code> - <code>train_data</code> will only contain the training data. Models should split the training data into
+training/validation sets themselves downstream.</p>
+<p>Attributes:</p>
+<ul>
+<li>
+<p><code>path (Path)</code>: Path to the problem file folder</p>
+</li>
+<li>
+<p><code>name (str)</code>: Name of the problem to use</p>
+</li>
+<li>
+<p><code>train_data (dict)</code>: Dictionary of parsed HDF5 data. If <code>make_test_set</code> is True, this is only the training set.</p>
+</li>
+<li>
+<p><code>test_data (dict)</code>: Dictionary of parsed HDF5 data for the test set. If <code>make_test_set</code> is False, this is None.</p>
+</li>
+<li>
+<p><code>json_data (dict)</code>: Dictionary of parsed JSON data.</p>
+</li>
+<li>
+<p><code><a title="ml4opf.formulations.ed.violation" href="violation.html">ml4opf.formulations.ed.violation</a> (OPFViolation)</code>: OPFViolation object for computing constraint violations for this problem.</p>
+</li>
+</ul>
+<p>Methods:</p>
+<ul>
+<li>
+<p><code>parse</code>: Parse the JSON and HDF5 files for the problem</p>
+</li>
+<li>
+<p><code>make_dataset</code>: Create input/target tensors by combining keys from the h5 data. Returns the TensorDataset and slices for extracting the original components.</p>
+</li>
+<li>
+<p><code>slice_batch</code>: Extract the original components from a batch of data given the slices.</p>
+</li>
+<li>
+<p><code>slice_tensor</code>: Extract the original components from a tensor given the slices.</p>
+</li>
+</ul></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/problem.py#L9-L67" class="git-link">Browse git</a></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.problem.OPFProblem" href="../problem.html#ml4opf.formulations.problem.OPFProblem">OPFProblem</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ml4opf.formulations.ed.EDProblem.default_combos"><code class="name">var <span class="ident">default_combos</span> : dict[str, list[str]]</code></dt>
+<dd>
+<div class="desc"><p>Default combos for EconomicDispatch. input: pd, target: pg, va</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/problem.py#L47-L55" class="git-link">Browse git</a></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDProblem.default_order"><code class="name">var <span class="ident">default_order</span> : list[str]</code></dt>
+<dd>
+<div class="desc"><p>Default order for EconomicDispatch. input, target</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/problem.py#L57-L60" class="git-link">Browse git</a></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDProblem.feasibility_check"><code class="name">var <span class="ident">feasibility_check</span> : dict[str, str]</code></dt>
+<dd>
+<div class="desc"><p>Default feasibility check for EconomicDispatch.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/problem.py#L38-L45" class="git-link">Browse git</a></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDProblem.violation"><code class="name">var <span class="ident">violation</span> : <a title="ml4opf.formulations.ed.violation.EDViolation" href="violation.html#ml4opf.formulations.ed.violation.EDViolation">EDViolation</a></code></dt>
+<dd>
+<div class="desc"><p>OPFViolation object for EconomicDispatch constraint calculations.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/problem.py#L62-L67" class="git-link">Browse git</a></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ml4opf.formulations.problem.OPFProblem" href="../problem.html#ml4opf.formulations.problem.OPFProblem">OPFProblem</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.default_parse_only" href="../problem.html#ml4opf.formulations.problem.OPFProblem.default_parse_only">default_parse_only</a></code></li>
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.make_dataset" href="../problem.html#ml4opf.formulations.problem.OPFProblem.make_dataset">make_dataset</a></code></li>
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.parse" href="../problem.html#ml4opf.formulations.problem.OPFProblem.parse">parse</a></code></li>
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.slice_batch" href="../problem.html#ml4opf.formulations.problem.OPFProblem.slice_batch">slice_batch</a></code></li>
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.slice_tensor" href="../problem.html#ml4opf.formulations.problem.OPFProblem.slice_tensor">slice_tensor</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ml4opf.formulations.ed.EDViolation"><code class="flex name class">
+<span>class <span class="ident">EDViolation</span></span>
+<span>(</span><span>json_data: dict[str, typing.Union[bool, int, float, dict[str, torch.Tensor]]], ptdf: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The <code>OPFViolation</code> class is where all the problem expressions (objective, constraints, etc.) are defined.
+The classes provide a convenient interface for when the only varying quantity in the formulation
+per sample is the load demand <code>pd</code>. If other quantities vary, the user should use the functional
+interface at <code><a title="ml4opf.functional" href="../../functional/index.html">ml4opf.functional</a></code>.</p>
+<p>When <code>clamp</code> is true, the values of g(x) are clamped to be non-negative and the values of h(x) are absolute-valued.
+Otherwise the raw values are returned.</p>
+<p><code>OPFViolation</code> is a <code>torch.nn.Module</code>; all tensors used in computation are registered as non-persistent buffers.
+To move the module to a different device, use <code>.to(device)</code> as you would with any other <code>nn.Module</code>.
+Make sure that when you pass data to <code>OPFViolation</code>, it is on the same device as <code>OPFViolation</code>.</p>
+<p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/violation.py#L12-L207" class="git-link">Browse git</a></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.violation.OPFViolation" href="../violation.html#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></li>
+<li><a title="ml4opf.formulations.incidence_mixin.IncidenceMixin" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin">IncidenceMixin</a></li>
+<li>torch.nn.modules.module.Module</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="ml4opf.formulations.ed.EDViolation.calc_balance_residual"><code class="name flex">
+<span>def <span class="ident">calc_balance_residual</span></span>(<span>self, pd: torch.Tensor, pg: torch.Tensor, dpb_surplus: Optional[torch.Tensor] = None, dpb_shortage: Optional[torch.Tensor] = None, clamp: bool = False) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute power balance residual.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/violation.py#L102-L117" class="git-link">Browse git</a></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDViolation.calc_pf_bound_residual"><code class="name flex">
+<span>def <span class="ident">calc_pf_bound_residual</span></span>(<span>self, pf: torch.Tensor, df: Optional[torch.Tensor] = None, clamp: bool = False) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute power flow bound residual.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/violation.py#L90-L100" class="git-link">Browse git</a></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDViolation.calc_pg_bound_residual"><code class="name flex">
+<span>def <span class="ident">calc_pg_bound_residual</span></span>(<span>self, pg: torch.Tensor, clamp: bool = False) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute power generation bound residual.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/violation.py#L81-L88" class="git-link">Browse git</a></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDViolation.calc_violations"><code class="name flex">
+<span>def <span class="ident">calc_violations</span></span>(<span>self, pd: torch.Tensor, pg: torch.Tensor, reduction: str = 'mean', clamp: bool = True) ‑> dict[str, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute all DCOPF violations.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/violation.py#L130-L149" class="git-link">Browse git</a></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDViolation.objective"><code class="name flex">
+<span>def <span class="ident">objective</span></span>(<span>self, pd: torch.Tensor, pg: torch.Tensor, pr: Optional[torch.Tensor] = None, pb_surplus: Optional[torch.Tensor] = None, pb_shortage: Optional[torch.Tensor] = None, pr_shortage: Optional[torch.Tensor] = None) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute DCOPF objective function.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/violation.py#L44-L79" class="git-link">Browse git</a></div>
+</dd>
+<dt id="ml4opf.formulations.ed.EDViolation.pf_from_pdpg"><code class="name flex">
+<span>def <span class="ident">pf_from_pdpg</span></span>(<span>self, pd: torch.Tensor, pg: torch.Tensor, dense_incidence: bool = False) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute power flow from power demand and power generation.</p></div>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/f2607b06f56ad92788d69d40528a5bb873de841b/ml4opf/formulations/ed/violation.py#L119-L128" class="git-link">Browse git</a></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ml4opf.formulations.violation.OPFViolation" href="../violation.html#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.adjacency_matrix" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.adjacency_matrix">adjacency_matrix</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_incidence" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.branch_from_incidence">branch_from_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_to_bus" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.branch_from_to_bus">branch_from_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_incidence" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.branch_incidence">branch_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_incidence" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.branch_to_incidence">branch_to_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_to_bus" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.branch_to_to_bus">branch_to_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.forward" href="../violation.html#ml4opf.formulations.violation.OPFViolation.forward">forward</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.gen_to_bus" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.gen_to_bus">gen_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.generator_incidence" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.generator_incidence">generator_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_incidence" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.load_incidence">load_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_to_bus" href="../incidence_mixin.html#ml4opf.formulations.incidence_mixin.IncidenceMixin.load_to_bus">load_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.violation_shapes" href="../violation.html#ml4opf.formulations.violation.OPFViolation.violation_shapes">violation_shapes</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#economic-dispatch">Economic Dispatch</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ml4opf.formulations" href="../index.html">ml4opf.formulations</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ml4opf.formulations.ed.model" href="model.html">ml4opf.formulations.ed.model</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.problem" href="problem.html">ml4opf.formulations.ed.problem</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.violation" href="violation.html">ml4opf.formulations.ed.violation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ml4opf.formulations.ed.EDModel" href="#ml4opf.formulations.ed.EDModel">EDModel</a></code></h4>
+<ul class="">
+<li><code><a title="ml4opf.formulations.ed.EDModel.problem" href="#ml4opf.formulations.ed.EDModel.problem">problem</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDModel.violation" href="#ml4opf.formulations.ed.EDModel.violation">violation</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ml4opf.formulations.ed.EDProblem" href="#ml4opf.formulations.ed.EDProblem">EDProblem</a></code></h4>
+<ul class="">
+<li><code><a title="ml4opf.formulations.ed.EDProblem.default_combos" href="#ml4opf.formulations.ed.EDProblem.default_combos">default_combos</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDProblem.default_order" href="#ml4opf.formulations.ed.EDProblem.default_order">default_order</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDProblem.feasibility_check" href="#ml4opf.formulations.ed.EDProblem.feasibility_check">feasibility_check</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDProblem.violation" href="#ml4opf.formulations.ed.EDProblem.violation">violation</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ml4opf.formulations.ed.EDViolation" href="#ml4opf.formulations.ed.EDViolation">EDViolation</a></code></h4>
+<ul class="">
+<li><code><a title="ml4opf.formulations.ed.EDViolation.calc_balance_residual" href="#ml4opf.formulations.ed.EDViolation.calc_balance_residual">calc_balance_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDViolation.calc_pf_bound_residual" href="#ml4opf.formulations.ed.EDViolation.calc_pf_bound_residual">calc_pf_bound_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDViolation.calc_pg_bound_residual" href="#ml4opf.formulations.ed.EDViolation.calc_pg_bound_residual">calc_pg_bound_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDViolation.calc_violations" href="#ml4opf.formulations.ed.EDViolation.calc_violations">calc_violations</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDViolation.objective" href="#ml4opf.formulations.ed.EDViolation.objective">objective</a></code></li>
+<li><code><a title="ml4opf.formulations.ed.EDViolation.pf_from_pdpg" href="#ml4opf.formulations.ed.EDViolation.pf_from_pdpg">pf_from_pdpg</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
