@@ -133,6 +133,7 @@ lightning_logs
 checkpoints
 notes.py
 docs
+logs
 
 wandb/
 .vscode/

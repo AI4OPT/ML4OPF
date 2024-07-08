@@ -46,10 +46,11 @@ pip install "ml4opf[all] @ git+ssh://git@github.com/AI4OPT/ML4OPF.git" \
 For development, the recommended installation method is using Conda environment files provided at [environment.yml](environment.yml) and [environment_cuda.yml](environment_cuda.yml). Using [Mambaforge](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) is recommended for super fast installation:
 ```bash
 git clone git@github.com:AI4OPT/ML4OPF.git # clone this repo
-cd ML4OPF                                            # cd into the repo
-mamba env create -f environment.yml                  # create the environment
-conda activate ml4opf                                # activate the environment
-pip install -e ".[all]"                              # install ML4OPF
+cd ML4OPF                                  # cd into the repo
+mamba env create -f environment.yml        # create the environment
+conda activate ml4opf                      # activate the environment
+pip install -e ".[all]"                    # install ML4OPF
+# git lfs pull                             # download data if running tests
 ```
 
 ## Usage

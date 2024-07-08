@@ -86,7 +86,7 @@ class DCPViolation(OPFViolation):
     def pf_from_va(self, va: Tensor) -> Tensor:
         r"""Compute power flow given voltage angles.
 
-        \[ \mathbf{p}_f = -\text{b} \cdot (\boldsymbol{\theta}_{f} - \boldsymbol{\theta}_{t})
+        \[ \mathbf{p}_f = -\text{b} \cdot (\boldsymbol{\theta}_{f} - \boldsymbol{\theta}_{t}) \]
 
         Args:
             va (Tensor): Voltage angles per bus ( \(\boldsymbol{\theta}\) ). (batch_size, nbus)
@@ -102,47 +102,50 @@ class DCPViolation(OPFViolation):
         return -self.rate_a
 
     def pf_bound_residual(self, pf: Tensor, clamp: bool = False) -> Tensor:
-        r"""Compute power flow bound residual.
+        r"""Calculate the power flow bound residual.
 
-        \[ g_{\text{lower}} = -\text{rate\_a} - \text{pf} \]
-        \[ g_{\text{upper}} = \text{pf} - \text{rate\_a} \]
+        \[ g_{\text{lower}} = -\text{rate_a} - \text{pf} \]
+        \[ g_{\text{upper}} = \text{pf} - \text{rate_a} \]
 
         Args:
             pf (Tensor): Power flow per branch. (batch_size, nbranch)
-            clamp (bool, optional): Clamp to extract only violations. Defaults to False.
+            clamp (bool, optional): Clamp the residual to be non-negative (extract violations). Defaults to False.
 
         Returns:
-            Tuple[Tensor, Tensor]: Lower and upper bound residuals. (batch_size, nbranch)
+            Tensor: Lower bound residual. (batch_size, nbranch)
+            Tensor: Upper bound residual. (batch_size, nbranch)
         """
         return self._clamped_bound_residual(pf, self.nrate_a, self.rate_a, clamp=clamp)
 
     def pg_bound_residual(self, pg: Tensor, clamp: bool = False) -> Tensor:
-        r"""Compute power generation bound residual.
+        r"""Calculate the power generation bound residual.
 
-        \[ g_{\text{lower}} = -\text{pmax} - \text{pg} \]
-        \[ g_{\text{upper}} = \text{pg} - \text{pmin} \]
+        \[ g_{\text{lower}} = \text{pmin} - \text{pg} \]
+        \[ g_{\text{upper}} = \text{pg} - \text{pmax} \]
 
         Args:
-            pg (Tensor): Power generation per generator. (batch_size, ngen)
-            clamp (bool, optional): Clamp to extract only violations. Defaults to False.
+            pg (Tensor): Active power generation per generator. (batch_size, ngen)
+            clamp (bool, optional): Clamp the residual to be non-negative (extract violations). Defaults to False.
 
         Returns:
-            Tuple[Tensor, Tensor]: Lower and upper bound residuals. (batch_size, ngen)
+            Tensor: Lower bound residual. (batch_size, ngen)
+            Tensor: Upper bound residual. (batch_size, ngen)
         """
         return self._clamped_bound_residual(pg, self.pmin, self.pmax, clamp=clamp)
 
     def dva_bound_residual(self, dva: Tensor, clamp: bool = False) -> Tensor:
-        r"""Compute voltage angle difference bound residual.
+        r"""Calculate the voltage angle difference bound residual.
 
-        \[ g_{\text{lower}} = -\text{angmax} - \text{dva} \]
-        \[ g_{\text{upper}} = \text{dva} - \text{angmin} \]
+        \[ g_{\text{lower}} = \text{angmin} - \text{dva} \]
+        \[ g_{\text{upper}} = \text{dva} - \text{angmax} \]
 
         Args:
             dva (Tensor): Voltage angle differences per branch. (batch_size, nbranch)
-            clamp (bool, optional): Clamp to extract only violations. Defaults to False.
+            clamp (bool, optional): Clamp the residual to be non-negative (extract violations). Defaults to False.
 
         Returns:
-            Tuple[Tensor, Tensor]: Lower and upper bound residuals. (batch_size, nbranch)
+            Tensor: Lower bound residual. (batch_size, nbranch)
+            Tensor: Upper bound residual. (batch_size, nbranch)
         """
         return self._clamped_bound_residual(dva, self.angmin, self.angmax, clamp=clamp)
 
