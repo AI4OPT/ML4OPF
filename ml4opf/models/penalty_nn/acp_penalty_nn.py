@@ -45,4 +45,4 @@ class ACPPenaltyNN(PenaltyNN, ACPBasicNN):
 
 
 class ACPPenaltyNeuralNet(PenaltyNeuralNet, ACPBasicNeuralNet):
-    model_cls = ACPPenaltyNN
+    model: ACPPenaltyNN

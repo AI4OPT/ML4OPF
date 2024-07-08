@@ -40,4 +40,4 @@ class DCPLDFNN(LDFNN, DCPBasicNN):
 
 
 class DCPLDFNeuralNet(LDFNeuralNet, DCPBasicNeuralNet):
-    model_cls = DCPLDFNN
+    model: DCPLDFNN
