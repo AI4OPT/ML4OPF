@@ -30,10 +30,9 @@ class BasicNeuralNet(OPFModel, ABC):
     """
 
     @property
-    @abstractmethod
     def model_cls(self):
         """The LightningModule class to use for training. Must be a subclass of `BasicNN`."""
-        pass
+        return get_type_hints(self)["model"]
 
     def __init__(self, config: dict, problem: OPFProblem):
         self.init_config = config

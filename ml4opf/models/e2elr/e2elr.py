@@ -29,7 +29,6 @@ class EDE2ELRNN(EDBasicNN):
 
 class EDE2ELRNeuralNet(EDBasicNeuralNet):
     model: EDE2ELRNN
-    model_cls = EDE2ELRNN
 
     def predict(self, pd: Tensor) -> dict[str, Tensor]:
         self.model.eval()

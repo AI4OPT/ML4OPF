@@ -46,4 +46,4 @@ class ACPLDFNN(LDFNN, ACPBasicNN):
 
 
 class ACPLDFNeuralNet(LDFNeuralNet, ACPBasicNeuralNet):
-    model_cls = ACPLDFNN
+    model: ACPLDFNN

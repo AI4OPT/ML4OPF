@@ -56,7 +56,7 @@ class LDFNN(BasicNN):
         self.loss.end_epoch()
 
 class LDFNeuralNet(BasicNeuralNet):
-    model_cls = LDFNN
+    model: LDFNN
 
     def __init__(self, config, ldf_config, problem):
         super().__init__(dict(**config, **ldf_config), problem)

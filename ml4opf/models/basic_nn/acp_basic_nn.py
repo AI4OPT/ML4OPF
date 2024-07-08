@@ -68,7 +68,6 @@ class ACPBasicNN(BasicNN):
 
 class ACPBasicNeuralNet(BasicNeuralNet, ACPModel):
     model: ACPBasicNN
-    model_cls = ACPBasicNN
 
     def predict(self, pd: Tensor, qd: Tensor) -> dict[str, Tensor]:
         self.model.eval()

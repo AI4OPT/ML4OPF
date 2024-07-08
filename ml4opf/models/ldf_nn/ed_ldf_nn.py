@@ -38,4 +38,4 @@ class EDLDFNN(LDFNN, EDBasicNN):
 
 
 class EDLDFNeuralNet(LDFNeuralNet, EDBasicNeuralNet):
-    model_cls = EDLDFNN
+    model: EDLDFNN

@@ -43,7 +43,7 @@ class PenaltyNN(BasicNN):
             raise ValueError(f"Loss function {loss} not supported.")
 
 class PenaltyNeuralNet(BasicNeuralNet):
-    model_cls = PenaltyNN
+    model: PenaltyNN
 
     def __init__(self, config, penalty_config, problem):
         super().__init__(dict(**config, **penalty_config), problem)

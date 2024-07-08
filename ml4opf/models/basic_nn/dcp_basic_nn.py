@@ -45,7 +45,6 @@ class DCPBasicNN(BasicNN):
 
 class DCPBasicNeuralNet(BasicNeuralNet, DCPModel):
     model: DCPBasicNN
-    model_cls = DCPBasicNN
 
     def predict(self, pd: Tensor) -> dict[str, Tensor]:
         self.model.eval()

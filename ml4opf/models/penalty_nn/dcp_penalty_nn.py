@@ -39,4 +39,4 @@ class DCPPenaltyNN(PenaltyNN, DCPBasicNN):
 
 
 class DCPPenaltyNeuralNet(PenaltyNeuralNet, DCPBasicNeuralNet):
-    model_cls = DCPPenaltyNN
+    model: DCPPenaltyNN

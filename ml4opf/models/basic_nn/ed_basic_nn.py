@@ -40,7 +40,6 @@ class EDBasicNN(BasicNN):
 
 class EDBasicNeuralNet(BasicNeuralNet, EDModel):
     model: EDBasicNN
-    model_cls = EDBasicNN
 
     def predict(self, pd: Tensor) -> dict[str, Tensor]:
         self.model.eval()

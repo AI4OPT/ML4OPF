@@ -37,4 +37,4 @@ class EDPenaltyNN(PenaltyNN, EDBasicNN):
 
 
 class EDPenaltyNeuralNet(PenaltyNeuralNet, EDBasicNeuralNet):
-    model_cls = EDPenaltyNN
+    model: EDPenaltyNN
