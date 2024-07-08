@@ -171,13 +171,16 @@ class BasicNeuralNet(OPFModel, ABC):
             hparams = yaml.load(f, Loader=yaml.Loader)
 
         assert config["__cls"] == cls.__name__, f"Checkpoint class {config['__cls']} does not match {cls.__name__}"
-        assert (
-            config["__model_cls"] == cls.model_cls.__name__
-        ), f"Checkpoint model class {config['__model_cls']} does not match {cls.model_cls.__name__}"
+        config__model_cls = config["__model_cls"]
         del config["__cls"]
         del config["__model_cls"]
 
         me = cls(config, problem)
         me.slices = hparams["slices"]
+
+        assert (
+            config__model_cls == me.model_cls.__name__
+        ), f"Checkpoint model class {config__model_cls} does not match {me.model_cls.__name__}"
+
         me.model = me.model_cls.load_from_checkpoint(path / "trainer.ckpt", opfmodel=me)
         return me
