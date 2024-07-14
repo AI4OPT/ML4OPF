@@ -64,7 +64,7 @@ class EDViolation(OPFViolation):
         g_pf_lower, g_pf_upper = self.calc_pf_bound_residual(pf, clamp=True)
         df = g_pf_lower + g_pf_upper
 
-        return MOFED.compute_objective(
+        return MOFED.objective(
             pg,
             pr,
             pb_surplus,

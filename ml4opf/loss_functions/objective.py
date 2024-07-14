@@ -11,7 +11,7 @@ class ObjectiveLoss(nn.Module):
     ObjectiveLoss is the original objective of the OPF.
 
     It takes as input the same arguments as the corresponding formulation's
-    `compute_objective` method, and returns the objective value.
+    `objective` method, and returns the objective value.
     """
 
     SUPPORTED_REDUCTIONS = ("none", "mean", "sum", "max")
@@ -33,9 +33,9 @@ class ObjectiveLoss(nn.Module):
 
         self.reduction = reduction
 
-    def forward(self, *compute_objective_args, **compute_objective_kwargs) -> Tensor:
+    def forward(self, *objective_args, **objective_kwargs) -> Tensor:
         """Compute the objective value for a batch of samples."""
-        obj = self.v.objective(*compute_objective_args, **compute_objective_kwargs)
+        obj = self.v.objective(*objective_args, **objective_kwargs)
 
         if self.reduction == "mean":
             return obj.mean()

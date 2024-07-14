@@ -15,7 +15,7 @@ class ACPLDFNN(LDFNN, ACPBasicNN):
         y_hat = self(x)
 
         if isinstance(self.base_loss, ObjectiveLoss):
-            # uses formulation specific `OPFViolation.compute_objective`
+            # uses formulation specific `OPFViolation.objective`
             base_loss = self.base_loss(pg=y_hat[:, self.pg_slice])
         else:
             base_loss = self.base_loss(y_hat, y)
