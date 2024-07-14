@@ -6,7 +6,7 @@ Each formulation should define a class that inherits from `OPFViolation` and imp
 
 - `violations_shapes`: Return the shapes of the violations as a dictionary.
 
-- `compute_objective`: Compute the objective value for a batch of samples.
+- `objective`: Compute the objective value for a batch of samples.
 """
 
 import torch, torch.nn as nn

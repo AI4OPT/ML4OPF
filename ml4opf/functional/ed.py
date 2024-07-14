@@ -21,7 +21,7 @@ def pf_from_pdpg(pd: Tensor, pg: Tensor, Al: Tensor, Ag: Tensor, ptdf: Tensor) -
 
 
 @torch.jit.script
-def compute_objective(
+def objective(
     pg: Tensor,
     pr: Tensor,
     pb_surplus: Tensor,
