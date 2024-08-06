@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.1">
+<title>ml4opf.functional.acp API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ml4opf.functional.acp</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ml4opf.functional.acp.balance_residual_bus"><code class="name flex">
+<span>def <span class="ident">balance_residual_bus</span></span>(<span>pd_bus: torch.Tensor, qd_bus: torch.Tensor, pg_bus: torch.Tensor, qg_bus: torch.Tensor, vm: torch.Tensor, pf_bus: torch.Tensor, pt_bus: torch.Tensor, qf_bus: torch.Tensor, qt_bus: torch.Tensor, gs_bus: torch.Tensor, bs_bus: torch.Tensor) ‑> tuple[torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute power balance residual.</p>
+<p><span><span class="MathJax_Preview"> \text{p_viol} = \text{pg_bus} - \text{pd_bus} - \text{pt_bus} - \text{pf_bus} - \text{gs_bus} \times \text{vm}^2 </span><script type="math/tex; mode=display"> \text{p_viol} = \text{pg_bus} - \text{pd_bus} - \text{pt_bus} - \text{pf_bus} - \text{gs_bus} \times \text{vm}^2 </script></span>
+<span><span class="MathJax_Preview"> \text{q_viol} = \text{qg_bus} - \text{qd_bus} - \text{qt_bus} - \text{qf_bus} + \text{bs_bus} \times \text{vm}^2 </span><script type="math/tex; mode=display"> \text{q_viol} = \text{qg_bus} - \text{qd_bus} - \text{qt_bus} - \text{qf_bus} + \text{bs_bus} \times \text{vm}^2 </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pd_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power demand at each bus. (batch, n_bus)</dd>
+<dt><strong><code>qd_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power demand at each bus. (batch, n_bus)</dd>
+<dt><strong><code>pg_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power generation at each bus. (batch, n_bus)</dd>
+<dt><strong><code>qg_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power generation at each bus. (batch, n_bus)</dd>
+<dt><strong><code>vm</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage magnitude at each bus. (batch, n_bus)</dd>
+<dt><strong><code>pf_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power flow from each bus. (batch, n_bus)</dd>
+<dt><strong><code>pt_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power flow to each bus. (batch, n_bus)</dd>
+<dt><strong><code>qf_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power flow from each bus. (batch, n_bus)</dd>
+<dt><strong><code>qt_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power flow to each bus. (batch, n_bus)</dd>
+<dt><strong><code>gs_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Shunt conductance at each bus. (batch, n_bus)</dd>
+<dt><strong><code>bs_bus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Shunt susceptance at each bus. (batch, n_bus)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple[Tensor]</code></dt>
+<dd>Active and reactive power balance violation <span><span class="MathJax_Preview"> \text{p_viol}, \text{q_viol} </span><script type="math/tex"> \text{p_viol}, \text{q_viol} </script></span> each of shape (batch, n_bus).</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.functional.acp.flows_from_voltage"><code class="name flex">
+<span>def <span class="ident">flows_from_voltage</span></span>(<span>vm: torch.Tensor, va: torch.Tensor, fbus: torch.Tensor, tbus: torch.Tensor, tap: torch.Tensor, shift: torch.Tensor, r: torch.Tensor, x: torch.Tensor, g_fr: torch.Tensor, g_to: torch.Tensor, b_fr: torch.Tensor, b_to: torch.Tensor, dva: Optional[torch.Tensor] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute power flows from voltage magnitude and angle.</p>
+<p><span><span class="MathJax_Preview"> \mathbf{p^f} = \frac{g + g_{fr}}{\text{tap}^2} \mathbf{v_{fr}}^2 + \frac{-g t_r + b t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \cos(\theta_{fr} - \theta_{to}) + \frac{-b t_r - g t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \sin(\theta_{fr} - \theta_{to}) </span><script type="math/tex; mode=display"> \mathbf{p^f} = \frac{g + g_{fr}}{\text{tap}^2} \mathbf{v_{fr}}^2 + \frac{-g t_r + b t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \cos(\theta_{fr} - \theta_{to}) + \frac{-b t_r - g t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \sin(\theta_{fr} - \theta_{to}) </script></span>
+<span><span class="MathJax_Preview"> \mathbf{p^t} = (g + g_{to}) \mathbf{v_{to}}^2 + \frac{-g t_r - b t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \cos(\theta_{to} - \theta_{fr}) + \frac{-b t_r + g t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \sin(\theta_{to} - \theta_{fr}) </span><script type="math/tex; mode=display"> \mathbf{p^t} = (g + g_{to}) \mathbf{v_{to}}^2 + \frac{-g t_r - b t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \cos(\theta_{to} - \theta_{fr}) + \frac{-b t_r + g t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \sin(\theta_{to} - \theta_{fr}) </script></span>
+<span><span class="MathJax_Preview"> \mathbf{q^f} = \frac{-(b + b_{fr})}{\text{tap}^2} \mathbf{v_{fr}}^2 - \frac{-b t_r - g t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \cos(\theta_{fr} - \theta_{to}) + \frac{-g t_r + b t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \sin(\theta_{fr} - \theta_{to}) </span><script type="math/tex; mode=display"> \mathbf{q^f} = \frac{-(b + b_{fr})}{\text{tap}^2} \mathbf{v_{fr}}^2 - \frac{-b t_r - g t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \cos(\theta_{fr} - \theta_{to}) + \frac{-g t_r + b t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \sin(\theta_{fr} - \theta_{to}) </script></span>
+<span><span class="MathJax_Preview"> \mathbf{q^t} = -(b + b_{to}) \mathbf{v_{to}}^2 - \frac{-b t_r + g t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \cos(\theta_{to} - \theta_{fr}) + \frac{-g t_r - b t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \sin(\theta_{to} - \theta_{fr}) </span><script type="math/tex; mode=display"> \mathbf{q^t} = -(b + b_{to}) \mathbf{v_{to}}^2 - \frac{-b t_r + g t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \cos(\theta_{to} - \theta_{fr}) + \frac{-g t_r - b t_i}{\text{tap}^2} \mathbf{v_{fr}} \mathbf{v_{to}} \sin(\theta_{to} - \theta_{fr}) </script></span></p>
+<p>where <span><span class="MathJax_Preview"> g = \frac{r}{r^2 + x^2} </span><script type="math/tex"> g = \frac{r}{r^2 + x^2} </script></span>, and <span><span class="MathJax_Preview"> b = -\frac{x}{r^2 + x^2} </span><script type="math/tex"> b = -\frac{x}{r^2 + x^2} </script></span>, <span><span class="MathJax_Preview"> t_r = \text{tap} \times \cos(\text{shift}) </span><script type="math/tex"> t_r = \text{tap} \times \cos(\text{shift}) </script></span>, and <span><span class="MathJax_Preview"> t_i = \text{tap} \times \sin(\text{shift}) </span><script type="math/tex"> t_i = \text{tap} \times \sin(\text{shift}) </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>vm</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage magnitudes. (batch, n_bus)</dd>
+<dt><strong><code>va</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angles. (batch, n_bus)</dd>
+<dt><strong><code>fbus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>From bus indices. (batch, n_branch)</dd>
+<dt><strong><code>tbus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>To bus indices. (batch, n_branch)</dd>
+<dt><strong><code>tap</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Transformer tap ratio. (batch, n_branch)</dd>
+<dt><strong><code>shift</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Transformer phase shift. (batch, n_branch)</dd>
+<dt><strong><code>r</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Branch resistance. (batch, n_branch)</dd>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Branch reactance. (batch, n_branch)</dd>
+<dt><strong><code>g_fr</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>From bus shunt conductance. (batch, n_branch)</dd>
+<dt><strong><code>g_to</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>To bus shunt conductance. (batch, n_branch)</dd>
+<dt><strong><code>b_fr</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>From bus shunt susceptance. (batch, n_branch)</dd>
+<dt><strong><code>b_to</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>To bus shunt susceptance. (batch, n_branch)</dd>
+<dt><strong><code>dva</code></strong> :&ensp;<code>Tensor</code>, optional</dt>
+<dd>Voltage angle differences &ndash; if provided, <code>va</code> is ignored.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple[Tensor]</code></dt>
+<dd>Power flows <span><span class="MathJax_Preview"> \text{pf}, \text{pt}, \text{qf}, \text{qt} </span><script type="math/tex"> \text{pf}, \text{pt}, \text{qf}, \text{qt} </script></span>, each of shape (batch, n_branch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.functional.acp.objective"><code class="name flex">
+<span>def <span class="ident">objective</span></span>(<span>pg: torch.Tensor, cost: torch.Tensor) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute ACOPF objective function.</p>
+<p><span><span class="MathJax_Preview"> \text{objective} = \sum_i \left( \text{cost}_{2,i} + \text{cost}_{1,i} \times \text{pg}_i + \text{cost}_{0,i} \times \text{pg}_i^2 \right) </span><script type="math/tex; mode=display"> \text{objective} = \sum_i \left( \text{cost}_{2,i} + \text{cost}_{1,i} \times \text{pg}_i + \text{cost}_{0,i} \times \text{pg}_i^2 \right) </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power generation. (batch, n_gen)</dd>
+<dt><strong><code>cost</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Cost coefficients. (n_gen, 3)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Objective function value for each sample. (batch,)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.functional.acp.thermal_residual"><code class="name flex">
+<span>def <span class="ident">thermal_residual</span></span>(<span>pf: torch.Tensor, pt: torch.Tensor, qf: torch.Tensor, qt: torch.Tensor, s1max: torch.Tensor, s2max: torch.Tensor) ‑> tuple[torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculate the thermal residual for a set of flows.</p>
+<p><span><span class="MathJax_Preview"> \text{thrm}_1 = \text{pf}^2 + \text{qf}^2 - \text{s1max}^2 </span><script type="math/tex; mode=display"> \text{thrm}_1 = \text{pf}^2 + \text{qf}^2 - \text{s1max}^2 </script></span>
+<span><span class="MathJax_Preview"> \text{thrm}_2 = \text{pt}^2 + \text{qt}^2 - \text{s2max}^2 </span><script type="math/tex; mode=display"> \text{thrm}_2 = \text{pt}^2 + \text{qt}^2 - \text{s2max}^2 </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>From power flow. (batch, n_branch)</dd>
+<dt><strong><code>pt</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>To power flow. (batch, n_branch)</dd>
+<dt><strong><code>qf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>From reactive power flow. (batch, n_branch)</dd>
+<dt><strong><code>qt</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>To reactive power flow. (batch, n_branch)</dd>
+<dt><strong><code>s1max</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>From power flow limit. (n_branch,)</dd>
+<dt><strong><code>s2max</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>To power flow limit. (n_branch,)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple[Tensor]</code></dt>
+<dd>Thermal residuals <span><span class="MathJax_Preview"> (\text{thrm}_1, \text{thrm}_2) </span><script type="math/tex"> (\text{thrm}_1, \text{thrm}_2) </script></span> each of shape (batch, n_branch).</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ml4opf.functional" href="index.html">ml4opf.functional</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ml4opf.functional.acp.balance_residual_bus" href="#ml4opf.functional.acp.balance_residual_bus">balance_residual_bus</a></code></li>
+<li><code><a title="ml4opf.functional.acp.flows_from_voltage" href="#ml4opf.functional.acp.flows_from_voltage">flows_from_voltage</a></code></li>
+<li><code><a title="ml4opf.functional.acp.objective" href="#ml4opf.functional.acp.objective">objective</a></code></li>
+<li><code><a title="ml4opf.functional.acp.thermal_residual" href="#ml4opf.functional.acp.thermal_residual">thermal_residual</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.1</a>.</p>
+</footer>
+</body>
+</html>
