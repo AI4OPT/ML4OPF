@@ -26,8 +26,9 @@ class LDFNN(BasicNN):
         update_freq: int = 500,
         divide_by_counter: bool = True,
         exclude_keys: list[str] = [],
+        weight_init_seed: int = 42,
     ):
-        super().__init__(opfmodel, slices, optimizer, loss, hidden_sizes, activation, boundrepair, learning_rate)
+        super().__init__(opfmodel, slices, optimizer, loss, hidden_sizes, activation, boundrepair, learning_rate, weight_init_seed)
 
         self.loss = LDFLoss(
             self.violation,
