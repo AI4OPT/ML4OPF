@@ -26,8 +26,9 @@ class PenaltyNN(BasicNN):
         learning_rate: float = 1e-3,
         exclude_keys: Optional[Union[str, list[str]]] = None,
         multipliers: Optional[Union[float, dict[str, float]]] = None,
+        weight_init_seed: int = 42,
     ):
-        super().__init__(opfmodel, slices, optimizer, loss, hidden_sizes, activation, boundrepair, learning_rate)
+        super().__init__(opfmodel, slices, optimizer, loss, hidden_sizes, activation, boundrepair, learning_rate, weight_init_seed)
 
         self.loss = PenaltyLoss(self.violation, exclude_keys, multipliers)
 
@@ -44,6 +45,3 @@ class PenaltyNN(BasicNN):
 
 class PenaltyNeuralNet(BasicNeuralNet):
     model: PenaltyNN
-
-    def __init__(self, config, penalty_config, problem):
-        super().__init__(dict(**config, **penalty_config), problem)

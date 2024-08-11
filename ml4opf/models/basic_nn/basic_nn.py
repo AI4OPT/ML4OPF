@@ -133,14 +133,11 @@ class BasicNeuralNet(OPFModel, ABC):
         if not path.is_dir(): # pragma: no cover
             raise ValueError(f"Checkpoint path must be a directory. Got: {path}")
 
-        self.trainer.save_checkpoint(path / "trainer.ckpt")
-
-        with open(path / "config.json", "w") as f:
-            self.init_config["__cls"] = self.__class__.__name__
-            self.init_config["__model_cls"] = self.model.__class__.__name__
-            json.dump(self.init_config, f)
-            del self.init_config["__cls"]
-            del self.init_config["__model_cls"]
+        checkpoint = self.trainer._checkpoint_connector.dump_checkpoint(False)
+        checkpoint["__cls"] = self.__class__.__name__
+        checkpoint["__model_cls"] = self.model.__class__.__name__
+        self.trainer.strategy.save_checkpoint(checkpoint, path / "trainer.ckpt", storage_options=None)
+        self.trainer.strategy.barrier("Trainer.save_checkpoint")
 
     @classmethod
     def load_from_checkpoint(cls, path_to_folder: str, problem: OPFProblem):
@@ -161,26 +158,23 @@ class BasicNeuralNet(OPFModel, ABC):
             # else:
             raise ValueError(f"Checkpoint path must be a directory! Got: {path}")
 
-        assert (path / "config.json").exists(), f"Checkpoint config file not found at {path}/config.json"
         assert (path / "trainer.ckpt").exists(), f"Checkpoint model file not found at {path}/trainer.ckpt"
 
-        with open(path / "config.json", "r") as f:
-            config = json.load(f)
+        with open(path / "trainer.ckpt", "rb") as f:
+            d = torch.load(f, weights_only=False)
+            config = d['hyper_parameters']
+            assert d["__cls"] == cls.__name__, f"Checkpoint class {d['__cls']} does not match {cls.__name__}"
+            config__model_cls = d["__model_cls"]
+            del d["__cls"]
+            del d["__model_cls"]
 
-        with open(path.parent / "hparams.yaml", "r") as f:
-            hparams = yaml.load(f, Loader=yaml.Loader)
+            slices = config.pop("slices")
+            me = cls(config=config, problem=problem)
+            me.slices = slices
 
-        assert config["__cls"] == cls.__name__, f"Checkpoint class {config['__cls']} does not match {cls.__name__}"
-        config__model_cls = config["__model_cls"]
-        del config["__cls"]
-        del config["__model_cls"]
-
-        me = cls(config, problem)
-        me.slices = hparams["slices"]
-
-        assert (
-            config__model_cls == me.model_cls.__name__
-        ), f"Checkpoint model class {config__model_cls} does not match {me.model_cls.__name__}"
+            assert (
+                config__model_cls == me.model_cls.__name__
+            ), f"Checkpoint model class {config__model_cls} does not match {me.model_cls.__name__}"
 
         me.model = me.model_cls.load_from_checkpoint(path / "trainer.ckpt", opfmodel=me)
         return me

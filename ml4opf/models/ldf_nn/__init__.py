@@ -1,4 +1,4 @@
-""" A basic feed-forward fully-connected neural network for ACOPF, using the `LDFLoss` loss function."""
+""" A basic feed-forward fully-connected neural network, using the `LDFLoss` loss function."""
 
 try:
     from ml4opf.models.ldf_nn.acp_ldf_nn import ACPLDFNeuralNet
