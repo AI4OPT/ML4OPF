@@ -175,7 +175,7 @@ class BasicNeuralNet(OPFModel, ABC):
         del config["__cls"]
         del config["__model_cls"]
 
-        me = cls(config, problem)
+        me = cls(config=config, problem=problem)
         me.slices = hparams["slices"]
 
         assert (

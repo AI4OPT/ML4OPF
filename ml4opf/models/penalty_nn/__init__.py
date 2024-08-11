@@ -1,4 +1,4 @@
-""" A basic feed-forward fully-connected neural network for ACOPF, using the `PenaltyLoss` loss function."""
+""" A basic feed-forward fully-connected neural network, using the `PenaltyLoss` loss function."""
 
 try:
     from ml4opf.models.penalty_nn.acp_penalty_nn import ACPPenaltyNeuralNet

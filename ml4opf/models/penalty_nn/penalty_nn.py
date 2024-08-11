@@ -44,6 +44,3 @@ class PenaltyNN(BasicNN):
 
 class PenaltyNeuralNet(BasicNeuralNet):
     model: PenaltyNN
-
-    def __init__(self, config, penalty_config, problem):
-        super().__init__(dict(**config, **penalty_config), problem)

@@ -57,6 +57,3 @@ class LDFNN(BasicNN):
 
 class LDFNeuralNet(BasicNeuralNet):
     model: LDFNN
-
-    def __init__(self, config, ldf_config, problem):
-        super().__init__(dict(**config, **ldf_config), problem)

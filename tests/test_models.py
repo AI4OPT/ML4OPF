@@ -27,7 +27,10 @@ def test_models():
     from ml4opf.models.ldf_nn.ed_ldf_nn import EDLDFNeuralNet
     from ml4opf.models.e2elr.e2elr import EDE2ELRNeuralNet
 
-    def make_model(problem: OPFProblem, *args, kind="basic", **kwargs):
+    def make_model(problem: OPFProblem, config: dict, kind="basic", loss_config: Optional[dict] = None):
+        if loss_config is None:
+            loss_config = dict()
+
         if kind == "basic":
             if isinstance(problem, ACPProblem):
                 cls = ACPBasicNeuralNet
@@ -55,7 +58,7 @@ def test_models():
         else:
             raise ValueError(f"Unknown model kind: {kind}. Must be one of 'basic', 'ldf', or 'penalty'.")
         
-        return cls(*args, problem=problem, **kwargs)
+        return cls(config=dict(**config, **loss_config), problem=problem)
 
     from ml4opf.models.basic_nn.basic_nn import BasicNeuralNet # all the models are subclasses of this
     from pathlib import Path
@@ -160,18 +163,18 @@ def test_models():
         "exclude_keys": [],
     }
 
-    acp_ldf_nn = make_model(acp_problem, config, kind="ldf", ldf_config=ldf_config)
-    dcp_ldf_nn = make_model(dcp_problem, config, kind="ldf", ldf_config=ldf_config)
-    ed_ldf_nn = make_model(ed_problem, config, kind="ldf", ldf_config=ldf_config)
+    acp_ldf_nn = make_model(acp_problem, config, kind="ldf", loss_config=ldf_config)
+    dcp_ldf_nn = make_model(dcp_problem, config, kind="ldf", loss_config=ldf_config)
+    ed_ldf_nn = make_model(ed_problem, config, kind="ldf", loss_config=ldf_config)
 
     penalty_config = {
         "exclude_keys": [],
         "multipliers": 1e-2,
     }
 
-    acp_penalty_nn = make_model(acp_problem, config, kind="penalty", penalty_config=penalty_config)
-    dcp_penalty_nn = make_model(dcp_problem, config, kind="penalty", penalty_config=penalty_config)
-    ed_penalty_nn = make_model(ed_problem, config, kind="penalty", penalty_config=penalty_config)
+    acp_penalty_nn = make_model(acp_problem, config, kind="penalty", loss_config=penalty_config)
+    dcp_penalty_nn = make_model(dcp_problem, config, kind="penalty", loss_config=penalty_config)
+    ed_penalty_nn = make_model(ed_problem, config, kind="penalty", loss_config=penalty_config)
 
 
     models = [acp_basic_nn, dcp_basic_nn, ed_basic_nn, e2elr_nn, acp_ldf_nn, dcp_ldf_nn, ed_ldf_nn, acp_penalty_nn, dcp_penalty_nn, ed_penalty_nn]
