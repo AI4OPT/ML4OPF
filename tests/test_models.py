@@ -1,5 +1,5 @@
 import pytest
-
+from typing import Optional
 
 def test_models():
 
@@ -197,13 +197,19 @@ def test_models():
     ed_predict(ed_ldf_nn)
 
     load_checkpoint(acp_basic_nn)
+    load_checkpoint(dcp_ldf_nn)
+    load_checkpoint(ed_penalty_nn)
+
+    acp_predict(acp_penalty_nn)
+    dcp_predict(dcp_penalty_nn)
+    ed_predict(ed_penalty_nn)
 
     config["optimizer"] = "adamw"
-    make_model(ed_problem, config, kind="basic")
+    make_model(acp_problem, config, kind="basic")
 
     config["optimizer"] = "sgd"
-    make_model(ed_problem, config, kind="basic")
+    make_model(dcp_problem, config, kind="ldf", loss_config=ldf_config)
 
     config["optimizer"] = "nonexistent"
-    make_model(ed_problem, config, kind="basic")
+    make_model(ed_problem, config, kind="penalty", loss_config=penalty_config)
 
