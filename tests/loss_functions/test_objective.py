@@ -3,17 +3,17 @@ import pytest
 import torch
 from pathlib import Path
 from ml4opf import __path__ as ml4opf_path
-from ml4opf import ACPProblem, DCPProblem
+from ml4opf import ACProblem, DCProblem
 
 from ml4opf.loss_functions.objective import ObjectiveLoss
 
 
 def test_objective_loss():
-    data_dir = Path(ml4opf_path[0]).parent / "tests" / "test_data"
-    p1 = DCPProblem(data_dir, "300_ieee", "DCOPF", make_test_set=False)
+    data_dir = Path(ml4opf_path[0]).parent / "tests" / "test_data" / "89_pegase"
+    p1 = DCProblem(data_dir)
     v1 = p1.violation
 
-    p2 = ACPProblem(data_dir, "300_ieee", "ACOPF", make_test_set=False)
+    p2 = ACProblem(data_dir)
     v2 = p2.violation
 
     for reduction in ["sum", "max", "mean", "none"]:

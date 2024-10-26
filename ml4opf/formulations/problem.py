@@ -4,7 +4,7 @@ Each formulation should inhereit from `OPFProblem` and implement the following:
 
 - `_parse_sanity_check`: Use `self.train_data`, `self.test_data`, and `self.json_data` to perform sanity checks making sure they correspond to the same dataset.  
 
-- `feasibility_check`: Dictionary of keys and values to check feasibility of the problem. Each key is checked to have the corresponding value. If any of them does not match, the sample is removed from the dataset in `H5Parser` if feasible_only is True.  
+- `feasibility_check`: Dictionary of keys and values to check feasibility of the problem. Each key is checked to have the corresponding value.
 
 - `default_combos`: A dictionary where keys represent elements of the tuple from the TensorDataset and values are keys of the train_data dictionary which are concatenated. Used by `make_dataset`.  
 
@@ -12,15 +12,15 @@ Each formulation should inhereit from `OPFProblem` and implement the following:
  """
 
 import json
-import torch
-
-from torch import Tensor
-from torch.utils.data import TensorDataset
 from pathlib import Path
-from typing import Optional, Union
+from typing import Optional
 from abc import ABC, abstractmethod
 
-from ml4opf.parsers import JSONParser, H5Parser
+import torch
+from torch import Tensor
+from torch.utils.data import TensorDataset
+
+from ml4opf.parsers import PGLearnParser
 from ml4opf import info, debug
 
 
@@ -36,6 +36,24 @@ class OPFProblem(ABC):
     By default, initializing OPFProblem will parse the HDF5/JSON files, remove infeasible samples, and set aside 5000 samples for testing.
     The test data can be accessed via `test_data` - `train_data` will only contain the training data. Models should split the training data into
     training/validation sets themselves downstream.
+
+    Initialization Arguments:
+
+    - `data_directory (str)`: Path to the folder containing the problem files
+
+    - `dataset_name (str)`: Name of the problem to use
+
+    - `primal (bool)`: Whether to parse the primal data (default: True)
+
+    - `dual (bool)`: Whether to parse the dual data (default: True)
+
+    - `train_set (bool)`: Whether to parse the training set (default: True)
+
+    - `test_set (bool)`: Whether to parse the test set (default: True)
+
+    - `convert_to_float32 (bool)`: Whether to convert the data to float32 (default: True)
+
+    - `sanity_check (bool)`: Whether to perform a sanity check on the parsed data (default: True)
 
     Attributes:
 
@@ -62,61 +80,37 @@ class OPFProblem(ABC):
     - `slice_tensor`: Extract the original components from a tensor given the slices.
     """
 
-    def __init__(self, data_directory: str, case_name: str, dataset_name: str, **parse_kwargs):
+    def __init__(self, data_directory: str, dataset_name: str, **parse_kwargs):
         self.path = Path(data_directory).resolve()
-        self.case_name = case_name
         self.dataset_name = dataset_name
-
-        self._h5_filename = f"{self.case_name}_{self.dataset_name}.h5"
-        self._input_h5_filename = f"{self.case_name}_input.h5"
-        self._json_filename = f"{self.case_name}.ref.json"
 
         self.parse(**parse_kwargs)
 
     def parse(
         self,
-        parse_only: Optional[Union[str, list[str]]] = "default",
-        train_set_size: Optional[int] = None,
-        feasible_only: Union[bool, dict[str, str]] = True,
-        make_test_set: bool = True,
-        test_set_size: int = 5000,
+        primal: bool = True,
+        dual: bool = True,
+        train_set: bool = True,
+        test_set: bool = True,
         convert_to_float32: bool = True,
-        total_load_range: tuple[Optional[float], Optional[float]] = (None, None),
         sanity_check: bool = True,
     ):
         """Parse the JSON and HDF5 files for the problem"""
-        if parse_only == "default":
-            parse_only = self.default_parse_only
+        parser = PGLearnParser(self.path)
 
-        if isinstance(feasible_only, bool):
-            feasible_only = self.feasibility_check if feasible_only else None
-        else:
-            info(f"Using custom feasibility check: {feasible_only}")
-            feasible_only = feasible_only
-
-            if sanity_check:
-                assert isinstance(feasible_only, dict) and all(
-                    isinstance(k, str) and isinstance(v, str) for k, v in feasible_only.items()
-                ), f"Custom feasibility check must be a dict[str, str]. Got: {feasible_only}"
-
-        h5_res = H5Parser(
-            self.path / self._input_h5_filename,
-            self.path / self._h5_filename,
-        ).parse(
-            parse_only=parse_only,
-            train_set_size=train_set_size,
-            feasible_by=feasible_only,
-            make_test_set=make_test_set,
-            test_set_size=test_set_size,
-            convert_to_float32=convert_to_float32,
-            total_load_range=total_load_range,
-            sanity_check=sanity_check,
+        self.train_data = (
+            parser.parse_h5(self.dataset_name, "train", primal=primal, dual=dual, convert_to_float32=convert_to_float32)
+            if train_set
+            else None
         )
-        self.train_data, self.test_data = h5_res if make_test_set else (h5_res, None)
 
-        self.json_data = JSONParser(self.path / self._json_filename).parse(
-            model_type=self.dataset_name, sanity_check=sanity_check
+        self.test_data = (
+            parser.parse_h5(self.dataset_name, "test", primal=primal, dual=dual, convert_to_float32=convert_to_float32)
+            if test_set
+            else None
         )
+
+        self.case_data = parser.parse_json(self.dataset_name)
 
         if sanity_check:
             self._parse_sanity_check()
@@ -125,6 +119,7 @@ class OPFProblem(ABC):
         self,
         combos: Optional[dict[str, list[str]]] = None,
         order: Optional[list[str]] = None,
+        data: Optional[dict[str, Tensor]] = None,
         test_set: bool = False,
         sanity_check: bool = True,
     ) -> tuple[dict[str, Tensor], list[dict[str, slice]]]:
@@ -135,7 +130,9 @@ class OPFProblem(ABC):
             combos = self.default_combos
             order = self.default_order
 
-        data = self.test_data if test_set else self.train_data
+        if data is None:
+            info(f"Making dataset using OPFProblem.{'test' if test_set else 'train'}_data.")
+            data = self.test_data if test_set else self.train_data
 
         if sanity_check:
             assert set(combos.keys()) == set(order), "Keys of `combos` and elements of `order` must be the same."
@@ -207,7 +204,6 @@ class OPFProblem(ABC):
         does not match, the sample is removed from the dataset in `OPFGeneratorH5Parser`.
         See ACOPFProblem.feasibility_check for an example.
         """
-        pass
 
     @property
     @abstractmethod
@@ -215,38 +211,33 @@ class OPFProblem(ABC):
         """A dictionary where keys represent elements of the tuple
         from the TensorDataset and values are keys of the train_data
         dictionary which are concatenated.  Used by `make_dataset`."""
-        pass
 
     @property
     @abstractmethod
     def default_order(self) -> list[str]:
         """The order of the keys in the default_combos dictionary."""
-        pass
-
-    @property
-    def default_parse_only(self) -> list[str]:
-        """The keys to parse from the HDF5 file.
-
-        By default, "meta/*", "primal/*", and "dual/*" are parsed from the data file
-        and the entire input file is parsed.
-        """
-        return ["meta/*", "primal/*", "dual/*", "input/*"]
 
     def _parse_sanity_check(self):
         """Use self.train_data, self.test_data, self.json_data to
         perform sanity checks making sure they correspond to the same dataset."""
-        datas = [self.train_data]
+        datas = []
+        if self.train_data is not None:
+            datas.append(self.train_data)
         if self.test_data is not None:
             datas.append(self.test_data)
 
         for data in datas:
             if "input/meta/seed" in data and "meta/seed" in data:
-                assert len(data["input/meta/seed"]) == len(data["meta/seed"]), f"Seed lengths do not match from input/meta to data meta."
-                assert all(data["input/meta/seed"] == data["meta/seed"]), f"Seeds in input/meta and data meta do not match."
+                assert len(data["input/meta/seed"]) == len(
+                    data["meta/seed"]
+                ), "Seed lengths do not match from input/meta to data meta."
+                assert all(
+                    data["input/meta/seed"] == data["meta/seed"]
+                ), "Seeds in input/meta and data meta do not match."
             if "input/meta/config" in data and "meta/config" in data:
                 assert data["input/meta/config"] == data["meta/config"], "Configs in input and data meta do not match."
-        
-            if "input/meta/config" in data and "meta" in self.json_data:
+
+            if "input/meta/config" in data and "config" in self.case_data:
                 assert (
-                    json.loads(data["input/meta/config"]) == self.json_data["meta"]
+                    json.loads(data["input/meta/config"]) == self.case_data["config"]
                 ), "Config in input and JSON do not match."

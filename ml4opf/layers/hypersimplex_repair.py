@@ -1,78 +1,74 @@
-import torch, torch.nn as nn
+"""Differentiable repair layer for the hyper-simplex constraint, ∑x=X, x̲≤x≤x̅."""
 
 from typing import Optional
-from torch import Tensor
 
-# Original implementation by Wenbo Chen
+import torch
+from torch import nn, Tensor
+
+
 class HyperSimplexRepair(nn.Module):
-    r"""
-    Recovery for hyper simplex constraint \(\{ x_i \in [l_i, u_i] \,\vert\, \sum x = b \}\).
-    """
-    # TODO: throw if infeasible
-    def __init__(self, lb: Optional[Tensor] = None, ub: Optional[Tensor] = None, sanity_check: bool = True):
+    """Repair layer for the hyper-simplex constraint  ∑x=X, x̲≤x≤x̅."""
+
+    def __init__(
+        self,
+        xmin: Optional[Tensor] = None,
+        xmax: Optional[Tensor] = None,
+        X: Optional[Tensor] = None,
+    ):
         super().__init__()
-        if ub is not None:
-            self.register_buffer("ub", ub)
-        if lb is not None:
-            self.register_buffer("lb", lb)
-        self.sanity_check = sanity_check
 
-    def forward(self, x_: Tensor, b: Tensor):
-        # x = x_.clone()
+        self.register_buffer("xmin", xmin, persistent=False)
+        self.register_buffer("xmax", xmax, persistent=False)
+        self.register_buffer("X", X, persistent=False)
 
-        # if ub is None:
-        ub = self.ub.clone()
-        # if lb is None:
-        lb = self.lb.clone()
+        self.repair_up = torch.vmap(
+            HyperSimplexRepair._repair_up,
+            in_dims=(
+                0,
+                0 if xmax is None else None,
+                0 if X is None else None,
+            ),
+        )
 
-        fixed_mask = (ub == lb)
-        x  = x_[:, ~fixed_mask]
-        ub = ub[~fixed_mask]
-        lb = lb[~fixed_mask]
-        b -= x_[:, fixed_mask].sum(dim=-1)
-
-        if self.sanity_check:
-            assert (ub > lb).all(), "lb must be less than ub"
-            assert (x <= ub).all(), "x must be less than or equal to ub"
-            assert (x >= lb).all(), "x must be greater than or equal to lb"
-            assert x.shape[0] == b.shape[0], "x and b should have the same batch size"
-            assert x.shape[1] == ub.shape[0], "x and ub should have the same number of columns"
-            assert x.shape[1] == lb.shape[0], "x and lb should have the same number of columns"
-
-        b = b.view(-1)
-
-        x = self.proportional_projection(x.clone(), lb.expand_as(x), ub.expand_as(x), b)
-
-        ret = x_.clone()
-        ret[:, ~fixed_mask] = x
-        return ret
+        self.repair_dn = torch.vmap(
+            HyperSimplexRepair._repair_dn,
+            in_dims=(
+                0,
+                0 if xmin is None else None,
+                0 if X is None else None,
+            ),
+        )
 
     @staticmethod
-    @torch.jit.script
-    def proportional_projection(x: Tensor, lb: Tensor, ub: Tensor, b: Tensor):
+    def _repair_up(x: Tensor, xmax: Tensor, X: Tensor):
+        ratio = (X - x.sum()) / (xmax.sum() - x.sum())
+        return ratio * xmax + (1 - ratio) * x
 
-        # set x to lb if b <= ∑ lb
-        b_less_lb_mask = b <= lb.sum(dim=-1)
-        x[b_less_lb_mask, :] = lb[b_less_lb_mask, :]
+    @staticmethod
+    def _repair_dn(x: Tensor, xmin: Tensor, X: Tensor):
+        ratio = (X - x.sum()) / (xmin.sum() - x.sum())
+        return ratio * xmin + (1 - ratio) * x
 
-        # set x to ub if b >= ∑ ub
-        b_greater_lb_mask = b >= ub.sum(dim=-1)
-        x[b_greater_lb_mask, :] = ub[b_less_lb_mask, :]
-        project_mask = torch.logical_and(~b_less_lb_mask, ~b_greater_lb_mask)
+    def forward(
+        self,
+        x: Tensor,
+        xmin: Optional[Tensor] = None,
+        xmax: Optional[Tensor] = None,
+        X: Optional[Tensor] = None,
+    ):
+        """Project onto ∑x=X, x̲≤x≤x̅"""
+        xmin = self.xmin if xmin is None else xmin
+        xmax = self.xmax if xmax is None else xmax
+        X = self.X if X is None else X
 
-        G = x.shape[1]
-        sum_x = x.sum(dim=-1)
-        sum_ub = ub.sum(dim=-1)
-        sum_lb = lb.sum(dim=-1)
-        # proportionally increase x if ∑ x < b
-        project_up = torch.logical_and(b > sum_x, project_mask)
-        ratio_up = ((b - sum_x) / (sum_ub - sum_x)).unsqueeze(dim=-1).repeat(1, G)
-        ratio_up = ratio_up[project_up, :]
-        x[project_up, :] = ratio_up * ub[project_up, :] + (1 - ratio_up) * x[project_up, :]
+        raw_X = x.sum(dim=-1)
+        need_up = raw_X < X
+        need_dn = raw_X > X
 
-        # proportionally decrease x if ∑ x > b
-        project_dn = torch.logical_and(b < sum_x, project_mask)
-        ratio_dn = ((b - sum_x) / (sum_lb - sum_x)).unsqueeze(dim=-1).repeat(1, G)
-        ratio_dn = ratio_dn[project_dn, :]
-        x[project_dn, :] = ratio_dn * lb[project_dn, :] + (1 - ratio_dn) * x[project_dn, :]
-        return x
+        x_ = x.clone()
+        if need_up.any():
+            x_[need_up, :] = self.repair_up(x[need_up, :], xmax, X[need_up])
+        if need_dn.any():
+            x_[need_dn, :] = self.repair_dn(x[need_dn, :], xmin, X[need_dn])
+
+        return x_

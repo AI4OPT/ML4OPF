@@ -1,5 +1,3 @@
-import pytest
-
 from pathlib import Path
 from ml4opf import __path__ as ml4opf_path
 
@@ -13,14 +11,11 @@ def test_docs_exist():
 
 
 def test_docs_index():
-    data_dir = Path(ml4opf_path[0]).parent / "tests" / "test_data"
-    case_name = "300_ieee"
-    dataset_name = "DCOPF"
-    kwargs = {"dataset_name": dataset_name, "test_set_size": 10}
+    data_dir = Path(ml4opf_path[0]).parent / "tests" / "test_data" / "89_pegase"
 
-    from ml4opf import DCPProblem
+    from ml4opf import DCProblem
 
-    problem = DCPProblem(data_dir, case_name, **kwargs)
+    problem = DCProblem(data_dir)
 
     # extract tensors
     train_pd = problem.train_data["input/pd"]
@@ -40,7 +35,7 @@ def test_docs_index():
     gen_incidence = v.generator_incidence
 
     import torch
-    from ml4opf import DCPModel
+    from ml4opf import DCModel
 
     N_LOADS = problem.violation.n_load
     N_GEN = problem.violation.n_gen
@@ -59,7 +54,7 @@ def test_docs_index():
             va_pred = self.fc3(x)
             return pg_pred, va_pred
 
-    class MyDCPModel(DCPModel):
+    class MyDCPModel(DCModel):
         def __init__(self, pytorch_model, problem):
             super().__init__()
             self.model = pytorch_model
@@ -97,4 +92,4 @@ def test_docs_index():
     import ml4opf.functional as MOF
 
     gen_incidence = MOF.generator_incidence(v.gen_bus, v.n_bus, v.n_gen)
-    obj = MOF.DCP.objective(train_pg, v.cost)
+    obj = MOF.DC.objective(train_pg, v.c0, v.c1)

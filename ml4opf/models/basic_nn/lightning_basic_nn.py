@@ -134,3 +134,6 @@ class BasicNN(pl.LightningModule):
 
     def validation_step(self, batch: tuple[Tensor, Tensor], _):
         return self._step(batch, "val")
+
+    def test_step(self, batch: tuple[Tensor, Tensor], _):
+        return self._step(batch, "test")

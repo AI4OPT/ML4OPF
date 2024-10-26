@@ -1,14 +1,13 @@
 Copyright Georgia Tech 2024
 
-[![test status](https://github.com/AI4OPT/ML4OPF/workflows/tests/badge.svg)](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml)
-[![coverage](.github/coverage.svg)](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml)
+[![test status](https://github.com/AI4OPT/ML4OPF/workflows/tests/badge.svg)](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml)<!-- [![coverage](.github/coverage.svg)](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml) -->
 [![docs status](https://github.com/AI4OPT/ML4OPF/workflows/docs/badge.svg)](https://ai4opt.github.io/ML4OPF/)
 
 # ML4OPF
 
 ML4OPF is a Python package for developing machine learning proxy models for optimal power flow. It is built on top of PyTorch and PyTorch Lightning, and is designed to be modular and extensible. The main components are:
 
-- [`formulations`](ml4opf/formulations): The main interface to the OPF formulations [ACOPF](ml4opf/formulations/acp), [DCOPF](ml4opf/formulations/dcp), and [Economic Dispatch](ml4opf/formulations/ed).
+- [`formulations`](ml4opf/formulations): The main interface to the OPF formulations [ACOPF](ml4opf/formulations/ac), [DCOPF](ml4opf/formulations/dc), and [Economic Dispatch](ml4opf/formulations/ed).
 
   - Each OPF formulation has three main component classes: `OPFProblem`, `OPFViolation`, and `OPFModel`. The `OPFProblem` class loads and parses data from disk, the `OPFViolation` class calculates constraints residuals, incidence matrices, objective value, etc., and the `OPFModel` class is an abstract base class for proxy models.
 
@@ -61,26 +60,25 @@ pip install -e ".[all]"                    # install ML4OPF
 import torch
 
 # load data
-from ml4opf import ACPProblem
+from ml4opf import ACProblem
 
 data_path = ...
-network = "300_ieee"
 
-problem = ACPProblem(data_path, network)
+problem = ACProblem(data_path)
 
 # make a basic neural network model
-from ml4opf.models.acp.basic_nn import BasicNeuralNet # requires pytorch-lightning
+from ml4opf.models.basic_nn import ACBasicNeuralNet # requires pytorch-lightning
 
 config = {
     "optimizer": "adam",
     "init_lr": 1e-3,
     "loss": "mse",
-    "hidden_sizes": [500,300,500], # encoder-decoder structure
+    "hidden_sizes": [500,300,500],
     "activation": "sigmoid",
     "boundrepair": "none" # optionally clamp outputs to bounds (choices: "sigmoid", "relu", "clamp")
 }
 
-model = BasicNeuralNet(config, problem)
+model = ACBasicNeuralNet(config, problem)
 
 model.train(trainer_kwargs={'max_epochs': 100, 'accelerator': 'auto'}) # pass args to the PyTorch Lightning Trainer
 
@@ -89,20 +87,19 @@ evals = model.evaluate_model()
 from ml4opf.viz import make_stats_df
 print(make_stats_df(evals))
 
-model.save_checkpoint("./basic_300bus") # creates a folder called "basic_300bus" with two files in it, trainer.ckpt and config.json
+model.save_checkpoint("./basic_300bus") # creates a folder called "basic_300bus" with a file "trainer.ckpt" in it.
 ```
 
 ### Manually Loading Data
 ```python
 import torch
 
-from ml4opf import ACPProblem
+from ml4opf import ACProblem
 
 data_path = ...
-network = "300_ieee"
 
 # parse HDF5/JSON
-problem = ACPProblem(data_path, network)
+problem = ACProblem(data_path)
 
 # get train/test set:
 train_data = problem.train_data
@@ -121,4 +118,4 @@ h5_tree['input']['pd'].shape # torch.Size([52863, 201])
 
 ## Acknowledgements
 
-This material is based upon work supported by the National Science Foundation under Grant No. 2112533 NSF AI Institute for Advances in Optimization (AI4OPT). Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
+This material is based upon work supported by the National Science Foundation AI Institute for Advances in Optimization ([AI4OPT](https://ai4opt.org)) under Grant No. 2112533 and the National Science Foundation Graduate Research Fellowship under Grant No. DGE-2039655. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.

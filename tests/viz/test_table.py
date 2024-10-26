@@ -1,5 +1,3 @@
-import pytest
-
 import torch
 from ml4opf.viz.table import make_stats_df
 

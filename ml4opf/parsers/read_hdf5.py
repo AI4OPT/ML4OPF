@@ -1,7 +1,7 @@
 """
 This file gives an example implementation of how to read an entire HDF5 into a Python dictionary.
 Note that if only using a subset of the data, it is better to use the `h5py.File`
-interfact directly since it avoids reading unnecessary data from disk.
+interface directly since it avoids reading unnecessary data from disk.
 
 """
 import h5py

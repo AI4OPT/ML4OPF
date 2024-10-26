@@ -1,10 +1,10 @@
 """ A basic feed-forward fully-connected neural network, using the `LDFLoss` loss function."""
 
 try:
-    from ml4opf.models.ldf_nn.acp_ldf_nn import ACPLDFNeuralNet
-    from ml4opf.models.ldf_nn.dcp_ldf_nn import DCPLDFNeuralNet
+    from ml4opf.models.ldf_nn.acopf_ldf_nn import ACLDFNeuralNet
+    from ml4opf.models.ldf_nn.dcopf_ldf_nn import DCLDFNeuralNet
 
-    __all__ = ["ACPLDFNeuralNet", "DCPLDFNeuralNet"]
+    __all__ = ["ACLDFNeuralNet", "DCLDFNeuralNet"]
 except ImportError as e:
     INSTALL_CMD = "pip install lightning"
     raise ImportError(

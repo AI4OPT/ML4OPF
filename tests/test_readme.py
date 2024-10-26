@@ -1,4 +1,4 @@
-import sys, pytest
+import pytest
 
 from pathlib import Path
 from ml4opf import __path__ as ml4opf_path
@@ -10,15 +10,14 @@ def test_basic_usage():
     import torch
 
     # load data
-    from ml4opf import ACPProblem
+    from ml4opf import ACProblem
 
-    data_path = Path(ml4opf_path[0]).parent / "tests" / "test_data"
-    network = "300_ieee"
+    data_path = Path(ml4opf_path[0]).parent / "tests" / "test_data" / "89_pegase"
 
-    problem = ACPProblem(data_path, network, dataset_name="ACOPF", test_set_size=10)
+    problem = ACProblem(data_path)
 
     # make a basic neural network model
-    from ml4opf.models.acp.basic_nn import BasicNeuralNet  # requires pytorch-lightning
+    from ml4opf.models.basic_nn import ACBasicNeuralNet  # requires pytorch-lightning
 
     config = {
         "optimizer": "adam",
@@ -29,7 +28,7 @@ def test_basic_usage():
         "boundrepair": "none",  # optionally clamp outputs to bounds (choices: "sigmoid", "relu", "clamp")
     }
 
-    model = BasicNeuralNet(config, problem)
+    model = ACBasicNeuralNet(config, problem)
 
     model.train(trainer_kwargs={"max_epochs": 5, "accelerator": "auto"})
 
@@ -50,12 +49,11 @@ def test_advanced_usage():
     logging.basicConfig(level=logging.INFO)
     import torch
 
-    from ml4opf import ACPProblem
+    from ml4opf import ACProblem
 
-    data_path = Path(ml4opf_path[0]).parent / "tests" / "test_data"
-    network = "300_ieee"
+    data_path = Path(ml4opf_path[0]).parent / "tests" / "test_data" / "89_pegase"
 
-    problem = ACPProblem(data_path, network, dataset_name="ACOPF", test_set_size=10)
+    problem = ACProblem(data_path)
 
     # get train/test set:
     train_data = problem.train_data
@@ -65,9 +63,9 @@ def test_advanced_usage():
     test_data["input/pd"].shape  # torch.Size([5000, 201])
 
     # if needed, convert the HDF5 data to a tree dictionary instead of a flat dictionary:
-    from ml4opf.parsers import H5Parser
+    from ml4opf.parsers import PGLearnParser
 
-    h5_tree = H5Parser.make_tree(train_data)  # this tree structure should
+    h5_tree = PGLearnParser.make_tree(train_data)  # this tree structure should
     # exactly mimic the
     # structure of the HDF5 file.
     h5_tree["input"]["pd"].shape  # torch.Size([52863, 201])

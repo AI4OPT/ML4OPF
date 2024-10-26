@@ -1,5 +1,7 @@
-from torch import Tensor
+""" Base class for EconomicDispatch proxy models """
+
 from typing import Optional, Any
+from torch import Tensor
 
 from ml4opf.formulations.model import OPFModel
 
@@ -8,6 +10,8 @@ from ml4opf.formulations.ed.violation import EDViolation
 
 
 class EDModel(OPFModel):
+    """`OPFModel` for EconomicDispatch"""
+
     problem: EDProblem
     violation: EDViolation
 
@@ -31,10 +35,12 @@ class EDModel(OPFModel):
         violations["pg_gap"] = (pred_pg - test_pg).abs().mean(dim=1)
         violations["obj_mape"] = ((pred_obj - test_obj) / test_obj).abs()
 
-        return EDViolation._reduce_violations(violations, reduction=reduction, dim=0)
+        return EDViolation.reduce_violations(violations, reduction=reduction, dim=0)
 
 
 class PerfectEDModel(EDModel):
+    """Returns the ground truth, only works with test data."""
+
     def __init__(self, problem: EDProblem):
         self.problem = problem
         self.violation = problem.violation
@@ -50,5 +56,5 @@ class PerfectEDModel(EDModel):
         pass
 
     @staticmethod
-    def load_from_checkpoint(self, path_to_folder: str, problem: EDProblem):
+    def load_from_checkpoint(path_to_folder: str, problem: EDProblem):
         pass

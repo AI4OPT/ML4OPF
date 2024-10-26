@@ -20,8 +20,8 @@ class EDBasicNN(BasicNN):
         lower = torch.full((self.output_size,), -torch.inf)
         upper = torch.full((self.output_size,), torch.inf)
 
-        lower[self.pg_slice] = self.violation.pmin
-        upper[self.pg_slice] = self.violation.pmax
+        lower[self.pg_slice] = self.violation.pgmin
+        upper[self.pg_slice] = self.violation.pgmax
 
         self.layers.append(BoundRepair(lower, upper, boundrepair))
 

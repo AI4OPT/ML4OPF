@@ -15,15 +15,15 @@ class EDE2ELRNN(EDBasicNN):
         lower = torch.full((self.output_size,), -torch.inf)
         upper = torch.full((self.output_size,), torch.inf)
 
-        lower[self.pg_slice] = self.violation.pmin
-        upper[self.pg_slice] = self.violation.pmax
+        lower[self.pg_slice] = self.violation.pgmin
+        upper[self.pg_slice] = self.violation.pgmax
 
         self.layers.append(BoundRepair(lower, upper, boundrepair))
         self.pb_repair = HyperSimplexRepair(lower, upper)
 
     def forward(self, pd: torch.Tensor):
         pg = super().forward(pd)
-        pg = self.pb_repair.forward(pg, pd.sum(dim=-1))
+        pg = self.pb_repair.forward(pg, X=pd.sum(dim=-1))
         return pg
 
 

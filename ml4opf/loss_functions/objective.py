@@ -1,7 +1,8 @@
-import torch.nn as nn
+""" Use the formulation objective as the loss function """
 
-from torch import Tensor
-from typing import Any, Optional
+from typing import Optional
+
+from torch import nn, Tensor
 
 from ml4opf.formulations import OPFViolation
 

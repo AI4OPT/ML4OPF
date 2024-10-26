@@ -4,7 +4,7 @@ Each formulation should inherit from `OPFModel` and implement the following meth
 
 - `evaluate_model`: Evaluate the model on the test data.
 
-User models should inherit from the formulation's `OPFModel` class (e.g., `ACPModel`) and implement the following methods:
+User models should inherit from the formulation's `OPFModel` class (e.g., `ACPModel`) and implement the methods:
 
 - `save_checkpoint`: Save the model's checkpoint to a file.
 
@@ -14,8 +14,8 @@ User models should inherit from the formulation's `OPFModel` class (e.g., `ACPMo
 """
 
 from abc import ABC, abstractmethod
-from torch import Tensor
 from typing import Optional
+from torch import Tensor
 
 from ml4opf.formulations.problem import OPFProblem
 
@@ -30,17 +30,15 @@ class OPFModel(ABC):
         Args:
             path (str): Path to save the checkpoint.
         """
-        pass
 
     @staticmethod
     @abstractmethod
-    def load_from_checkpoint(self, path_to_folder: str, problem: OPFProblem):
+    def load_from_checkpoint(path_to_folder: str, problem: OPFProblem):
         """Load the model's checkpoint from a file.
 
         Args:
             path (str): Path to load the checkpoint from.
         """
-        pass
 
     @abstractmethod
     def predict(self, *inputs: Tensor) -> dict[str, Tensor]:
@@ -52,7 +50,6 @@ class OPFModel(ABC):
         Returns:
             dict[str, Tensor]: Dictionary containing the solution.
         """
-        pass
 
     @abstractmethod
     def evaluate_model(
@@ -67,4 +64,3 @@ class OPFModel(ABC):
         Returns:
             dict[str, Tensor]: Dictionary containing Tensor metrics of the model's performance.
         """
-        pass

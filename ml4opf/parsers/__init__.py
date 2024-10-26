@@ -4,11 +4,9 @@ ML4OPF Parsers
 
 """
 
-from .parse_h5 import H5Parser
-from .parse_json import JSONParser
+from .pglearn import PGLearnParser
 
 
 __all__ = [
-    "H5Parser",
-    "JSONParser",
+    "PGLearnParser",
 ]

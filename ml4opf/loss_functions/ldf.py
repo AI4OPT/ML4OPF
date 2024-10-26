@@ -1,8 +1,9 @@
-import torch
-import torch.nn as nn
+"""Formulation-agnostic Lagrangian Dual Framework Loss Function."""
 
-from torch import Tensor
 from typing import Optional, Union
+
+import torch
+from torch import nn, Tensor
 
 from ml4opf.formulations import OPFViolation
 from ml4opf import debug
@@ -11,7 +12,6 @@ from ml4opf import debug
 class LDFLoss(nn.Module):
     """
     LDFLoss implements the Lagrangian Dual Framework.
-    params should have: `step_size`, `kickin`, `update_freq`, `divide_by_counter`, and optionally `exclude_keys`.
 
     `exclude_keys` is either None to use all violations, "all" to skip all violations, or a list of keys to skip specific violations.
     """
@@ -58,14 +58,16 @@ class LDFLoss(nn.Module):
         if self.short_circuit and not update:
             # pretraining where λ are zero so we don't need to compute violations
             return "short_circuit"
-        elif self.short_circuit and update:
+
+        if self.short_circuit and update:
             # disable short circuit (compute violations over this epoch) if we are about to update
             debug("LDFLoss: First update triggered!")
             self.short_circuit = self.short_circuit.logical_not()  # expects to start at True, flip to False
             self.update_epoch = self.update_epoch.logical_not()  # expects to start at False, flip to True
             return "first_update_this_epoch"
+
         ## base behavior
-        elif update:  # update λ next time end_epoch() is called
+        if update:  # update λ next time end_epoch() is called
             self.update_epoch = self.update_epoch.logical_not()  # flip to True
             self.reset_trackers()  # make sure trackers are reset so we get exactly one pass through the dataset
             return "update_this_epoch"
@@ -106,7 +108,7 @@ class LDFLoss(nn.Module):
         if self.divide_by_counter:
             debug("LDFLoss: Dividing by iteration counter")
             for k in self.violation_trackers:
-                self._buffers[k] /= self.sample_counter 
+                self._buffers[k] /= self.sample_counter
 
         for kl, kv in zip(self.lambdas, self.violation_trackers):
             self._buffers[kl] += self.step * self._buffers[kv]
@@ -121,7 +123,7 @@ class LDFLoss(nn.Module):
         if exclude_keys is None:
             exclude_keys = self.exclude_keys
 
-        if self.short_circuit or exclude_keys == 'all':
+        if self.short_circuit or exclude_keys == "all":
             return base_loss.mean()
 
         calc_violation_inputs.setdefault("reduction", "none")

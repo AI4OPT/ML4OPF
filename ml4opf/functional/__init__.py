@@ -10,7 +10,7 @@ from ml4opf.functional.incidence import (
     branch_to_incidence,
     generator_incidence,
     load_incidence,
-    adjacency_matrix,
+    adjacency,
     map_to_bus_pad,
     map_to_bus_matrix,
 )
@@ -66,8 +66,8 @@ def angle_difference(va: Tensor, i: Tensor, j: Tensor) -> Tensor:
     return va_i - va_j
 
 
-import ml4opf.functional.acp as ACP
-import ml4opf.functional.dcp as DCP
+import ml4opf.functional.ac as AC
+import ml4opf.functional.dc as DC
 import ml4opf.functional.incidence as incidence
 
 __all__ = [
@@ -76,14 +76,14 @@ __all__ = [
     "branch_to_incidence",
     "generator_incidence",
     "load_incidence",
-    "adjacency_matrix",
+    "adjacency",
     "map_to_bus_pad",
     "map_to_bus_matrix",
     "bound_residual",
     "inequality_violation",
     "equality_violation",
     "angle_difference",
-    "ACP",
-    "DCP",
+    "AC",
+    "DC",
     "incidence",
 ]

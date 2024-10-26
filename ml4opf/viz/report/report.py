@@ -4,14 +4,14 @@ import torch
 from torch import Tensor
 from typing import Optional
 
-from ml4opf import ACPProblem, ACPModel
+from ml4opf import ACProblem, ACModel
 from ml4opf.viz.plot import plot_wrt_total_load
 
 
 class ModelReport:
     """Create an evaluation report for an ACPModel."""
 
-    def __init__(self, problem: ACPProblem, model: ACPModel):
+    def __init__(self, problem: ACProblem, model: ACModel):
         self.problem = problem
         self.model = model
 
@@ -32,14 +32,14 @@ class ModelReport:
         sort_idx = sort_by.argsort()
 
         pg = self.predictions["pg"]
-        pg_gt = self.problem.test_data["ACPPowerModel/primal/pg"]
+        pg_gt = self.problem.test_data["primal/pg"]
         pmin = self.problem.violation.pmin[generator_idx]
         pmax = self.problem.violation.pmax[generator_idx]
         pg_sorted = pg[sort_idx, generator_idx]
         pg_gt_sorted = pg_gt[sort_idx, generator_idx]
 
         qg = self.predictions["qg"]
-        qg_gt = self.problem.test_data["ACPPowerModel/primal/qg"]
+        qg_gt = self.problem.test_data["primal/qg"]
         qmin = self.problem.violation.qmin[generator_idx]
         qmax = self.problem.violation.qmax[generator_idx]
         qg_sorted = qg[sort_idx, generator_idx]
@@ -86,14 +86,14 @@ class ModelReport:
         sort_idx = sort_by.argsort()
 
         vm = self.predictions["vm"]
-        vm_gt = self.problem.test_data["ACPPowerModel/primal/vm"]
+        vm_gt = self.problem.test_data["primal/vm"]
         vmin = self.problem.violation.vmin[bus_idx]
         vmax = self.problem.violation.vmax[bus_idx]
         vm_sorted = vm[sort_idx, bus_idx]
         vm_gt_sorted = vm_gt[sort_idx, bus_idx]
 
         va = self.predictions["va"]
-        va_gt = self.problem.test_data["ACPPowerModel/primal/va"]
+        va_gt = self.problem.test_data["primal/va"]
         va_sorted = va[sort_idx, bus_idx]
         va_gt_sorted = va_gt[sort_idx, bus_idx]
 

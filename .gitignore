@@ -139,3 +139,4 @@ wandb/
 .vscode/
 test
 .DS_Store
+notes.ipynb

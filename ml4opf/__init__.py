@@ -12,13 +12,11 @@ already have their own models and wish to evaluate on the OPFGenerator
 datasets. ML4OPF makes loading data and splitting training/testing sets
 easy and reproducible.
 ```python
-from ml4opf import DCPProblem
+from ml4opf import DCProblem
 
 data_dir = ... # path to folder containing the data
-case_name = ... # e.g. "300_ieee" if the files are "300_ieee_DCOPF.h5" and "300_ieee.ref.json"
-dataset_name = ... # the name of the dataset, e.g. "DCOPF"
 
-problem = DCPProblem(data_dir, case_name, dataset_name, **kwargs)
+problem = DCProblem(data_dir, **kwargs)
 
 # extract tensors
 train_pd = problem.train_data["input/pd"]
@@ -54,7 +52,7 @@ but requires the user to adopt the functional interface (`ml4opf.functional`) vs
 ```python
 import ml4opf.functional as MOF
 gen_incidence = MOF.generator_incidence(v.gen_bus, v.n_bus, v.n_gen)
-obj = MOF.DCP.objective(train_pg, v.cost)
+obj = MOF.DCP.objective(train_pg, v.c0, v.c1)
 ```
 
 ## Implementing an OPFModel

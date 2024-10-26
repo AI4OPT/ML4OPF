@@ -1,3 +1,5 @@
+""" EconomicDispatch Problem data class """
+
 import torch
 
 from ml4opf.formulations.problem import OPFProblem
@@ -7,10 +9,11 @@ from ml4opf.parsers.read_hdf5 import parse_hdf5
 
 
 class EDProblem(OPFProblem):
+    """`OPFProblem` for EconomicDispatch"""
 
-    def __init__(self, data_directory: str, case_name: str, ptdf_path: str, dataset_name: str = "ED", **parse_kwargs):
+    def __init__(self, data_directory: str, ptdf_path: str, dataset_name: str = "ED", **parse_kwargs):
         self.ptdf_path = ptdf_path
-        super().__init__(data_directory, case_name, dataset_name, **parse_kwargs)
+        super().__init__(data_directory, dataset_name, **parse_kwargs)
 
     def parse(self, *args, **kwargs):
         D = parse_hdf5(self.ptdf_path, preserve_shape=True)
@@ -22,18 +25,16 @@ class EDProblem(OPFProblem):
     def _parse_sanity_check(self):
         # super()._parse_sanity_check()
         assert (
-            len(set((self.json_data["n_gen"], self.train_data["primal/pg"].shape[1]))) == 1
+            len(set((self.case_data["G"].item(), self.train_data["primal/pg"].shape[1]))) == 1
         ), "Number of generators in JSON and HDF5 files do not match."
 
         assert (
-            len(set((self.json_data["n_load"], self.train_data["input/pd"].shape[1]))) == 1
+            len(set((self.case_data["L"].item(), self.train_data["input/pd"].shape[1]))) == 1
         ), "Number of loads in JSON and HDF5 files do not match."
 
-        assert (
-            self.ptdf.shape[0] == self.json_data["n_branch"]
-        ), "Number of branches in PTDF and JSON files do not match."
+        assert self.ptdf.shape[0] == self.case_data["E"], "Number of branches in PTDF and JSON files do not match."
 
-        assert self.ptdf.shape[1] == self.json_data["n_bus"], "Number of buses in PTDF and JSON files do not match."
+        assert self.ptdf.shape[1] == self.case_data["N"], "Number of buses in PTDF and JSON files do not match."
 
     @property
     def feasibility_check(self) -> dict[str, str]:
@@ -49,9 +50,7 @@ class EDProblem(OPFProblem):
         """Default combos for EconomicDispatch. input: pd, target: pg, va"""
         return {
             "input": ["input/pd"],
-            "target": [
-                "primal/pg",
-            ],
+            "target": ["primal/pg"],
         }
 
     @property
@@ -63,5 +62,5 @@ class EDProblem(OPFProblem):
     def violation(self) -> EDViolation:
         """OPFViolation object for EconomicDispatch constraint calculations."""
         if not hasattr(self, "_violation"):
-            self._violation = EDViolation(self.json_data, self.ptdf)
+            self._violation = EDViolation(self.case_data, self.ptdf)
         return self._violation

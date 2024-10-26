@@ -1,10 +1,12 @@
 """ A basic feed-forward fully-connected neural network."""
 
 try:
-    from ml4opf.models.basic_nn.acp_basic_nn import ACPBasicNeuralNet
-    from ml4opf.models.basic_nn.dcp_basic_nn import DCPBasicNeuralNet
+    from ml4opf.models.basic_nn.acopf_basic_nn import ACBasicNeuralNet
+    from ml4opf.models.basic_nn.dcopf_basic_nn import DCBasicNeuralNet
+    from ml4opf.models.basic_nn.ed_basic_nn import EDBasicNeuralNet
+    from ml4opf.models.basic_nn.socopf_basic_nn import SOCBasicNeuralNet
 
-    __all__ = ["ACPBasicNeuralNet", "DCPBasicNeuralNet"]
+    __all__ = ["ACBasicNeuralNet", "DCBasicNeuralNet", "EDBasicNeuralNet", "SOCBasicNeuralNet"]
 except ImportError as e:
     INSTALL_CMD = "pip install lightning"
     raise ImportError(

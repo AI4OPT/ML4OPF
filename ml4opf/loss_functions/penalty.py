@@ -1,7 +1,9 @@
-import torch, torch.nn as nn
+"""Penalize constraint violations"""
 
-from torch import Tensor
 from typing import Optional, Union
+
+import torch
+from torch import nn, Tensor
 
 from ml4opf.formulations import OPFViolation
 
@@ -9,7 +11,7 @@ from ml4opf.formulations import OPFViolation
 class PenaltyLoss(nn.Module):
     """
     PenaltyLoss penalizes constraint violations in the loss.
-    
+
     `exclude_keys` is either None to use all violations, "all" to skip all violations, or a list of keys to skip specific violations.
     """
 
@@ -28,6 +30,7 @@ class PenaltyLoss(nn.Module):
         self.init_mults(multipliers)
 
     def init_mults(self, multipliers: Optional[Union[Tensor, dict[str, Tensor]]] = None):
+        """Initialize multipliers for each constraint type."""
         shapes = self.v.violation_shapes
 
         if multipliers is None:
@@ -52,7 +55,7 @@ class PenaltyLoss(nn.Module):
         if exclude_keys is None:
             exclude_keys = self.exclude_keys
 
-        if exclude_keys == 'all':
+        if exclude_keys == "all":
             return base_loss.mean()
 
         calc_violation_inputs.setdefault("reduction", "none")

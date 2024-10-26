@@ -1,7 +1,10 @@
-import torch, torch.nn as nn, torch.nn.functional as F
+"""Differentiable repair layer for satisfying bound constraints x̲≤x≤x̅."""
 
 from typing import Optional
-from torch import Tensor
+
+import torch
+import torch.nn.functional as F
+from torch import nn, Tensor
 
 
 class BoundRepair(nn.Module):

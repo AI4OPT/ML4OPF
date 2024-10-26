@@ -1,0 +1,56 @@
+# Name of the reference PGLib case. Must be a valid PGLib case name.
+ref = "89_pegase"
+# Directory where instance/solution files are exported
+# must be a valid directory
+export_dir = "data/pglearn/89_pegase"
+
+[sampler]
+# Sampler options
+[sampler.load]
+noise_type = "ScaledUniform"    # Only "ScaledLogNormal" is supported at the moment
+l          = 0.60               # Lower bound of base load factor
+u          = 1.00               # Upper bound of base load factor
+sigma      = 0.15               # Relative (multiplicative) noise level.
+
+[sampler.status]
+type = "Full"
+
+
+[OPF]
+[OPF.ACOPF]
+type = "ACOPF"
+solver.name = "Ipopt"
+solver.attributes.tol = 1e-6
+solver.attributes.linear_solver = "ma27"
+
+[OPF.SOCOPF]
+type = "SOCOPF"
+solver.name = "Clarabel"
+# Tight tolerances
+solver.attributes.tol_gap_abs    = 1e-6
+solver.attributes.tol_gap_rel    = 1e-6
+solver.attributes.tol_feas       = 1e-6
+solver.attributes.tol_infeas_rel = 1e-6
+solver.attributes.tol_ktratio    = 1e-6
+# Reduced accuracy settings
+solver.attributes.reduced_tol_gap_abs    = 1e-6
+solver.attributes.reduced_tol_gap_rel    = 1e-6
+solver.attributes.reduced_tol_feas       = 1e-6
+solver.attributes.reduced_tol_infeas_abs = 1e-6
+solver.attributes.reduced_tol_infeas_rel = 1e-6
+solver.attributes.reduced_tol_ktratio    = 1e-6
+
+[OPF.DCOPF]
+type = "DCOPF"
+solver.name = "HiGHS"
+solver.attributes.primal_feasibility_tolerance = 1e-6
+solver.attributes.dual_feasibility_tolerance = 1e-6
+solver.attributes.ipm_optimality_tolerance = 1e-6
+
+[slurm]
+# SLURM options
+n_samples = 5000
+n_jobs = 20
+queue = "embers"
+charge_account = "gts-phentenryck3-ai4opt"
+sampler_memory = "3G"

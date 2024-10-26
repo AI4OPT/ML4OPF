@@ -1,29 +1,28 @@
-import pytest
 from typing import Optional
+
 
 def test_models():
 
     import torch
 
-    from ml4opf import ACPProblem, DCPProblem
+    from ml4opf import ACProblem, DCProblem
     from ml4opf.formulations.ed.problem import EDProblem
 
     from pathlib import Path
     from ml4opf import __path__ as ml4opf_path
 
-    data_dir = Path(ml4opf_path[0]).parent / "tests" / "test_data" / "OPFData"
+    data_dir = Path(ml4opf_path[0]).parent / "tests" / "test_data" / "89_pegase"
 
-
-    acp_problem = ACPProblem(data_directory=data_dir, case_name="14_ieee", test_set_size=50, train_set_size=100)
-    dcp_problem = DCPProblem(data_directory=data_dir, case_name="14_ieee", test_set_size=50, train_set_size=100)
-    ed_problem = EDProblem(data_directory=data_dir, case_name="14_ieee", ptdf_path=data_dir / "14_ieee_ED_PTDF.h5", test_set_size=50, train_set_size=100)
+    ac_problem = ACProblem(data_directory=data_dir)
+    dc_problem = DCProblem(data_directory=data_dir)
+    ed_problem = EDProblem(data_directory=data_dir, ptdf_path=data_dir / "ptdf.h5")
 
     from ml4opf.formulations import OPFProblem
-    from ml4opf.models.basic_nn import ACPBasicNeuralNet, DCPBasicNeuralNet
+    from ml4opf.models.basic_nn import ACBasicNeuralNet, DCBasicNeuralNet
     from ml4opf.models.basic_nn.ed_basic_nn import EDBasicNeuralNet
-    from ml4opf.models.penalty_nn import ACPPenaltyNeuralNet, DCPPenaltyNeuralNet
+    from ml4opf.models.penalty_nn import ACPenaltyNeuralNet, DCPenaltyNeuralNet
     from ml4opf.models.penalty_nn.ed_penalty_nn import EDPenaltyNeuralNet
-    from ml4opf.models.ldf_nn import ACPLDFNeuralNet, DCPLDFNeuralNet
+    from ml4opf.models.ldf_nn import ACLDFNeuralNet, DCLDFNeuralNet
     from ml4opf.models.ldf_nn.ed_ldf_nn import EDLDFNeuralNet
     from ml4opf.models.e2elr.e2elr import EDE2ELRNeuralNet
 
@@ -32,24 +31,24 @@ def test_models():
             loss_config = dict()
 
         if kind == "basic":
-            if isinstance(problem, ACPProblem):
-                cls = ACPBasicNeuralNet
-            elif isinstance(problem, DCPProblem):
-                cls = DCPBasicNeuralNet
+            if isinstance(problem, ACProblem):
+                cls = ACBasicNeuralNet
+            elif isinstance(problem, DCProblem):
+                cls = DCBasicNeuralNet
             elif isinstance(problem, EDProblem):
                 cls = EDBasicNeuralNet
         elif kind == "penalty":
-            if isinstance(problem, ACPProblem):
-                cls = ACPPenaltyNeuralNet
-            elif isinstance(problem, DCPProblem):
-                cls = DCPPenaltyNeuralNet
+            if isinstance(problem, ACProblem):
+                cls = ACPenaltyNeuralNet
+            elif isinstance(problem, DCProblem):
+                cls = DCPenaltyNeuralNet
             elif isinstance(problem, EDProblem):
                 cls = EDPenaltyNeuralNet
         elif kind == "ldf":
-            if isinstance(problem, ACPProblem):
-                cls = ACPLDFNeuralNet
-            elif isinstance(problem, DCPProblem):
-                cls = DCPLDFNeuralNet
+            if isinstance(problem, ACProblem):
+                cls = ACLDFNeuralNet
+            elif isinstance(problem, DCProblem):
+                cls = DCLDFNeuralNet
             elif isinstance(problem, EDProblem):
                 cls = EDLDFNeuralNet
         elif kind == "e2elr":
@@ -57,16 +56,16 @@ def test_models():
             cls = EDE2ELRNeuralNet
         else:
             raise ValueError(f"Unknown model kind: {kind}. Must be one of 'basic', 'ldf', or 'penalty'.")
-        
+
         return cls(config=dict(**config, **loss_config), problem=problem)
 
-    from ml4opf.models.basic_nn.basic_nn import BasicNeuralNet # all the models are subclasses of this
+    from ml4opf.models.basic_nn.basic_nn import BasicNeuralNet  # all the models are subclasses of this
     from pathlib import Path
 
     def train(model: BasicNeuralNet, epochs: int = 100):
         from datetime import datetime
         from lightning.pytorch.loggers import CSVLogger
-        
+
         start = datetime.now()
         print(f"Starting training {model.__class__.__name__} at {start}")
 
@@ -75,7 +74,7 @@ def test_models():
         else:
             model.make_dataset(dl_kwargs=dict(persistent_workers=True, num_workers=1))
             model.make_trainer(
-                accelerator="auto" if torch.cuda.is_available() else "cpu", # mps is slower than cpu!
+                accelerator="auto" if torch.cuda.is_available() else "cpu",  # mps is slower than cpu!
                 max_epochs=epochs,
                 enable_checkpointing=False,
                 logger=CSVLogger("logs", name=model.__class__.__name__),
@@ -88,9 +87,8 @@ def test_models():
 
     def evaluate_model(model: BasicNeuralNet):
         return {
-            k: v.item() for k, v in
-            model.evaluate_model(reduction="mean", inner_reduction="sum").items()
-        } # sum over components, mean over samples
+            k: v.item() for k, v in model.evaluate_model(reduction="mean", inner_reduction="sum").items()
+        }  # sum over components, mean over samples
 
     def save_checkpoint(model: BasicNeuralNet):
         ckpt_dir = Path(model.trainer.logger.log_dir) / "checkpoint"
@@ -100,12 +98,11 @@ def test_models():
         ckpt_dir = Path(model.trainer.logger.log_dir) / "checkpoint"
         return model.__class__.load_from_checkpoint(ckpt_dir, model.problem)
 
-
-    def acp_predict(model: BasicNeuralNet):
-        pred = model.predict(acp_problem.test_data['input/pd'], acp_problem.test_data['input/qd'])
+    def ac_predict(model: BasicNeuralNet):
+        pred = model.predict(ac_problem.test_data["input/pd"], ac_problem.test_data["input/qd"])
 
         pred_pg, pred_qg, pred_vm, pred_va = pred["pg"], pred["qg"], pred["vm"], pred["va"]
-        pred_pf, pred_pt, pred_qf, pred_qt = acp_problem.violation.flows_from_voltage_bus(pred["vm"], pred["va"])
+        pred_pf, pred_pt, pred_qf, pred_qt = ac_problem.violation.flows_from_voltage_bus(pred["vm"], pred["va"])
 
         return {
             "pg": pred_pg,
@@ -118,8 +115,8 @@ def test_models():
             "qt": pred_qt,
         }
 
-    def dcp_predict(model: BasicNeuralNet):
-        pred = model.predict(dcp_problem.test_data['input/pd'])
+    def dc_predict(model: BasicNeuralNet):
+        pred = model.predict(dc_problem.test_data["input/pd"])
 
         pred_pg, pred_va = pred["pg"], pred["va"]
         pred_pf = model.violation.pf_from_va(pred["va"])
@@ -131,16 +128,16 @@ def test_models():
         }
 
     def ed_predict(model: BasicNeuralNet):
-        pred = model.predict(ed_problem.test_data['input/pd'])
+        pred = model.predict(ed_problem.test_data["input/pd"])
 
         pred_pg = pred["pg"]
-        pred_pf = model.violation.pf_from_pdpg(ed_problem.test_data['input/pd'], pred["pg"])
+        pred_pf = model.violation.pf_from_pdpg(ed_problem.test_data["input/pd"], pred["pg"])
 
         return {
             "pg": pred_pg,
             "pf": pred_pf,
         }
-    
+
     config = {
         "optimizer": "adam",
         "loss": "l1",
@@ -150,8 +147,8 @@ def test_models():
         "learning_rate": 1e-3,
     }
 
-    acp_basic_nn = make_model(acp_problem, config, kind="basic")
-    dcp_basic_nn = make_model(dcp_problem, config, kind="basic")
+    ac_basic_nn = make_model(ac_problem, config, kind="basic")
+    dc_basic_nn = make_model(dc_problem, config, kind="basic")
     ed_basic_nn = make_model(ed_problem, config, kind="basic")
     e2elr_nn = make_model(ed_problem, config, kind="e2elr")
 
@@ -163,8 +160,8 @@ def test_models():
         "exclude_keys": [],
     }
 
-    acp_ldf_nn = make_model(acp_problem, config, kind="ldf", loss_config=ldf_config)
-    dcp_ldf_nn = make_model(dcp_problem, config, kind="ldf", loss_config=ldf_config)
+    ac_ldf_nn = make_model(ac_problem, config, kind="ldf", loss_config=ldf_config)
+    dc_ldf_nn = make_model(dc_problem, config, kind="ldf", loss_config=ldf_config)
     ed_ldf_nn = make_model(ed_problem, config, kind="ldf", loss_config=ldf_config)
 
     penalty_config = {
@@ -172,12 +169,22 @@ def test_models():
         "multipliers": 1e-2,
     }
 
-    acp_penalty_nn = make_model(acp_problem, config, kind="penalty", loss_config=penalty_config)
-    dcp_penalty_nn = make_model(dcp_problem, config, kind="penalty", loss_config=penalty_config)
+    ac_penalty_nn = make_model(ac_problem, config, kind="penalty", loss_config=penalty_config)
+    dc_penalty_nn = make_model(dc_problem, config, kind="penalty", loss_config=penalty_config)
     ed_penalty_nn = make_model(ed_problem, config, kind="penalty", loss_config=penalty_config)
 
-
-    models = [acp_basic_nn, dcp_basic_nn, ed_basic_nn, e2elr_nn, acp_ldf_nn, dcp_ldf_nn, ed_ldf_nn, acp_penalty_nn, dcp_penalty_nn, ed_penalty_nn]
+    models = [
+        ac_basic_nn,
+        dc_basic_nn,
+        ed_basic_nn,
+        e2elr_nn,
+        ac_ldf_nn,
+        dc_ldf_nn,
+        ed_ldf_nn,
+        ac_penalty_nn,
+        dc_penalty_nn,
+        ed_penalty_nn,
+    ]
 
     evals = {}
 
@@ -186,30 +193,28 @@ def test_models():
         save_checkpoint(model)
         evals[model.__class__.__name__] = evaluate_model(model)
 
-
-    acp_predict(acp_basic_nn)
-    dcp_predict(dcp_basic_nn)
+    ac_predict(ac_basic_nn)
+    dc_predict(dc_basic_nn)
     ed_predict(ed_basic_nn)
     ed_predict(e2elr_nn)
 
-    acp_predict(acp_ldf_nn)
-    dcp_predict(dcp_ldf_nn)
+    ac_predict(ac_ldf_nn)
+    dc_predict(dc_ldf_nn)
     ed_predict(ed_ldf_nn)
 
-    load_checkpoint(acp_basic_nn)
-    load_checkpoint(dcp_ldf_nn)
+    load_checkpoint(ac_basic_nn)
+    load_checkpoint(dc_ldf_nn)
     load_checkpoint(ed_penalty_nn)
 
-    acp_predict(acp_penalty_nn)
-    dcp_predict(dcp_penalty_nn)
+    ac_predict(ac_penalty_nn)
+    dc_predict(dc_penalty_nn)
     ed_predict(ed_penalty_nn)
 
     config["optimizer"] = "adamw"
-    make_model(acp_problem, config, kind="basic")
+    make_model(ac_problem, config, kind="basic")
 
     config["optimizer"] = "sgd"
-    make_model(dcp_problem, config, kind="ldf", loss_config=ldf_config)
+    make_model(dc_problem, config, kind="ldf", loss_config=ldf_config)
 
     config["optimizer"] = "nonexistent"
     make_model(ed_problem, config, kind="penalty", loss_config=penalty_config)
-

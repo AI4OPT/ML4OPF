@@ -1,3 +1,5 @@
+"""Incidence matrices and related functions."""
+
 import torch
 
 from torch import Tensor
@@ -124,7 +126,7 @@ def load_incidence(load_bus: Tensor, n_bus: int, n_load: int) -> Tensor:
     return load_incidence_matrix
 
 
-def adjacency_matrix(fbus: Tensor, tbus: Tensor, n_bus: int, n_branch: int) -> Tensor:
+def adjacency(fbus: Tensor, tbus: Tensor, n_bus: int, n_branch: int) -> Tensor:
     """Sparse adjacency matrix.
 
     Each row corresponds to a bus and each column corresponds to a bus.
@@ -151,6 +153,7 @@ def adjacency_matrix(fbus: Tensor, tbus: Tensor, n_bus: int, n_branch: int) -> T
 
 @torch.jit.script
 def map_to_bus_pad(x: Tensor, x_per_bus: Tensor):
+    """Map component-wise values to bus-wise values using zero-padding."""
     x_: Tensor = torch.nn.functional.pad(x, pad=(0, 1, 0, 0), mode="constant", value=0.0)
     x_bus = x_[:, x_per_bus].sum(dim=2)
     return x_bus
@@ -158,4 +161,5 @@ def map_to_bus_pad(x: Tensor, x_per_bus: Tensor):
 
 @torch.jit.script
 def map_to_bus_matrix(x: Tensor, x_matrix: Tensor):
+    """Map component-wise values to bus-wise values using matrix multiplication."""
     return x @ x_matrix.swapaxes(0, 1)
