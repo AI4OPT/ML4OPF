@@ -4,7 +4,6 @@ from pathlib import Path
 from ml4opf import __path__ as ml4opf_path
 
 
-@pytest.mark.skip("Does not run on CI")
 def test_basic_usage():
 
     import torch
@@ -21,16 +20,16 @@ def test_basic_usage():
 
     config = {
         "optimizer": "adam",
-        "init_lr": 1e-3,
+        "learning_rate": 1e-3,
         "loss": "mse",
-        "hidden_sizes": [50, 30, 50],  # encoder-decoder structure
+        "hidden_sizes": [10, 5, 10],  # encoder-decoder structure
         "activation": "sigmoid",
         "boundrepair": "none",  # optionally clamp outputs to bounds (choices: "sigmoid", "relu", "clamp")
     }
 
     model = ACBasicNeuralNet(config, problem)
 
-    model.train(trainer_kwargs={"max_epochs": 5, "accelerator": "auto"})
+    model.train(trainer_kwargs={"max_epochs": 2, "accelerator": "cpu"})
 
     evals = model.evaluate_model()
 
