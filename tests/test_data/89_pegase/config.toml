@@ -55,11 +55,3 @@ solver.name = "HiGHS"
 type = "EconomicDispatch"
 kwargs.soft_thermal_limit = true
 solver.name = "HiGHS"
-
-[slurm]
-# SLURM options
-n_samples = 5000
-n_jobs = 20
-queue = "embers"
-charge_account = "gts-phentenryck3-ai4opt"
-sampler_memory = "3G"
