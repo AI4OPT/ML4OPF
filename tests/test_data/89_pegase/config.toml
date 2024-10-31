@@ -47,6 +47,15 @@ solver.attributes.primal_feasibility_tolerance = 1e-6
 solver.attributes.dual_feasibility_tolerance = 1e-6
 solver.attributes.ipm_optimality_tolerance = 1e-6
 
+[OPF.ED]
+type = "EconomicDispatch"
+solver.name = "HiGHS"
+
+[OPF.EDSoftThermal]
+type = "EconomicDispatch"
+kwargs.soft_thermal_limit = true
+solver.name = "HiGHS"
+
 [slurm]
 # SLURM options
 n_samples = 5000
