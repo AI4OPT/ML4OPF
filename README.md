@@ -71,7 +71,7 @@ from ml4opf.models.basic_nn import ACBasicNeuralNet # requires pytorch-lightning
 
 config = {
     "optimizer": "adam",
-    "init_lr": 1e-3,
+    "learning_rate": 1e-3,
     "loss": "mse",
     "hidden_sizes": [500,300,500],
     "activation": "sigmoid",
