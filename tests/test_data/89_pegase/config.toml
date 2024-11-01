@@ -47,10 +47,11 @@ solver.attributes.primal_feasibility_tolerance = 1e-6
 solver.attributes.dual_feasibility_tolerance = 1e-6
 solver.attributes.ipm_optimality_tolerance = 1e-6
 
-[slurm]
-# SLURM options
-n_samples = 5000
-n_jobs = 20
-queue = "embers"
-charge_account = "gts-phentenryck3-ai4opt"
-sampler_memory = "3G"
+[OPF.ED]
+type = "EconomicDispatch"
+solver.name = "HiGHS"
+
+[OPF.EDSoftThermal]
+type = "EconomicDispatch"
+kwargs.soft_thermal_limit = true
+solver.name = "HiGHS"
