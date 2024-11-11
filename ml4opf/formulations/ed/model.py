@@ -32,7 +32,7 @@ class EDModel(OPFModel):
 
         violations = self.violation.calc_violations(test_pd, pred_pg, reduction=inner_reduction)
 
-        violations["pg_gap"] = (pred_pg - test_pg).abs().mean(dim=1)
+        violations["pg_mae"] = (pred_pg - test_pg).abs().mean(dim=1)
         violations["obj_mape"] = ((pred_obj - test_obj) / test_obj).abs()
 
         return EDViolation.reduce_violations(violations, reduction=reduction, dim=0)

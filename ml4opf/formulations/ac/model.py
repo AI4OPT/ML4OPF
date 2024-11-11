@@ -68,15 +68,15 @@ class ACModel(OPFModel, ABC):
 
                 `q_balance`: Reactive power balance violation.
 
-                `pg_gap`: Mean absolute error of the real power generation.
+                `pg_mae`: Mean absolute error of the real power generation.
 
-                `qg_gap`: Mean absolute error of the reactive power generation.
+                `qg_mae`: Mean absolute error of the reactive power generation.
 
-                `vm_gap`: Mean absolute error of the voltage magnitude.
+                `vm_mae`: Mean absolute error of the voltage magnitude.
 
-                `va_gap`: Mean absolute error of the voltage angle. (if not bus-wise and va not in predictions, skipped)
+                `va_mae`: Mean absolute error of the voltage angle. (if not bus-wise and va not in predictions, skipped)
 
-                `dva_gap`: Mean absolute error of the angle difference. (only if not bus-wise)
+                `dva_mae`: Mean absolute error of the angle difference. (only if not bus-wise)
 
                 `obj_mape`: Mean absolute percent error of the objective value.
 
@@ -120,17 +120,17 @@ class ACModel(OPFModel, ABC):
             reduction=inner_reduction,
         )
 
-        violations["pg_gap"] = ACViolation.reduce_violation((pred_pg - test_pg).abs(), reduction=inner_reduction)
-        violations["qg_gap"] = ACViolation.reduce_violation((pred_qg - test_qg).abs(), reduction=inner_reduction)
-        violations["vm_gap"] = ACViolation.reduce_violation((pred_vm - test_vm).abs(), reduction=inner_reduction)
-        violations["va_gap"] = ACViolation.reduce_violation((pred_va - test_va).abs(), reduction=inner_reduction)
-        violations["dva_gap"] = ACViolation.reduce_violation((pred_dva - test_dva).abs(), reduction=inner_reduction)
+        violations["pg_mae"] = ACViolation.reduce_violation((pred_pg - test_pg).abs(), reduction=inner_reduction)
+        violations["qg_mae"] = ACViolation.reduce_violation((pred_qg - test_qg).abs(), reduction=inner_reduction)
+        violations["vm_mae"] = ACViolation.reduce_violation((pred_vm - test_vm).abs(), reduction=inner_reduction)
+        violations["va_mae"] = ACViolation.reduce_violation((pred_va - test_va).abs(), reduction=inner_reduction)
+        violations["dva_mae"] = ACViolation.reduce_violation((pred_dva - test_dva).abs(), reduction=inner_reduction)
 
         pred_pf, pred_pt, pred_qf, pred_qt = flows
-        violations["pf_gap"] = ACViolation.reduce_violation((pred_pf - test_pf).abs(), reduction=inner_reduction)
-        violations["pt_gap"] = ACViolation.reduce_violation((pred_pt - test_pt).abs(), reduction=inner_reduction)
-        violations["qf_gap"] = ACViolation.reduce_violation((pred_qf - test_qf).abs(), reduction=inner_reduction)
-        violations["qt_gap"] = ACViolation.reduce_violation((pred_qt - test_qt).abs(), reduction=inner_reduction)
+        violations["pf_mae"] = ACViolation.reduce_violation((pred_pf - test_pf).abs(), reduction=inner_reduction)
+        violations["pt_mae"] = ACViolation.reduce_violation((pred_pt - test_pt).abs(), reduction=inner_reduction)
+        violations["qf_mae"] = ACViolation.reduce_violation((pred_qf - test_qf).abs(), reduction=inner_reduction)
+        violations["qt_mae"] = ACViolation.reduce_violation((pred_qt - test_qt).abs(), reduction=inner_reduction)
 
         violations["obj_mape"] = ((pred_obj - test_obj) / test_obj).abs()
 
