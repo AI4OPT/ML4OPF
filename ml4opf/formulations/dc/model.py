@@ -40,6 +40,9 @@ class DCModel(OPFModel, ABC):
             reduction (str, optional): Reduction method for the metrics. Defaults to None. Must be one of "mean", "sum","max", "none".
                                         If specified, each value in the returned dictionary will be a scalar. Otherwise, they are arrays of shape (n_test_samples,)
 
+            inner_reduction (str, optional): Reduction method for turning metrics calculated per component to per sample. Defaults to None. Must be one of "mean", "sum","max", "none".
+
+
         Returns:
             dict[str, Tensor]: Dictionary containing Tensor metrics of the model's performance.
 
