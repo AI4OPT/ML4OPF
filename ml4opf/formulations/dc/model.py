@@ -40,6 +40,9 @@ class DCModel(OPFModel, ABC):
             reduction (str, optional): Reduction method for the metrics. Defaults to None. Must be one of "mean", "sum","max", "none".
                                         If specified, each value in the returned dictionary will be a scalar. Otherwise, they are arrays of shape (n_test_samples,)
 
+            inner_reduction (str, optional): Reduction method for turning metrics calculated per component to per sample. Defaults to None. Must be one of "mean", "sum","max", "none".
+
+
         Returns:
             dict[str, Tensor]: Dictionary containing Tensor metrics of the model's performance.
 
@@ -57,11 +60,11 @@ class DCModel(OPFModel, ABC):
 
                 `p_balance`: Power balance violation.
 
-                `pg_gap`: Mean absolute error of the real power generation.
+                `pg_mae`: Mean absolute error of the real power generation.
 
-                `va_gap`: Mean absolute error of the voltage angle. (if not bus-wise and va not in predictions, skipped)
+                `va_mae`: Mean absolute error of the voltage angle. (if not bus-wise and va not in predictions, skipped)
 
-                `pf_gap`: Mean absolute error of the real power flow.
+                `pf_mae`: Mean absolute error of the real power flow.
 
                 `obj_mape`: Mean absolute percent error of the objective value.
 
@@ -85,9 +88,9 @@ class DCModel(OPFModel, ABC):
 
         violations = self.violation.calc_violations(test_pd, pred_pg, pred_va, pred_pf, reduction=inner_reduction)
 
-        violations["pg_gap"] = (pred_pg - test_pg).abs().mean(dim=1)
-        violations["va_gap"] = (pred_va - test_va).abs().mean(dim=1)
-        violations["pf_gap"] = (pred_pf - test_pf).abs().mean(dim=1)
+        violations["pg_mae"] = (pred_pg - test_pg).abs().mean(dim=1)
+        violations["va_mae"] = (pred_va - test_va).abs().mean(dim=1)
+        violations["pf_mae"] = (pred_pf - test_pf).abs().mean(dim=1)
         violations["obj_mape"] = ((pred_obj - test_obj) / test_obj).abs()
 
         return DCViolation.reduce_violations(violations, reduction=reduction, dim=0)
