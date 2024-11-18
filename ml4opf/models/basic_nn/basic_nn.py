@@ -135,7 +135,13 @@ class BasicNeuralNet(OPFModel, ABC):
 
         checkpoint = self.trainer._checkpoint_connector.dump_checkpoint(False)
         checkpoint["__cls"] = self.__class__.__name__
-        checkpoint["__model_cls"] = self.model.__class__.__name__
+
+        if self.model._compiled:
+            warn("Saving checkpoint of model compiled with torch.compile. Loading this checkpoint does not preserve compilation -- see pytorch#101107.")
+            checkpoint["__model_cls"] = self.model._orig_mod.__class__.__name__
+        else:
+            checkpoint["__model_cls"] = self.model.__class__.__name__
+
         self.trainer.strategy.save_checkpoint(checkpoint, path / "trainer.ckpt", storage_options=None)
         self.trainer.strategy.barrier("Trainer.save_checkpoint")
 
@@ -177,4 +183,5 @@ class BasicNeuralNet(OPFModel, ABC):
             ), f"Checkpoint model class {config__model_cls} does not match {me.model_cls.__name__}"
 
         me.model = me.model_cls.load_from_checkpoint(path / "trainer.ckpt", opfmodel=me)
+        me.model._compiled = False
         return me
