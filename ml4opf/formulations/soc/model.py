@@ -38,7 +38,61 @@ class SOCModel(OPFModel, ABC):
     def evaluate_model(
         self, reduction: Optional[str] = None, inner_reduction: Optional[str] = None
     ) -> dict[str, Tensor]:
-        raise NotImplementedError("TODO: implement generic evaluate_model for SOC.")
+        test_pd = self.problem.test_data["input/pd"]
+        test_qd = self.problem.test_data["input/qd"]
+
+        test_pg = self.problem.test_data["primal/pg"]
+        test_qg = self.problem.test_data["primal/qg"]
+        test_w = self.problem.test_data["primal/w"]
+        test_wr = self.problem.test_data["primal/wr"]
+        test_wi = self.problem.test_data["primal/wi"]
+
+        test_pf = self.problem.test_data["primal/pf"]
+        test_qf = self.problem.test_data["primal/qf"]
+        test_pt = self.problem.test_data["primal/pt"]
+        test_qt = self.problem.test_data["primal/qt"]
+
+        test_obj = self.violation.objective(test_pg)
+
+        predictions = self.predict(test_pd, test_qd)
+
+        pred_pg = predictions["pg"]
+        pred_qg = predictions["qg"]
+        pred_w = predictions["w"]
+        pred_wr = predictions["wr"]
+        pred_wi = predictions["wi"]
+
+        pred_obj = self.violation.objective(pred_pg)
+
+        flows = self.violation.flows_from_voltage(pred_w, pred_wr, pred_wi)
+
+        violations = self.violation.calc_violations(
+            pd=test_pd,
+            qd=test_qd,
+            pg=pred_pg,
+            qg=pred_qg,
+            w=pred_w,
+            wr=pred_wr,
+            wi=pred_wi,
+            flows=flows,
+            reduction=inner_reduction,
+        )
+
+        violations["pg_mae"] = SOCViolation.reduce_violation((pred_pg - test_pg).abs(), reduction=inner_reduction)
+        violations["qg_mae"] = SOCViolation.reduce_violation((pred_qg - test_qg).abs(), reduction=inner_reduction)
+        violations["w_mae"] = SOCViolation.reduce_violation((pred_w - test_w).abs(), reduction=inner_reduction)
+        violations["wr_mae"] = SOCViolation.reduce_violation((pred_wr - test_wr).abs(), reduction=inner_reduction)
+        violations["wi_mae"] = SOCViolation.reduce_violation((pred_wi - test_wi).abs(), reduction=inner_reduction)
+
+        pred_pf, pred_pt, pred_qf, pred_qt = flows
+        violations["pf_mae"] = SOCViolation.reduce_violation((pred_pf - test_pf).abs(), reduction=inner_reduction)
+        violations["pt_mae"] = SOCViolation.reduce_violation((pred_pt - test_pt).abs(), reduction=inner_reduction)
+        violations["qf_mae"] = SOCViolation.reduce_violation((pred_qf - test_qf).abs(), reduction=inner_reduction)
+        violations["qt_mae"] = SOCViolation.reduce_violation((pred_qt - test_qt).abs(), reduction=inner_reduction)
+
+        violations["obj_mape"] = ((pred_obj - test_obj) / test_obj).abs()
+
+        return SOCViolation.reduce_violations(violations, reduction=reduction, dim=0)
 
 
 class PerfectSOCModel(SOCModel):
