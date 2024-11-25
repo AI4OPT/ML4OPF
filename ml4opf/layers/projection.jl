@@ -1,7 +1,9 @@
-using OPFGenerator, JuMP, MathOptInterface, PowerModels
-using Ipopt, HiGHS, Clarabel, LinearAlgebra
+using OPFGenerator
+using Ipopt, HiGHS, Clarabel
 
-const PM = PowerModels
+const PM = OPFGenerator.PowerModels
+const JuMP = OPFGenerator.JuMP
+const MOI = OPFGenerator.JuMP.MOI
 
 
 function projection(
@@ -9,32 +11,28 @@ function projection(
     data::OPFGenerator.OPFData,
     solution,
     optimizer
-) where T
+)
     opf = OPFGenerator.build_opf(OPF, data, optimizer)
 
     obj = 0.0
-    for v in vars_map[OPF]
+    for v in VARS_MAP[OPF]
         if haskey(solution, v)
-            # obj += norm(solution[v] .- opf.model[v], p=2)
             obj += sum((solution[v] .- opf.model[v]) .^ 2)
         end
     end
 
-    JuMP.set_objective(opf.model, JuMP.MOI.MIN_SENSE, obj)
+    JuMP.set_objective(opf.model, MOI.MIN_SENSE, obj)
 
     OPFGenerator.solve!(opf)
 
     d = OPFGenerator.extract_result(opf)
 
-    return d
+    return Tuple([
+        d["primal"][string(v)] for v in VARS_MAP[OPF]
+    ]), nothing
 end
 
-
-config = nothing
-base_data = nothing
-
-
-vars_map = Dict{Type{<:OPFGenerator.AbstractFormulation}, Vector{Symbol}}(
+VARS_MAP = Dict{Type{<:OPFGenerator.AbstractFormulation}, Vector{Symbol}}(
     OPFGenerator.ACOPF => [:pg, :qg, :pf, :pt, :qf, :qt, :vm, :va],
     OPFGenerator.DCOPF => [:pg, :pf, :va],
     OPFGenerator.SOCOPF => [:pg, :qg, :pf, :pt, :qf, :qt, :w, :wr, :wi],
@@ -94,8 +92,6 @@ function soc_projection(pd, qd, pg, qg, w, wr, wi)
 end
 
 
-function make_base_data(config)
-    # case_file = config |> OPFGenerator._get_case_name |> first  # once OPFGenerator#141 is merged
-    case_file = joinpath(OPFGenerator.PGLib.PGLib_opf, OPFGenerator.PGLib.find_pglib_case(config["ref"])[1])
-    return case_file |> PM.parse_file |> PM.make_basic_network |> OPFGenerator.OPFData
+function no_backward(args...)
+    throw(ArgumentError("Projection layer does not support backpropagation."))
 end
