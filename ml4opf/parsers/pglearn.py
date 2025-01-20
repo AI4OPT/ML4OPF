@@ -177,6 +177,7 @@ class PGLearnParser:
         """Convert all float64 data to float32 in-place."""
         for k, v in dat.items():
             if isinstance(v, torch.Tensor) and v.dtype == torch.float64:
+                debug(f"Converting {k} from float64 to float32.")
                 dat[k] = v.to(torch.float32)
 
     @staticmethod
@@ -216,14 +217,14 @@ class PGLearnParser:
     def open_json(self):
         """Open the JSON file, supporting gzip and bz2 compression based on the file suffix."""
 
-        if self.json_path.name.endswith(".json"):
+        if self.json_path.exists():
             return open(self.json_path, "r", encoding="utf-8")
-        if self.json_path.name.endswith(".json.gz"):
-            return gzip.open(self.json_path, "rt", encoding="utf-8")
-        if self.json_path.name.endswith(".json.bz2"):
-            return bz2.open(self.json_path, "rt", encoding="utf-8")
+        elif (gz_path := self.json_path.with_suffix(".json.gz")).exists():
+            return gzip.open(gz_path, "rt", encoding="utf-8")
+        elif (bz2_path := self.json_path.with_suffix(".json.bz2")).exists():
+            return bz2.open(bz2_path, "rt", encoding="utf-8")
         else:
-            raise ValueError(f"Unknown JSON file suffix: {self.json_path.name}")  # pragma: no cover
+            raise ValueError(f"JSON file not found: {self.json_path}")
 
     def parse_json(self, model_type: Union[str, Sequence[str]] = None):
         """Parse the JSON file from OPFGenerator.
