@@ -1,6 +1,6 @@
 Copyright Georgia Tech 2024
 
-[![test status](https://github.com/AI4OPT/ML4OPF/workflows/tests/badge.svg?branch=main)](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml)<!-- [![coverage](.github/coverage.svg)](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml) -->
+[![test status](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml)<!-- [![coverage](.github/coverage.svg)](https://github.com/AI4OPT/ML4OPF/actions/workflows/tests.yaml) -->
 [![docs status](https://github.com/AI4OPT/ML4OPF/workflows/docs/badge.svg)](https://ai4opt.github.io/ML4OPF/)
 
 # ML4OPF
