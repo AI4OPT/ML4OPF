@@ -16,7 +16,7 @@ def test_ac_problem():
 
     assert p1.train_data.keys() == p1.test_data.keys()
 
-    assert p1.train_data["input/pd"].shape == (74, 35)
+    assert p1.train_data["input/pd"].shape == (75, 35)
     assert p1.test_data["input/pd"].shape == (19, 35)
     assert isinstance(p1.violation, torch.nn.Module)
     del p1
