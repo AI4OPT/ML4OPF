@@ -1,8 +1,8 @@
 # Name of the reference PGLib case. Must be a valid PGLib case name.
-ref = "89_pegase"
+pglib_case = "89_pegase"
 # Directory where instance/solution files are exported
 # must be a valid directory
-export_dir = "data/pglearn/89_pegase"
+export_dir = "tests/test_data/89_pegase"
 
 [sampler]
 # Sampler options
