@@ -21,7 +21,7 @@ def test_ac_problem():
     assert isinstance(p1.violation, torch.nn.Module)
 
     ds, slices = p1.make_dataset()
-    assert len(ds) == 74
+    assert len(ds) == 75
     assert len(slices) == 2
     assert slices[0].keys() == {"input/pd", "input/qd"}
     assert slices[1].keys() == {"primal/pg", "primal/qg", "primal/vm", "primal/va"}
