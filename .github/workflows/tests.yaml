@@ -17,7 +17,6 @@ jobs:
       - name: Run tests
         run : |
           . env/bin/activate
-          git lfs pull
           python -m pip install pytest-cov
           python -m pytest
           PYTORCH_JIT=0 python -m pytest --cov-report term-missing --cov=ml4opf tests/ -vv

@@ -109,25 +109,8 @@ class PGLearnParser:
 
             return arr
 
-        def make_key(name: str, mode: str) -> str:
-            if mode in ["primal", "dual", "meta"]:
-                return mode + "/" + name
-            if mode == "input":
-                if name in ["meta", "data"]:
-                    return name  # will be skipped anyway since these are groups
-                if name.startswith("meta/"):
-                    # NOTE: when parsing input file, we keep input meta separate from data meta
-                    #       by prepending "input/" e.g. "meta/config" -> "input/meta/config"
-                    return "input/" + name
-                if name.startswith("data/"):
-                    # NOTE: when parsing input file, we keep input data separate from solution data
-                    #       by replacing "data/" with "input/" e.g. "data/pd" -> "input/pd"
-                    return name.replace("data/", "input/", 1)
-                raise ValueError(f"Invalid key found in input file: {name}")  # pragma: no cover
-            raise ValueError(f"Invalid mode: {mode}")  # pragma: no cover
-
         def store(name: str, obj: H5Object, mode: str):
-            key = make_key(name, mode)
+            key = mode + "/" + name
             if isinstance(obj, h5py.Group):
                 return
             if isinstance(obj, h5py.Dataset):

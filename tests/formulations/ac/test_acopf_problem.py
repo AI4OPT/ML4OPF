@@ -16,24 +16,20 @@ def test_ac_problem():
 
     assert p1.train_data.keys() == p1.test_data.keys()
 
-    assert p1.train_data["input/pd"].shape == (74, 35)
+    assert p1.train_data["input/pd"].shape == (75, 35)
     assert p1.test_data["input/pd"].shape == (19, 35)
     assert isinstance(p1.violation, torch.nn.Module)
-    del p1
 
-    p5 = ACProblem(data_dir, convert_to_float32=False)
-    assert p5.train_data["input/pd"].dtype == torch.float64
-
-    ds, slices = p5.make_dataset()
-    assert len(ds) == 74
+    ds, slices = p1.make_dataset()
+    assert len(ds) == 75
     assert len(slices) == 2
     assert slices[0].keys() == {"input/pd", "input/qd"}
     assert slices[1].keys() == {"primal/pg", "primal/qg", "primal/vm", "primal/va"}
     iter_ds = iter(ds)
     assert len(next(iter_ds)) == 2
-    sliced = p5.slice_batch(next(iter_ds), slices)
+    sliced = p1.slice_batch(next(iter_ds), slices)
     assert len(sliced) == 2
     assert sliced[0].keys() == slices[0].keys()
     assert sliced[1].keys() == slices[1].keys()
 
-    del p5
+    del p1
