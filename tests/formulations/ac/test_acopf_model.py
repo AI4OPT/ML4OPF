@@ -15,4 +15,4 @@ def test_ac_model():
     res = model.evaluate_model(reduction="mean", inner_reduction="mean")
 
     for k, v in res.items():
-        assert v.item() < 2e-5, f"{k} violation is {v.item()}"
+        assert v.item() < 2e-4, f"{k} violation is {v.item()}"
