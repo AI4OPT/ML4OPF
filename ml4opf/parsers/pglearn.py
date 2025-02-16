@@ -4,7 +4,6 @@ import bz2
 import gzip
 import json
 import shutil
-import tempfile
 from pathlib import Path
 from typing import Union, Sequence
 from collections import defaultdict
@@ -32,14 +31,6 @@ class PGLearnParser:
     def validate_path(self, path: Union[str, Path]) -> Path:
         """Validate the path to the HDF5 file."""
         path_obj = Path(path).resolve()
-
-        if path_obj.is_file():  # compressed dataset -- try to unzip it
-            tempdir = Path(tempfile.mkdtemp())
-            try:
-                shutil.unpack_archive(path_obj, tempdir)
-                path_obj = tempdir
-            except shutil.ReadError:
-                raise ValueError(f"Could not unpack the compressed PGLearn dataset at {path}.") from None
 
         assert path_obj.exists(), f"PGLearn path {path_obj} does not exist."
         assert path_obj.is_dir(), f"PGLearn path {path_obj} is not a directory."
@@ -130,23 +121,23 @@ class PGLearnParser:
 
         if primal:
             debug("Opening HDF5 primal file")
-            with h5py.File(self.data_path / split / dataset_name / "primal.h5", "r") as f:
+            with MaybeGunzipH5File(self.data_path / split / dataset_name / "primal.h5", "r") as f:
                 f.visititems(lambda name, obj: store(name, obj, "primal"))
             debug("Closed HDF5 primal file")
 
         if dual:
             debug("Opening HDF5 dual file")
-            with h5py.File(self.data_path / split / dataset_name / "dual.h5", "r") as f:
+            with MaybeGunzipH5File(self.data_path / split / dataset_name / "dual.h5", "r") as f:
                 f.visititems(lambda name, obj: store(name, obj, "dual"))
             debug("Closed HDF5 dual file")
 
         debug("Opening HDF5 meta file")
-        with h5py.File(self.data_path / split / dataset_name / "meta.h5", "r") as f:
+        with MaybeGunzipH5File(self.data_path / split / dataset_name / "meta.h5", "r") as f:
             f.visititems(lambda name, obj: store(name, obj, "meta"))
         debug("Closed HDF5 meta file")
 
         debug("Opening HDF5 input file")
-        with h5py.File(self.data_path / split / "input.h5", "r") as f:
+        with MaybeGunzipH5File(self.data_path / split / "input.h5", "r") as f:
             f.visititems(lambda name, obj: store(name, obj, "input"))
         debug("Closed HDF5 input file")
 
@@ -320,3 +311,17 @@ class PGLearnParser:
         for index, value in iterate_nested_array(array):
             result[index] = np.array(value)
         return result.astype(dtype)
+
+
+class MaybeGunzipH5File(h5py.File):
+    def __init__(self, name: str, *args, **kwargs):
+        namepath = Path(name)
+        if not namepath.exists():
+            gznamepath = namepath.with_suffix(".h5.gz")
+            assert gznamepath.exists(), f"File {name} does not exist and no gzipped version was found."
+            warn(f"Unzipping {gznamepath}. This may take a while, but it only runs once; it will delete the original compressed file and replace it with the uncompressed file.")
+            with gzip.open(gznamepath, "rb") as f_in:
+                with open(name, "wb") as f_out:
+                    shutil.copyfileobj(f_in, f_out)
+            gznamepath.unlink()
+        super().__init__(name, *args, **kwargs)
