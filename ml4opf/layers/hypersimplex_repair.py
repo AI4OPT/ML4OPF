@@ -25,7 +25,7 @@ class HyperSimplexRepair(nn.Module):
             HyperSimplexRepair._repair_up,
             in_dims=(
                 0,
-                0 if xmax is None else None,
+                0,
                 0 if X is None else None,
             ),
         )
@@ -34,7 +34,7 @@ class HyperSimplexRepair(nn.Module):
             HyperSimplexRepair._repair_dn,
             in_dims=(
                 0,
-                0 if xmin is None else None,
+                0,
                 0 if X is None else None,
             ),
         )
@@ -65,10 +65,15 @@ class HyperSimplexRepair(nn.Module):
         need_up = raw_X < X
         need_dn = raw_X > X
 
+        if xmin.ndim == 1:
+            xmin = xmin.expand_as(x)
+        if xmax.ndim == 1:
+            xmax = xmax.expand_as(x)
+
         x_ = x.clone()
         if need_up.any():
-            x_[need_up, :] = self.repair_up(x[need_up, :], xmax, X[need_up])
+            x_[need_up, :] = self.repair_up(x[need_up, :], xmax[need_up, :], X[need_up])
         if need_dn.any():
-            x_[need_dn, :] = self.repair_dn(x[need_dn, :], xmin, X[need_dn])
+            x_[need_dn, :] = self.repair_dn(x[need_dn, :], xmin[need_dn, :], X[need_dn])
 
         return x_
