@@ -41,6 +41,8 @@ def test_basic_usage():
         "basic_300bus"
     )  # creates a folder called "basic_300bus" with two files in it, trainer.ckpt and config.json
 
+    # delete it
+    import shutil; shutil.rmtree("basic_300bus")
 
 def test_advanced_usage():
     import logging

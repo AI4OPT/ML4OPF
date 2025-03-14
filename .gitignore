@@ -137,6 +137,6 @@ logs
 
 wandb/
 .vscode/
-test
+/test
 .DS_Store
 notes.ipynb
