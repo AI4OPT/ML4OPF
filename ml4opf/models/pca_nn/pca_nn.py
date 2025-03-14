@@ -18,8 +18,8 @@ class InversePCALayer(nn.Module):
         self.register_buffer("pca_mu", pca_mu)  # n_features
 
     def forward(self, x: Tensor) -> Tensor:
-        # [batch_size x n_components] @ [n_components x n_features] + [n_features] = [batch_size x n_features]
-        return x @ self.pca_w + self.pca_mu
+        # [batch_size x n_components] @ [n_features x n_components]ᵀ + [n_features] = [batch_size x n_features]
+        return x @ self.pca_w.T + self.pca_mu
 
 
 class PCANN(BasicNN):
