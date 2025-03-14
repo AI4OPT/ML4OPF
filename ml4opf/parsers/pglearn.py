@@ -4,6 +4,7 @@ import bz2
 import gzip
 import json
 import shutil
+import tempfile
 from pathlib import Path
 from typing import Union, Sequence
 from collections import defaultdict
@@ -316,12 +317,20 @@ class PGLearnParser:
 class MaybeGunzipH5File(h5py.File):
     def __init__(self, name: str, *args, **kwargs):
         namepath = Path(name)
+        self._tempfile = None
         if not namepath.exists():
             gznamepath = namepath.with_suffix(".h5.gz")
             assert gznamepath.exists(), f"File {name} does not exist and no gzipped version was found."
-            warn(f"Unzipping {gznamepath}. This may take a while, but it only runs once; it will delete the original compressed file and replace it with the uncompressed file.")
+            warn(f"Unzipping {gznamepath}. This may take a while. Consider storing the unzipped version.")
+            _, name = tempfile.mkstemp(suffix=".h5")
+            self._tempfile = name
             with gzip.open(gznamepath, "rb") as f_in:
                 with open(name, "wb") as f_out:
                     shutil.copyfileobj(f_in, f_out)
-            gznamepath.unlink()
         super().__init__(name, *args, **kwargs)
+
+
+    def close(self):
+        super().close()
+        if self._tempfile is not None:
+            Path(self._tempfile).unlink()
