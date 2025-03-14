@@ -8,7 +8,7 @@ to the optimal power flow (OPF) problem. Below are some common usage patterns:
 
 ## Loading data
 This is probably the most common usage, especially for those who
-already have their own models and wish to evaluate on the OPFGenerator
+already have their own models and wish to evaluate on the PGLearn
 datasets. ML4OPF makes loading data and splitting training/testing sets
 easy and reproducible.
 ```python
