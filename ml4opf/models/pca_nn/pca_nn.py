@@ -37,7 +37,7 @@ class PCANN(BasicNN):
         learning_rate: float = 1e-3,
         weight_init_seed: int = 42,
     ):
-        super().__init__()
+        super(BasicNN, self).__init__()
 
         self.opfmodel = opfmodel
         self.violation = opfmodel.violation
@@ -117,17 +117,17 @@ class EDPCANN(PCANN, EDBasicNN):
     pass
 
 
-class ACPCANeuralNet(ACBasicNeuralNet):
+class ACPCANeuralNet(PCANeuralNet, ACBasicNeuralNet):
     model: ACPCANN
 
 
-class DCPCANeuralNet(DCBasicNeuralNet):
+class DCPCANeuralNet(PCANeuralNet, DCBasicNeuralNet):
     model: DCPCANN
 
 
-class SOCPCANeuralNet(SOCBasicNeuralNet):
+class SOCPCANeuralNet(PCANeuralNet, SOCBasicNeuralNet):
     model: SOCPCANN
 
 
-class EDPCANeuralNet(EDBasicNeuralNet):
+class EDPCANeuralNet(PCANeuralNet, EDBasicNeuralNet):
     model: EDPCANN
