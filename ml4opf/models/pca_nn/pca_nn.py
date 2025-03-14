@@ -18,8 +18,8 @@ class InversePCALayer(nn.Module):
         self.register_buffer("pca_mu", pca_mu)  # n_features
 
     def forward(self, x: Tensor) -> Tensor:
-        # [batch_size x n_components] @ [n_components x n_features] + [n_features] = [batch_size x n_features]
-        return x @ self.pca_w + self.pca_mu
+        # [batch_size x n_components] @ [n_features x n_components]ᵀ + [n_features] = [batch_size x n_features]
+        return x @ self.pca_w.T + self.pca_mu
 
 
 class PCANN(BasicNN):
@@ -37,7 +37,7 @@ class PCANN(BasicNN):
         learning_rate: float = 1e-3,
         weight_init_seed: int = 42,
     ):
-        super().__init__()
+        super(BasicNN, self).__init__()
 
         self.opfmodel = opfmodel
         self.violation = opfmodel.violation
@@ -117,17 +117,17 @@ class EDPCANN(PCANN, EDBasicNN):
     pass
 
 
-class ACPCANeuralNet(ACBasicNeuralNet):
+class ACPCANeuralNet(PCANeuralNet, ACBasicNeuralNet):
     model: ACPCANN
 
 
-class DCPCANeuralNet(DCBasicNeuralNet):
+class DCPCANeuralNet(PCANeuralNet, DCBasicNeuralNet):
     model: DCPCANN
 
 
-class SOCPCANeuralNet(SOCBasicNeuralNet):
+class SOCPCANeuralNet(PCANeuralNet, SOCBasicNeuralNet):
     model: SOCPCANN
 
 
-class EDPCANeuralNet(EDBasicNeuralNet):
+class EDPCANeuralNet(PCANeuralNet, EDBasicNeuralNet):
     model: EDPCANN

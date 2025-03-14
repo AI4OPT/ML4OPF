@@ -25,6 +25,7 @@ def test_models():
     from ml4opf.models.ldf_nn import ACLDFNeuralNet, DCLDFNeuralNet
     from ml4opf.models.ldf_nn.ed_ldf_nn import EDLDFNeuralNet
     from ml4opf.models.e2elr.e2elr import EDE2ELRNeuralNet
+    from ml4opf.models.pca_nn import ACPCANeuralNet, DCPCANeuralNet, EDPCANeuralNet
 
     def make_model(problem: OPFProblem, config: dict, kind="basic", loss_config: Optional[dict] = None):
         if loss_config is None:
@@ -54,6 +55,13 @@ def test_models():
         elif kind == "e2elr":
             assert isinstance(problem, EDProblem)
             cls = EDE2ELRNeuralNet
+        elif kind == "pca":
+            if isinstance(problem, ACProblem):
+                cls = ACPCANeuralNet
+            elif isinstance(problem, DCProblem):
+                cls = DCPCANeuralNet
+            elif isinstance(problem, EDProblem):
+                cls = EDPCANeuralNet
         else:
             raise ValueError(f"Unknown model kind: {kind}. Must be one of 'basic', 'ldf', or 'penalty'.")
 
@@ -150,7 +158,11 @@ def test_models():
     ac_basic_nn = make_model(ac_problem, config, kind="basic")
     dc_basic_nn = make_model(dc_problem, config, kind="basic")
     ed_basic_nn = make_model(ed_problem, config, kind="basic")
+
     e2elr_nn = make_model(ed_problem, config, kind="e2elr")
+    ac_pca_nn = make_model(ac_problem, config, kind="pca")
+    dc_pca_nn = make_model(dc_problem, config, kind="pca")
+    ed_pca_nn = make_model(ed_problem, config, kind="pca")
 
     ldf_config = {
         "step_size": 1e-2,
@@ -178,6 +190,9 @@ def test_models():
         dc_basic_nn,
         ed_basic_nn,
         e2elr_nn,
+        ac_pca_nn,
+        dc_pca_nn,
+        ed_pca_nn,
         ac_ldf_nn,
         dc_ldf_nn,
         ed_ldf_nn,
@@ -197,6 +212,10 @@ def test_models():
     dc_predict(dc_basic_nn)
     ed_predict(ed_basic_nn)
     ed_predict(e2elr_nn)
+
+    ac_predict(ac_pca_nn)
+    dc_predict(dc_pca_nn)
+    ed_predict(ed_pca_nn)
 
     ac_predict(ac_ldf_nn)
     dc_predict(dc_ldf_nn)
