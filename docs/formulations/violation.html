@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>ml4opf.formulations.violation API documentation</title>
+<meta name="description" content="Abstract base class for OPFViolation classes …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ml4opf.formulations.violation</code></h1>
+</header>
+<section id="section-intro">
+<p>Abstract base class for OPFViolation classes.</p>
+<p>Each formulation should define a class that inherits from <code><a title="ml4opf.formulations.violation.OPFViolation" href="#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></code> and implements the following methods:</p>
+<ul>
+<li>
+<p><code>calc_violations</code>: Calculate the violations of all the constraints. Returns a dictionary of tensors.</p>
+</li>
+<li>
+<p><code>violations_shapes</code>: Return the shapes of the violations as a dictionary.</p>
+</li>
+<li>
+<p><code>objective</code>: Compute the objective value for a batch of samples.</p>
+</li>
+</ul>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ml4opf.formulations.violation.OPFViolation"><code class="flex name class">
+<span>class <span class="ident">OPFViolation</span></span>
+<span>(</span><span>data: dict[str, torch.Tensor])</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L19-L410" class="git-link">Browse git</a></div>
+<div class="desc"><p>The <code><a title="ml4opf.formulations.violation.OPFViolation" href="#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></code> class is where all the problem expressions (objective, constraints, etc.) are defined.
+The classes provide a convenient interface for when the only varying quantity in the formulation
+per sample is the load demand <code>pd</code>. If other quantities vary, the user should use the functional
+interface at <code><a title="ml4opf.functional" href="../functional/index.html">ml4opf.functional</a></code>.</p>
+<p>When <code>clamp</code> is true, the values of g(x) are clamped to be non-negative and the values of h(x) are absolute-valued.
+Otherwise the raw values are returned.</p>
+<p><code><a title="ml4opf.formulations.violation.OPFViolation" href="#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></code> is a <code>torch.nn.Module</code>; all tensors used in computation are registered as non-persistent buffers.
+To move the module to a different device, use <code>.to(device)</code> as you would with any other <code>nn.Module</code>.
+Make sure that when you pass data to <code><a title="ml4opf.formulations.violation.OPFViolation" href="#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></code>, it is on the same device as <code><a title="ml4opf.formulations.violation.OPFViolation" href="#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></code>.</p>
+<p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>torch.nn.modules.module.Module</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.ac.violation.ACViolation" href="ac/violation.html#ml4opf.formulations.ac.violation.ACViolation">ACViolation</a></li>
+<li><a title="ml4opf.formulations.dc.violation.DCViolation" href="dc/violation.html#ml4opf.formulations.dc.violation.DCViolation">DCViolation</a></li>
+<li><a title="ml4opf.formulations.ed.violation.EDViolation" href="ed/violation.html#ml4opf.formulations.ed.violation.EDViolation">EDViolation</a></li>
+<li><a title="ml4opf.formulations.soc.violation.SOCViolation" href="soc/violation.html#ml4opf.formulations.soc.violation.SOCViolation">SOCViolation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ml4opf.formulations.violation.OPFViolation.SUPPORTED_REDUCTIONS"><code class="name">var <span class="ident">SUPPORTED_REDUCTIONS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="ml4opf.formulations.violation.OPFViolation.clamped_bound_residual"><code class="name flex">
+<span>def <span class="ident">clamped_bound_residual</span></span>(<span>x: torch.Tensor, xmin: torch.Tensor, xmax: torch.Tensor, clamp: bool)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L105-L112" class="git-link">Browse git</a></div>
+<div class="desc"></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.reduce_violation"><code class="name flex">
+<span>def <span class="ident">reduce_violation</span></span>(<span>violation: torch.Tensor, reduction: str, dim: int = 1)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L88-L99" class="git-link">Browse git</a></div>
+<div class="desc"><p>Apply mean/sum/max to a single tensor.</p></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.reduce_violations"><code class="name flex">
+<span>def <span class="ident">reduce_violations</span></span>(<span>violations: dict[str, torch.Tensor], reduction: str, dim: int = 1)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L80-L86" class="git-link">Browse git</a></div>
+<div class="desc"><p>Apply mean/sum/max to every value in a dictionary.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ml4opf.formulations.violation.OPFViolation.adjacency_matrix"><code class="name">prop <span class="ident">adjacency_matrix</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L220-L250" class="git-link">Browse git</a></div>
+<div class="desc"><p>Sparse adjacency matrix.</p>
+<p>Each row corresponds to a bus and each column corresponds to a bus.
+The value is 1 if there is a branch between the buses, and 0 otherwise.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>fbus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>From bus indices. (nbranch,)</dd>
+<dt><strong><code>tbus</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>To bus indices. (nbranch,)</dd>
+<dt><strong><code>n_bus</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of buses.</dd>
+<dt><strong><code>n_branch</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of branches.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Sparse adjacency matrix. (nbus, nbus)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.adjacency_matrix_dense"><code class="name">prop <span class="ident">adjacency_matrix_dense</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L312-L322" class="git-link">Browse git</a></div>
+<div class="desc"></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.branch_from_incidence"><code class="name">prop <span class="ident">branch_from_incidence</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L136-L155" class="git-link">Browse git</a></div>
+<div class="desc"><p>Sparse branch from incidence matrix.</p>
+<p>Each row corresponds to a bus and each column corresponds to a branch.
+The value is 1 if the branch is from the bus, and 0 otherwise.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Sparse branch from incidence matrix. (nbus, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.branch_from_incidence_dense"><code class="name">prop <span class="ident">branch_from_incidence_dense</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L264-L274" class="git-link">Browse git</a></div>
+<div class="desc"></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.branch_incidence"><code class="name">prop <span class="ident">branch_incidence</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L114-L134" class="git-link">Browse git</a></div>
+<div class="desc"><p>Sparse branch incidence matrix.</p>
+<p>Each row corresponds to a bus and each column corresponds to a branch.
+The value is 1 if the branch is from the bus, -1 if the branch is to the bus, and 0 otherwise.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Sparse branch incidence matrix. (nbus, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.branch_incidence_dense"><code class="name">prop <span class="ident">branch_incidence_dense</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L252-L262" class="git-link">Browse git</a></div>
+<div class="desc"></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.branch_to_incidence"><code class="name">prop <span class="ident">branch_to_incidence</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L157-L176" class="git-link">Browse git</a></div>
+<div class="desc"><p>Sparse branch to incidence matrix.</p>
+<p>Each row corresponds to a bus and each column corresponds to a branch.
+The value is 1 if the branch is to the bus, and 0 otherwise.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Sparse branch to incidence matrix. (nbus, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.branch_to_incidence_dense"><code class="name">prop <span class="ident">branch_to_incidence_dense</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L276-L286" class="git-link">Browse git</a></div>
+<div class="desc"></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.generator_incidence"><code class="name">prop <span class="ident">generator_incidence</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L178-L197" class="git-link">Browse git</a></div>
+<div class="desc"><p>Sparse generator incidence matrix.</p>
+<p>Each row corresponds to a bus and each column corresponds to a generator.
+The value is 1 if the generator is at the bus, and 0 otherwise.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Sparse generator incidence matrix. (nbus, ngen)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.generator_incidence_dense"><code class="name">prop <span class="ident">generator_incidence_dense</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L288-L298" class="git-link">Browse git</a></div>
+<div class="desc"></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.load_incidence"><code class="name">prop <span class="ident">load_incidence</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L199-L218" class="git-link">Browse git</a></div>
+<div class="desc"><p>Sparse load incidence matrix.</p>
+<p>Each row corresponds to a bus and each column corresponds to a load.
+The value is 1 if the load is at the bus, and 0 otherwise.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Sparse load incidence matrix. (nbus, nload)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.load_incidence_dense"><code class="name">prop <span class="ident">load_incidence_dense</span> : torch.Tensor</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L300-L310" class="git-link">Browse git</a></div>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ml4opf.formulations.violation.OPFViolation.branch_from_to_bus"><code class="name flex">
+<span>def <span class="ident">branch_from_to_bus</span></span>(<span>self, pf_or_qf: torch.Tensor, method: str = 'pad') ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L368-L388" class="git-link">Browse git</a></div>
+<div class="desc"><p>Embed batched branch-wise values to batched bus-wise.</p>
+<p>The default method "pad" sums over any flows on branches from the same bus.
+The matrix methods "dense_matrix" and "matrix" use the incidence matrix.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pf_or_qf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Branch-wise values. (batch, nbranch)</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str</code></dt>
+<dd>Method to use. Supported: ['pad', 'dense_matrix', 'matrix']</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Bus-wise values. (batch, nbus)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.branch_to_to_bus"><code class="name flex">
+<span>def <span class="ident">branch_to_to_bus</span></span>(<span>self, pt_or_qt: torch.Tensor, method: str = 'pad') ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L390-L410" class="git-link">Browse git</a></div>
+<div class="desc"><p>Embed batched branch-wise values to batched bus-wise.</p>
+<p>The default method "pad" sums over any flows on branches to the same bus.
+The matrix methods "dense_matrix" and "matrix" use the incidence matrix.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pt_or_qt</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Branch-wise values. (batch, nbranch)</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str</code></dt>
+<dd>Method to use. Supported: ['pad', 'dense_matrix', 'matrix']</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Bus-wise values. (batch, nbus)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.calc_violations"><code class="name flex">
+<span>def <span class="ident">calc_violations</span></span>(<span>self, *args, reduction: str = 'mean', clamp: bool = True) ‑> dict[str, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L68-L70" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the violations of the constraints. Returns a dictionary of tensors.</p></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, *args, **kwargs) ‑> Callable[..., Any]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L101-L103" class="git-link">Browse git</a></div>
+<div class="desc"><p>Pass-through for <code><a title="ml4opf.formulations.violation.OPFViolation.calc_violations" href="#ml4opf.formulations.violation.OPFViolation.calc_violations">OPFViolation.calc_violations()</a></code></p></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.gen_to_bus"><code class="name flex">
+<span>def <span class="ident">gen_to_bus</span></span>(<span>self, pg_or_qg: torch.Tensor, method: str = 'pad') ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L324-L344" class="git-link">Browse git</a></div>
+<div class="desc"><p>Embed generator-wise values to bus-wise.</p>
+<p>The default method "pad" sums over any generators at the same bus.
+The matrix methods "dense_matrix" and "matrix" use the incidence matrix.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pg_or_qg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Generator-wise values. (batch, ngen)</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str</code></dt>
+<dd>Method to use. Supported: ['pad', 'dense_matrix', 'matrix']</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Bus-wise values. (batch, nbus)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.load_to_bus"><code class="name flex">
+<span>def <span class="ident">load_to_bus</span></span>(<span>self, pd_or_qd: torch.Tensor, method: str = 'pad') ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L346-L366" class="git-link">Browse git</a></div>
+<div class="desc"><p>Embed load-wise values to bus-wise.</p>
+<p>The default method "pad" sums over any loads at the same bus.
+The matrix methods "dense_matrix" and "matrix" use the incidence matrix.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pd_or_qd</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Load-wise values. (batch, ngen)</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str</code></dt>
+<dd>Method to use. Supported: ['pad', 'dense_matrix', 'matrix']</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Bus-wise values. (batch, nbus)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.objective"><code class="name flex">
+<span>def <span class="ident">objective</span></span>(<span>self, *args) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L76-L78" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute the objective value for a batch of samples.</p></div>
+</dd>
+<dt id="ml4opf.formulations.violation.OPFViolation.violation_shapes"><code class="name flex">
+<span>def <span class="ident">violation_shapes</span></span>(<span>self) ‑> dict[str, int]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/violation.py#L72-L74" class="git-link">Browse git</a></div>
+<div class="desc"><p>Return the shapes of the violations returned by <code><a title="ml4opf.formulations.violation.OPFViolation.calc_violations" href="#ml4opf.formulations.violation.OPFViolation.calc_violations">OPFViolation.calc_violations()</a></code>.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ml4opf.formulations" href="index.html">ml4opf.formulations</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ml4opf.formulations.violation.OPFViolation" href="#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></code></h4>
+<ul class="">
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.SUPPORTED_REDUCTIONS" href="#ml4opf.formulations.violation.OPFViolation.SUPPORTED_REDUCTIONS">SUPPORTED_REDUCTIONS</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.adjacency_matrix" href="#ml4opf.formulations.violation.OPFViolation.adjacency_matrix">adjacency_matrix</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.adjacency_matrix_dense" href="#ml4opf.formulations.violation.OPFViolation.adjacency_matrix_dense">adjacency_matrix_dense</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_incidence" href="#ml4opf.formulations.violation.OPFViolation.branch_from_incidence">branch_from_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_incidence_dense" href="#ml4opf.formulations.violation.OPFViolation.branch_from_incidence_dense">branch_from_incidence_dense</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_to_bus" href="#ml4opf.formulations.violation.OPFViolation.branch_from_to_bus">branch_from_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_incidence" href="#ml4opf.formulations.violation.OPFViolation.branch_incidence">branch_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_incidence_dense" href="#ml4opf.formulations.violation.OPFViolation.branch_incidence_dense">branch_incidence_dense</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_incidence" href="#ml4opf.formulations.violation.OPFViolation.branch_to_incidence">branch_to_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_incidence_dense" href="#ml4opf.formulations.violation.OPFViolation.branch_to_incidence_dense">branch_to_incidence_dense</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_to_bus" href="#ml4opf.formulations.violation.OPFViolation.branch_to_to_bus">branch_to_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.calc_violations" href="#ml4opf.formulations.violation.OPFViolation.calc_violations">calc_violations</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.clamped_bound_residual" href="#ml4opf.formulations.violation.OPFViolation.clamped_bound_residual">clamped_bound_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.forward" href="#ml4opf.formulations.violation.OPFViolation.forward">forward</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.gen_to_bus" href="#ml4opf.formulations.violation.OPFViolation.gen_to_bus">gen_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.generator_incidence" href="#ml4opf.formulations.violation.OPFViolation.generator_incidence">generator_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.generator_incidence_dense" href="#ml4opf.formulations.violation.OPFViolation.generator_incidence_dense">generator_incidence_dense</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_incidence" href="#ml4opf.formulations.violation.OPFViolation.load_incidence">load_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_incidence_dense" href="#ml4opf.formulations.violation.OPFViolation.load_incidence_dense">load_incidence_dense</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_to_bus" href="#ml4opf.formulations.violation.OPFViolation.load_to_bus">load_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.objective" href="#ml4opf.formulations.violation.OPFViolation.objective">objective</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.reduce_violation" href="#ml4opf.formulations.violation.OPFViolation.reduce_violation">reduce_violation</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.reduce_violations" href="#ml4opf.formulations.violation.OPFViolation.reduce_violations">reduce_violations</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.violation_shapes" href="#ml4opf.formulations.violation.OPFViolation.violation_shapes">violation_shapes</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

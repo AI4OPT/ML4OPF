@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>ml4opf.formulations.dc API documentation</title>
+<meta name="description" content="DCOPF">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ml4opf.formulations.dc</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="dcopf">DCOPF</h1>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ml4opf.formulations.dc.model" href="model.html">ml4opf.formulations.dc.model</a></code></dt>
+<dd>
+<div class="desc"><p>Base class for DCOPF proxy models</p></div>
+</dd>
+<dt><code class="name"><a title="ml4opf.formulations.dc.problem" href="problem.html">ml4opf.formulations.dc.problem</a></code></dt>
+<dd>
+<div class="desc"><p>DCOPF Problem data class</p></div>
+</dd>
+<dt><code class="name"><a title="ml4opf.formulations.dc.violation" href="violation.html">ml4opf.formulations.dc.violation</a></code></dt>
+<dd>
+<div class="desc"><p>Class interface for DCOPF constraints, objective, etc.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ml4opf.formulations.dc.DCModel"><code class="flex name class">
+<span>class <span class="ident">DCModel</span></span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/model.py#L13-L96" class="git-link">Browse git</a></div>
+<div class="desc"><p><code>OPFModel</code> for DCOPF</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.model.OPFModel" href="../model.html#ml4opf.formulations.model.OPFModel">OPFModel</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.dc.model.PerfectDCModel" href="model.html#ml4opf.formulations.dc.model.PerfectDCModel">PerfectDCModel</a></li>
+<li><a title="ml4opf.models.basic_nn.dcopf_basic_nn.DCBasicNeuralNet" href="../../models/basic_nn/dcopf_basic_nn.html#ml4opf.models.basic_nn.dcopf_basic_nn.DCBasicNeuralNet">DCBasicNeuralNet</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ml4opf.formulations.dc.DCModel.problem"><code class="name">var <span class="ident">problem</span> : <a title="ml4opf.formulations.dc.problem.DCProblem" href="problem.html#ml4opf.formulations.dc.problem.DCProblem">DCProblem</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCModel.violation"><code class="name">var <span class="ident">violation</span> : <a title="ml4opf.formulations.dc.violation.DCViolation" href="violation.html#ml4opf.formulations.dc.violation.DCViolation">DCViolation</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ml4opf.formulations.dc.DCModel.evaluate_model"><code class="name flex">
+<span>def <span class="ident">evaluate_model</span></span>(<span>self, reduction: str | None = None, inner_reduction: str | None = None) ‑> dict[str, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/model.py#L34-L96" class="git-link">Browse git</a></div>
+<div class="desc"><p>Evaluate the model on the test data.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>reduction</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Reduction method for the metrics. Defaults to None. Must be one of "mean", "sum","max", "none".
+If specified, each value in the returned dictionary will be a scalar. Otherwise, they are arrays of shape (n_test_samples,)</dd>
+<dt><strong><code>inner_reduction</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Reduction method for turning metrics calculated per component to per sample. Defaults to None. Must be one of "mean", "sum","max", "none".</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict[str, Tensor]</code></dt>
+<dd>
+<p>Dictionary containing Tensor metrics of the model's performance.</p>
+<p><code>pg_lower</code>: Generator lower bound violation.</p>
+<p><code>pg_upper</code>: Generator upper bound violation.</p>
+<p><code>dva_lower</code>: Angle difference limit lower bound violation.</p>
+<p><code>dva_upper</code>: Angle difference limit upper bound violation.</p>
+<p><code>pf_lower</code>: Flow limit lower bound violation.</p>
+<p><code>pf_upper</code>: Flow limit upper bound violation.</p>
+<p><code>p_balance</code>: Power balance violation.</p>
+<p><code>pg_mae</code>: Mean absolute error of the real power generation.</p>
+<p><code>va_mae</code>: Mean absolute error of the voltage angle. (if not bus-wise and va not in predictions, skipped)</p>
+<p><code>pf_mae</code>: Mean absolute error of the real power flow.</p>
+<p><code>obj_mape</code>: Mean absolute percent error of the objective value.</p>
+</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCModel.predict"><code class="name flex">
+<span>def <span class="ident">predict</span></span>(<span>self, pd: torch.Tensor) ‑> dict[str, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/model.py#L19-L32" class="git-link">Browse git</a></div>
+<div class="desc"><p>Predict the DCOPF primal solution for a given set of loads.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pd</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power demand per load.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict[str, Tensor]</code></dt>
+<dd>
+<p>Dictionary containing the predicted primal solution.</p>
+<p><code>pg</code>: Active power generation per generator or per bus.</p>
+<p><code>va</code>: Voltage angle per bus.</p>
+</dd>
+</dl></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ml4opf.formulations.model.OPFModel" href="../model.html#ml4opf.formulations.model.OPFModel">OPFModel</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ml4opf.formulations.model.OPFModel.load_from_checkpoint" href="../model.html#ml4opf.formulations.model.OPFModel.load_from_checkpoint">load_from_checkpoint</a></code></li>
+<li><code><a title="ml4opf.formulations.model.OPFModel.save_checkpoint" href="../model.html#ml4opf.formulations.model.OPFModel.save_checkpoint">save_checkpoint</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ml4opf.formulations.dc.DCProblem"><code class="flex name class">
+<span>class <span class="ident">DCProblem</span></span>
+<span>(</span><span>data_directory: str, dataset_name: str = 'DCOPF', **parse_kwargs)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/problem.py#L7-L66" class="git-link">Browse git</a></div>
+<div class="desc"><p><code>OPFProblem</code> for DCOPF</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.problem.OPFProblem" href="../problem.html#ml4opf.formulations.problem.OPFProblem">OPFProblem</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ml4opf.formulations.dc.DCProblem.default_combos"><code class="name">prop <span class="ident">default_combos</span> : dict[str, list[str]]</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/problem.py#L43-L54" class="git-link">Browse git</a></div>
+<div class="desc"><p>Default combos for DCOPF:</p>
+<ul>
+<li>
+<p>input: pd</p>
+</li>
+<li>
+<p>target: pg, va</p>
+</li>
+</ul></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCProblem.default_order"><code class="name">prop <span class="ident">default_order</span> : list[str]</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/problem.py#L56-L59" class="git-link">Browse git</a></div>
+<div class="desc"><p>Default order for DCOPF. input, target</p></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCProblem.feasibility_check"><code class="name">prop <span class="ident">feasibility_check</span> : dict[str, str]</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/problem.py#L27-L41" class="git-link">Browse git</a></div>
+<div class="desc"><p>Default feasibility check for DCOPF:</p>
+<ul>
+<li>
+<p>termination_status: "OPTIMAL"</p>
+</li>
+<li>
+<p>primal_status: "FEASIBLE_POINT"</p>
+</li>
+<li>
+<p>dual_status: "FEASIBLE_POINT"</p>
+</li>
+</ul></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCProblem.violation"><code class="name">prop <span class="ident">violation</span> : <a title="ml4opf.formulations.dc.violation.DCViolation" href="violation.html#ml4opf.formulations.dc.violation.DCViolation">DCViolation</a></code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/problem.py#L61-L66" class="git-link">Browse git</a></div>
+<div class="desc"><p>OPFViolation object for DCOPF constraint calculations.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ml4opf.formulations.problem.OPFProblem" href="../problem.html#ml4opf.formulations.problem.OPFProblem">OPFProblem</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.make_dataset" href="../problem.html#ml4opf.formulations.problem.OPFProblem.make_dataset">make_dataset</a></code></li>
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.parse" href="../problem.html#ml4opf.formulations.problem.OPFProblem.parse">parse</a></code></li>
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.slice_batch" href="../problem.html#ml4opf.formulations.problem.OPFProblem.slice_batch">slice_batch</a></code></li>
+<li><code><a title="ml4opf.formulations.problem.OPFProblem.slice_tensor" href="../problem.html#ml4opf.formulations.problem.OPFProblem.slice_tensor">slice_tensor</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation"><code class="flex name class">
+<span>class <span class="ident">DCViolation</span></span>
+<span>(</span><span>data: dict[str, torch.Tensor])</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L11-L225" class="git-link">Browse git</a></div>
+<div class="desc"><p><code>OPFViolation</code> for DCPPowerModel/DCOPF</p>
+<p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.violation.OPFViolation" href="../violation.html#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></li>
+<li>torch.nn.modules.module.Module</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="ml4opf.formulations.dc.DCViolation.angle_difference"><code class="name flex">
+<span>def <span class="ident">angle_difference</span></span>(<span>self, va: torch.Tensor) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L14-L27" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute the angle differences per branch given the voltage angles per bus.</p>
+<p>The branch indices are assumed to be constant for the batch, matching the reference case.</p>
+<p><span><span class="MathJax_Preview">
+\text{dva} = \boldsymbol{\theta}_{f} - \boldsymbol{\theta}_{t}
+</span><script type="math/tex; mode=display">
+\text{dva} = \boldsymbol{\theta}_{f} - \boldsymbol{\theta}_{t}
+</script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>va</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angles per bus ( <span><span class="MathJax_Preview">\boldsymbol{\theta}</span><script type="math/tex">\boldsymbol{\theta}</script></span> ). (batch_size, nbus)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Angle differences per branch. (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation.balance_residual"><code class="name flex">
+<span>def <span class="ident">balance_residual</span></span>(<span>self,<br>pd: torch.Tensor,<br>pg: torch.Tensor,<br>pf: torch.Tensor,<br>embed_method: str = 'pad',<br>clamp: bool = True) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L106-L131" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute power balance residual.</p>
+<p><span><span class="MathJax_Preview">
+\text{g_balance} = \text{pg_bus} - \text{pd_bus} - \text{gs_bus} - \text{pf_bus} - \text{pt_bus}
+</span><script type="math/tex; mode=display">
+\text{g_balance} = \text{pg_bus} - \text{pd_bus} - \text{gs_bus} - \text{pf_bus} - \text{pt_bus}
+</script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pd</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Power demand per bus. (batch_size, nbus)</dd>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Power generation per generator. (batch_size, ngen)</dd>
+<dt><strong><code>pf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Power flow per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>embed_method</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Embedding method to convert component-wise values to bus-wise &ndash; one of "pad", "dense_matrix", or "matrix". Defaults to "pad".</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp to extract only violations. Defaults to True.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Power balance residual. (batch_size, nbus)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation.calc_violations"><code class="name flex">
+<span>def <span class="ident">calc_violations</span></span>(<span>self,<br>pd: torch.Tensor,<br>pg: torch.Tensor,<br>va: torch.Tensor,<br>pf: torch.Tensor | None = None,<br>reduction: str = 'mean',<br>clamp: bool = True,<br>embed_method: str = 'pad') ‑> dict[str, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L150-L212" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute all DCOPF violations.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pd</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Power demand per bus. (batch_size, nbus)</dd>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Power generation per generator. (batch_size, ngen)</dd>
+<dt><strong><code>va</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angles per bus. (batch_size, nbus)</dd>
+<dt><strong><code>pf</code></strong> :&ensp;<code>Tensor</code>, optional</dt>
+<dd>Power flow per branch. Defaults to None.</dd>
+<dt><strong><code>reduction</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Reduction method. Defaults to "mean".</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp to extract only violations. Defaults to True.</dd>
+<dt><strong><code>embed_method</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Method to convert component-wise values to bus-wise &ndash; one of "pad", "dense_matrix", or "matrix". Defaults to "pad".</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict[str, Tensor]</code></dt>
+<dd>Dictionary of all violations:</dd>
+</dl>
+<ul>
+<li>
+<p>"pg_lower": Lower bound violation of power generation. (batch_size, ngen)</p>
+</li>
+<li>
+<p>"pg_upper": Upper bound violation of power generation. (batch_size, ngen)</p>
+</li>
+<li>
+<p>"dva_lower": Lower bound violation of voltage angle difference. (batch_size, nbranch)</p>
+</li>
+<li>
+<p>"dva_upper": Upper bound violation of voltage angle difference. (batch_size, nbranch)</p>
+</li>
+<li>
+<p>"pf_lower": Lower bound violation of power flow. (batch_size, nbranch)</p>
+</li>
+<li>
+<p>"pf_upper": Upper bound violation of power flow. (batch_size, nbranch)</p>
+</li>
+<li>
+<p>"p_balance": Power balance violation. (batch_size, nbus)</p>
+</li>
+<li>
+<p>"ohm": Ohm's law violation. (batch_size, nbranch)</p>
+</li>
+</ul></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation.dva_bound_residual"><code class="name flex">
+<span>def <span class="ident">dva_bound_residual</span></span>(<span>self, dva: torch.Tensor, clamp: bool = False) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L90-L104" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the voltage angle difference bound residual.</p>
+<p><span><span class="MathJax_Preview"> g_{\text{lower}} = \text{angmin} - \text{dva} </span><script type="math/tex; mode=display"> g_{\text{lower}} = \text{angmin} - \text{dva} </script></span>
+<span><span class="MathJax_Preview"> g_{\text{upper}} = \text{dva} - \text{angmax} </span><script type="math/tex; mode=display"> g_{\text{upper}} = \text{dva} - \text{angmax} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dva</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angle differences per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Lower bound residual. (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Upper bound residual. (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation.objective"><code class="name flex">
+<span>def <span class="ident">objective</span></span>(<span>self, pg: torch.Tensor) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L29-L42" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute DCOPF objective function.</p>
+<p>Cost is assumed to be constant for the batch, matching the reference case.</p>
+<p><span><span class="MathJax_Preview">
+\text{objective} = \sum_i^n \text{cost}_{2,i} + \text{cost}_{1,i} \cdot \text{pg}_i
+</span><script type="math/tex; mode=display">
+\text{objective} = \sum_i^n \text{cost}_{2,i} + \text{cost}_{1,i} \cdot \text{pg}_i
+</script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Power generation per generator. (batch_size, ngen)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Objective function value. (batch_size, 1)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation.ohm_residual"><code class="name flex">
+<span>def <span class="ident">ohm_residual</span></span>(<span>self, pf: torch.Tensor, dva: torch.Tensor, clamp: bool = False) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L133-L148" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute Ohm's law violation.</p>
+<p><span><span class="MathJax_Preview">
+\text{g_ohm} = - b \cdot \text{dva} - \text{pf}
+</span><script type="math/tex; mode=display">
+\text{g_ohm} = - b \cdot \text{dva} - \text{pf}
+</script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Power flow per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>dva</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angle differences per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp to extract only violations. Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Ohm's law violation. (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation.pf_bound_residual"><code class="name flex">
+<span>def <span class="ident">pf_bound_residual</span></span>(<span>self, pf: torch.Tensor, clamp: bool = False) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L58-L72" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the power flow bound residual.</p>
+<p><span><span class="MathJax_Preview"> g_{\text{lower}} = -\text{rate_a} - \text{pf} </span><script type="math/tex; mode=display"> g_{\text{lower}} = -\text{rate_a} - \text{pf} </script></span>
+<span><span class="MathJax_Preview"> g_{\text{upper}} = \text{pf} - \text{rate_a} </span><script type="math/tex; mode=display"> g_{\text{upper}} = \text{pf} - \text{rate_a} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Power flow per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Lower bound residual. (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Upper bound residual. (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation.pf_from_va"><code class="name flex">
+<span>def <span class="ident">pf_from_va</span></span>(<span>self, va: torch.Tensor) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L44-L56" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute power flow given voltage angles.</p>
+<p><span><span class="MathJax_Preview"> \mathbf{p}_f = -\text{b} \cdot (\boldsymbol{\theta}_{f} - \boldsymbol{\theta}_{t}) </span><script type="math/tex; mode=display"> \mathbf{p}_f = -\text{b} \cdot (\boldsymbol{\theta}_{f} - \boldsymbol{\theta}_{t}) </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>va</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angles per bus ( <span><span class="MathJax_Preview">\boldsymbol{\theta}</span><script type="math/tex">\boldsymbol{\theta}</script></span> ). (batch_size, nbus)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Power flow per branch ( <span><span class="MathJax_Preview">\mathbf{p}_f</span><script type="math/tex">\mathbf{p}_f</script></span> ). (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.dc.DCViolation.pg_bound_residual"><code class="name flex">
+<span>def <span class="ident">pg_bound_residual</span></span>(<span>self, pg: torch.Tensor, clamp: bool = False) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/dc/violation.py#L74-L88" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the power generation bound residual.</p>
+<p><span><span class="MathJax_Preview"> g_{\text{lower}} = \text{pmin} - \text{pg} </span><script type="math/tex; mode=display"> g_{\text{lower}} = \text{pmin} - \text{pg} </script></span>
+<span><span class="MathJax_Preview"> g_{\text{upper}} = \text{pg} - \text{pmax} </span><script type="math/tex; mode=display"> g_{\text{upper}} = \text{pg} - \text{pmax} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power generation per generator. (batch_size, ngen)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Lower bound residual. (batch_size, ngen)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Upper bound residual. (batch_size, ngen)</dd>
+</dl></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ml4opf.formulations.violation.OPFViolation" href="../violation.html#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.adjacency_matrix" href="../violation.html#ml4opf.formulations.violation.OPFViolation.adjacency_matrix">adjacency_matrix</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_from_incidence">branch_from_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_to_bus" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_from_to_bus">branch_from_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_incidence">branch_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_to_incidence">branch_to_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_to_bus" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_to_to_bus">branch_to_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.forward" href="../violation.html#ml4opf.formulations.violation.OPFViolation.forward">forward</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.gen_to_bus" href="../violation.html#ml4opf.formulations.violation.OPFViolation.gen_to_bus">gen_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.generator_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.generator_incidence">generator_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.load_incidence">load_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_to_bus" href="../violation.html#ml4opf.formulations.violation.OPFViolation.load_to_bus">load_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.reduce_violation" href="../violation.html#ml4opf.formulations.violation.OPFViolation.reduce_violation">reduce_violation</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.reduce_violations" href="../violation.html#ml4opf.formulations.violation.OPFViolation.reduce_violations">reduce_violations</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.violation_shapes" href="../violation.html#ml4opf.formulations.violation.OPFViolation.violation_shapes">violation_shapes</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul>
+<li><a href="#dcopf">DCOPF</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ml4opf.formulations" href="../index.html">ml4opf.formulations</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ml4opf.formulations.dc.model" href="model.html">ml4opf.formulations.dc.model</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.problem" href="problem.html">ml4opf.formulations.dc.problem</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.violation" href="violation.html">ml4opf.formulations.dc.violation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ml4opf.formulations.dc.DCModel" href="#ml4opf.formulations.dc.DCModel">DCModel</a></code></h4>
+<ul class="">
+<li><code><a title="ml4opf.formulations.dc.DCModel.evaluate_model" href="#ml4opf.formulations.dc.DCModel.evaluate_model">evaluate_model</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCModel.predict" href="#ml4opf.formulations.dc.DCModel.predict">predict</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCModel.problem" href="#ml4opf.formulations.dc.DCModel.problem">problem</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCModel.violation" href="#ml4opf.formulations.dc.DCModel.violation">violation</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ml4opf.formulations.dc.DCProblem" href="#ml4opf.formulations.dc.DCProblem">DCProblem</a></code></h4>
+<ul class="">
+<li><code><a title="ml4opf.formulations.dc.DCProblem.default_combos" href="#ml4opf.formulations.dc.DCProblem.default_combos">default_combos</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCProblem.default_order" href="#ml4opf.formulations.dc.DCProblem.default_order">default_order</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCProblem.feasibility_check" href="#ml4opf.formulations.dc.DCProblem.feasibility_check">feasibility_check</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCProblem.violation" href="#ml4opf.formulations.dc.DCProblem.violation">violation</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ml4opf.formulations.dc.DCViolation" href="#ml4opf.formulations.dc.DCViolation">DCViolation</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ml4opf.formulations.dc.DCViolation.angle_difference" href="#ml4opf.formulations.dc.DCViolation.angle_difference">angle_difference</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCViolation.balance_residual" href="#ml4opf.formulations.dc.DCViolation.balance_residual">balance_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCViolation.calc_violations" href="#ml4opf.formulations.dc.DCViolation.calc_violations">calc_violations</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCViolation.dva_bound_residual" href="#ml4opf.formulations.dc.DCViolation.dva_bound_residual">dva_bound_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCViolation.objective" href="#ml4opf.formulations.dc.DCViolation.objective">objective</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCViolation.ohm_residual" href="#ml4opf.formulations.dc.DCViolation.ohm_residual">ohm_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCViolation.pf_bound_residual" href="#ml4opf.formulations.dc.DCViolation.pf_bound_residual">pf_bound_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCViolation.pf_from_va" href="#ml4opf.formulations.dc.DCViolation.pf_from_va">pf_from_va</a></code></li>
+<li><code><a title="ml4opf.formulations.dc.DCViolation.pg_bound_residual" href="#ml4opf.formulations.dc.DCViolation.pg_bound_residual">pg_bound_residual</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>ml4opf.layers API documentation</title>
+<meta name="description" content="ML4OPF Layers">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ml4opf.layers</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="ml4opf-layers">ML4OPF Layers</h1>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ml4opf.layers.bound_repair" href="bound_repair.html">ml4opf.layers.bound_repair</a></code></dt>
+<dd>
+<div class="desc"><p>Differentiable repair layer for satisfying bound constraints x̲≤x≤x̅.</p></div>
+</dd>
+<dt><code class="name"><a title="ml4opf.layers.hypersimplex_repair" href="hypersimplex_repair.html">ml4opf.layers.hypersimplex_repair</a></code></dt>
+<dd>
+<div class="desc"><p>Differentiable repair layer for the hyper-simplex constraint, ∑x=X, x̲≤x≤x̅.</p></div>
+</dd>
+<dt><code class="name"><a title="ml4opf.layers.slackbus_repair" href="slackbus_repair.html">ml4opf.layers.slackbus_repair</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ml4opf.layers.voltagedifference_repair" href="voltagedifference_repair.html">ml4opf.layers.voltagedifference_repair</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ml4opf.layers.BoundRepair"><code class="flex name class">
+<span>class <span class="ident">BoundRepair</span></span>
+<span>(</span><span>xmin: torch.Tensor | None,<br>xmax: torch.Tensor | None,<br>method: str = 'relu',<br>sanity_check: bool = True,<br>memory_efficient: int = 0)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L10-L366" class="git-link">Browse git</a></div>
+<div class="desc"><p>An activation function that clips the output to a given range.</p>
+<p>Initializes the BoundRepair module.</p>
+<p>If both <code>xmin</code> and <code>xmax</code> are None, per-sample bounds must be provided as input to the forward method.
+In this case <code>memory_efficient</code> is ignored (it is set to 2 regardless).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>xmin</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Lower bounds for clipping.</dd>
+<dt><strong><code>xmax</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Upper bounds for clipping.</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str</code></dt>
+<dd>The method to use for clipping. One of ["relu", "sigmoid", "clamp", "softplus", "tanh", "none"].</dd>
+<dt><strong><code>sanity_check</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If True, performs sanity checks on the input.</dd>
+<dt><strong><code>memory_efficient</code></strong> :&ensp;<code>int</code></dt>
+<dd>0: pre-compute masks and pre-index bounds, 1: pre-compute masks, 2: do not pre-compute anything</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>torch.nn.modules.module.Module</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ml4opf.layers.BoundRepair.SUPPORTED_METHODS"><code class="name">var <span class="ident">SUPPORTED_METHODS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="ml4opf.layers.BoundRepair.double_relu"><code class="name flex">
+<span>def <span class="ident">double_relu</span></span>(<span>x: torch.Tensor, xmin: torch.Tensor, xmax: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L117-L132" class="git-link">Browse git</a></div>
+<div class="desc"><p>ReLU bound repair function for double-sided bounds.</p>
+<p><span><span class="MathJax_Preview"> \text{relu}(x - \underline{x}) - \text{relu}(x - \overline{x}) + \underline{x} </span><script type="math/tex; mode=display"> \text{relu}(x - \underline{x}) - \text{relu}(x - \overline{x}) + \underline{x} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+<dt><strong><code>xmin</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Lower bound.</dd>
+<dt><strong><code>xmax</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Upper bound.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.double_sigmoid"><code class="name flex">
+<span>def <span class="ident">double_sigmoid</span></span>(<span>x: torch.Tensor, xmin: torch.Tensor, xmax: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L181-L196" class="git-link">Browse git</a></div>
+<div class="desc"><p>Sigmoid bound repair function for double-sided bounds.</p>
+<p><span><span class="MathJax_Preview"> \text{sigmoid}(x) \cdot (\overline{x} - \underline{x}) + \underline{x} </span><script type="math/tex; mode=display"> \text{sigmoid}(x) \cdot (\overline{x} - \underline{x}) + \underline{x} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+<dt><strong><code>xmin</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Lower bound.</dd>
+<dt><strong><code>xmax</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Upper bound.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.double_softplus"><code class="name flex">
+<span>def <span class="ident">double_softplus</span></span>(<span>x: torch.Tensor, xmin: torch.Tensor, xmax: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L211-L226" class="git-link">Browse git</a></div>
+<div class="desc"><p>Softplus bound repair function for double-sided bounds.</p>
+<p><span><span class="MathJax_Preview"> \text{softplus}(x - \underline{x}) - \text{softplus}(x - \overline{x}) + \underline{x} </span><script type="math/tex; mode=display"> \text{softplus}(x - \underline{x}) - \text{softplus}(x - \overline{x}) + \underline{x} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+<dt><strong><code>xmin</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Lower bound.</dd>
+<dt><strong><code>xmax</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Upper bound.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.double_tanh"><code class="name flex">
+<span>def <span class="ident">double_tanh</span></span>(<span>x: torch.Tensor, xmin: torch.Tensor, xmax: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L274-L289" class="git-link">Browse git</a></div>
+<div class="desc"><p>Tanh bound repair function for double-sided bounds.</p>
+<p><span><span class="MathJax_Preview"> (\frac{1}{2} \tanh(x) + \frac{1}{2}) \cdot (\overline{x} - \underline{x}) + \underline{x} </span><script type="math/tex; mode=display"> (\frac{1}{2} \tanh(x) + \frac{1}{2}) \cdot (\overline{x} - \underline{x}) + \underline{x} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+<dt><strong><code>xmin</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Lower bound.</dd>
+<dt><strong><code>xmax</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Upper bound.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.lower_relu"><code class="name flex">
+<span>def <span class="ident">lower_relu</span></span>(<span>x: torch.Tensor, xmin: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L134-L148" class="git-link">Browse git</a></div>
+<div class="desc"><p>ReLU bound repair function for lower bounds.</p>
+<p><span><span class="MathJax_Preview"> \text{relu}(x - \underline{x}) + \underline{x} </span><script type="math/tex; mode=display"> \text{relu}(x - \underline{x}) + \underline{x} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+<dt><strong><code>xmin</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Lower bound.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.lower_softplus"><code class="name flex">
+<span>def <span class="ident">lower_softplus</span></span>(<span>x: torch.Tensor, xmin: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L228-L242" class="git-link">Browse git</a></div>
+<div class="desc"><p>Softplus bound repair function for lower bounds.</p>
+<p><span><span class="MathJax_Preview"> \text{softplus}(x - \underline{x}) + \underline{x} </span><script type="math/tex; mode=display"> \text{softplus}(x - \underline{x}) + \underline{x} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+<dt><strong><code>xmin</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Lower bound.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.upper_relu"><code class="name flex">
+<span>def <span class="ident">upper_relu</span></span>(<span>x: torch.Tensor, xmax: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L150-L164" class="git-link">Browse git</a></div>
+<div class="desc"><p>ReLU bound repair function for upper bounds.</p>
+<p><span><span class="MathJax_Preview"> -\text{relu}(\overline{x} - x) + \overline{x} </span><script type="math/tex; mode=display"> -\text{relu}(\overline{x} - x) + \overline{x} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+<dt><strong><code>xmax</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Upper bound.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.upper_softplus"><code class="name flex">
+<span>def <span class="ident">upper_softplus</span></span>(<span>x: torch.Tensor, xmax: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L244-L258" class="git-link">Browse git</a></div>
+<div class="desc"><p>Softplus bound repair function for upper bounds.</p>
+<p><span><span class="MathJax_Preview"> -\text{softplus}(\overline{x} - x) + \overline{x} </span><script type="math/tex; mode=display"> -\text{softplus}(\overline{x} - x) + \overline{x} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+<dt><strong><code>xmax</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Upper bound.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ml4opf.layers.BoundRepair.clamp"><code class="name flex">
+<span>def <span class="ident">clamp</span></span>(<span>self, x: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L104-L115" class="git-link">Browse git</a></div>
+<div class="desc"><p>Bound repair function that uses <code>torch.clamp</code>.</p>
+<p><span><span class="MathJax_Preview"> \text{clamp}(x, \underline{x}, \overline{x}) </span><script type="math/tex; mode=display"> \text{clamp}(x, \underline{x}, \overline{x}) </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self,<br>x: torch.Tensor,<br>xmin: torch.Tensor | None = None,<br>xmax: torch.Tensor | None = None) ‑> Callable[..., Any]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L77-L98" class="git-link">Browse git</a></div>
+<div class="desc"><p>Applies the bound clipping function to the input.</p></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.load_state_dict"><code class="name flex">
+<span>def <span class="ident">load_state_dict</span></span>(<span>self, state_dict: dict, strict: bool = True)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L352-L366" class="git-link">Browse git</a></div>
+<div class="desc"><p>Loads the state dictionary and re-initializes the pre-computed quantities.</p></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.none"><code class="name flex">
+<span>def <span class="ident">none</span></span>(<span>self, x: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L100-L102" class="git-link">Browse git</a></div>
+<div class="desc"><p>no-op, just return x</p></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.preprocess_bounds"><code class="name flex">
+<span>def <span class="ident">preprocess_bounds</span></span>(<span>self, memory_efficient: int)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L304-L343" class="git-link">Browse git</a></div>
+<div class="desc"><p>Pre-computes masks and pre-indexes bounds depending on <code>memory_efficient</code> level.</p>
+<h2 id="args">Args</h2>
+<p>memory_efficient (int):</p>
+<p><code>0</code>: (fastest, most memory) pre-compute masks and index bounds</p>
+<p><code>1</code>: pre-compute masks only</p>
+<p><code>2</code>: (slowest, least memory) do not pre-compute anything</p></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.relu"><code class="name flex">
+<span>def <span class="ident">relu</span></span>(<span>self, x: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L166-L179" class="git-link">Browse git</a></div>
+<div class="desc"><p>Apply the ReLU-based bound repair functions to the input, supporting any combination of single- or double-sided bounds.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.sigmoid"><code class="name flex">
+<span>def <span class="ident">sigmoid</span></span>(<span>self, x: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L198-L209" class="git-link">Browse git</a></div>
+<div class="desc"><p>Apply the sigmoid bound repair function to the input, supporting only unbounded or double-sided bounds.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.softplus"><code class="name flex">
+<span>def <span class="ident">softplus</span></span>(<span>self, x: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L260-L272" class="git-link">Browse git</a></div>
+<div class="desc"><p>Apply the softplus bound-clipping function to the input, supporting any combination of single- or double-sided bounds.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.layers.BoundRepair.tanh"><code class="name flex">
+<span>def <span class="ident">tanh</span></span>(<span>self, x: torch.Tensor)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/bound_repair.py#L291-L302" class="git-link">Browse git</a></div>
+<div class="desc"><p>Apply the tanh bound-clipping function to the input, supporting only unbounded or double-sided bounds.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Input tensor.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Output tensor satisfying the bounds.</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+<dt id="ml4opf.layers.HyperSimplexRepair"><code class="flex name class">
+<span>class <span class="ident">HyperSimplexRepair</span></span>
+<span>(</span><span>xmin: torch.Tensor | None = None,<br>xmax: torch.Tensor | None = None,<br>X: torch.Tensor | None = None)</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/hypersimplex_repair.py#L9-L79" class="git-link">Browse git</a></div>
+<div class="desc"><p>Repair layer for the hyper-simplex constraint
+∑x=X, x̲≤x≤x̅.</p>
+<p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>torch.nn.modules.module.Module</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="ml4opf.layers.HyperSimplexRepair.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self,<br>x: torch.Tensor,<br>xmin: torch.Tensor | None = None,<br>xmax: torch.Tensor | None = None,<br>X: torch.Tensor | None = None) ‑> Callable[..., Any]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/layers/hypersimplex_repair.py#L52-L79" class="git-link">Browse git</a></div>
+<div class="desc"><p>Project onto ∑x=X, x̲≤x≤x̅</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul>
+<li><a href="#ml4opf-layers">ML4OPF Layers</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ml4opf" href="../index.html">ml4opf</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ml4opf.layers.bound_repair" href="bound_repair.html">ml4opf.layers.bound_repair</a></code></li>
+<li><code><a title="ml4opf.layers.hypersimplex_repair" href="hypersimplex_repair.html">ml4opf.layers.hypersimplex_repair</a></code></li>
+<li><code><a title="ml4opf.layers.slackbus_repair" href="slackbus_repair.html">ml4opf.layers.slackbus_repair</a></code></li>
+<li><code><a title="ml4opf.layers.voltagedifference_repair" href="voltagedifference_repair.html">ml4opf.layers.voltagedifference_repair</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ml4opf.layers.BoundRepair" href="#ml4opf.layers.BoundRepair">BoundRepair</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ml4opf.layers.BoundRepair.SUPPORTED_METHODS" href="#ml4opf.layers.BoundRepair.SUPPORTED_METHODS">SUPPORTED_METHODS</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.clamp" href="#ml4opf.layers.BoundRepair.clamp">clamp</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.double_relu" href="#ml4opf.layers.BoundRepair.double_relu">double_relu</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.double_sigmoid" href="#ml4opf.layers.BoundRepair.double_sigmoid">double_sigmoid</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.double_softplus" href="#ml4opf.layers.BoundRepair.double_softplus">double_softplus</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.double_tanh" href="#ml4opf.layers.BoundRepair.double_tanh">double_tanh</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.forward" href="#ml4opf.layers.BoundRepair.forward">forward</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.load_state_dict" href="#ml4opf.layers.BoundRepair.load_state_dict">load_state_dict</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.lower_relu" href="#ml4opf.layers.BoundRepair.lower_relu">lower_relu</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.lower_softplus" href="#ml4opf.layers.BoundRepair.lower_softplus">lower_softplus</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.none" href="#ml4opf.layers.BoundRepair.none">none</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.preprocess_bounds" href="#ml4opf.layers.BoundRepair.preprocess_bounds">preprocess_bounds</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.relu" href="#ml4opf.layers.BoundRepair.relu">relu</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.sigmoid" href="#ml4opf.layers.BoundRepair.sigmoid">sigmoid</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.softplus" href="#ml4opf.layers.BoundRepair.softplus">softplus</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.tanh" href="#ml4opf.layers.BoundRepair.tanh">tanh</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.upper_relu" href="#ml4opf.layers.BoundRepair.upper_relu">upper_relu</a></code></li>
+<li><code><a title="ml4opf.layers.BoundRepair.upper_softplus" href="#ml4opf.layers.BoundRepair.upper_softplus">upper_softplus</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ml4opf.layers.HyperSimplexRepair" href="#ml4opf.layers.HyperSimplexRepair">HyperSimplexRepair</a></code></h4>
+<ul class="">
+<li><code><a title="ml4opf.layers.HyperSimplexRepair.forward" href="#ml4opf.layers.HyperSimplexRepair.forward">forward</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

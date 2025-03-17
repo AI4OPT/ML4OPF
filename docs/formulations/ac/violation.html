@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>ml4opf.formulations.ac.violation API documentation</title>
+<meta name="description" content="Class interface for ACOPF constraints, objective, etc.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ml4opf.formulations.ac.violation</code></h1>
+</header>
+<section id="section-intro">
+<p>Class interface for ACOPF constraints, objective, etc.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ml4opf.formulations.ac.violation.ACViolation"><code class="flex name class">
+<span>class <span class="ident">ACViolation</span></span>
+<span>(</span><span>data: dict[str, torch.Tensor])</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L11-L338" class="git-link">Browse git</a></div>
+<div class="desc"><p><code>OPFViolation</code> for ACOPF</p>
+<p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ml4opf.formulations.violation.OPFViolation" href="../violation.html#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></li>
+<li>torch.nn.modules.module.Module</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.angle_difference"><code class="name flex">
+<span>def <span class="ident">angle_difference</span></span>(<span>self, va: torch.Tensor) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L14-L25" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute the angle differences per branch given the voltage angles per bus.</p>
+<p><span><span class="MathJax_Preview">
+\text{dva} = \boldsymbol{\theta}_{f} - \boldsymbol{\theta}_{t}
+</span><script type="math/tex; mode=display">
+\text{dva} = \boldsymbol{\theta}_{f} - \boldsymbol{\theta}_{t}
+</script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>va</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angles per bus ( <span><span class="MathJax_Preview">\boldsymbol{\theta}</span><script type="math/tex">\boldsymbol{\theta}</script></span> ). (batch_size, nbus)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Angle differences per branch. (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.balance_residual"><code class="name flex">
+<span>def <span class="ident">balance_residual</span></span>(<span>self,<br>pd: torch.Tensor,<br>qd: torch.Tensor,<br>pg: torch.Tensor,<br>qg: torch.Tensor,<br>vm: torch.Tensor,<br>pf: torch.Tensor,<br>pt: torch.Tensor,<br>qf: torch.Tensor,<br>qt: torch.Tensor,<br>clamp: bool = False,<br>embed_method: str = 'pad') ‑> tuple[torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L176-L232" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the power balance residual.</p>
+<p>Component-wise tensors are first embedded to the bus level using <code>embed_method</code>.</p>
+<p>The shunt parameters <span><span class="MathJax_Preview"> g_s, b_s </span><script type="math/tex"> g_s, b_s </script></span> are assumed to be constant, matching the reference case.</p>
+<p><span><span class="MathJax_Preview"> \text{p_viol} = \text{pg_bus} - \text{pd_bus} - \text{pt_bus} - \text{pf_bus} - \text{gs_bus} \times \text{vm}^2 </span><script type="math/tex; mode=display"> \text{p_viol} = \text{pg_bus} - \text{pd_bus} - \text{pt_bus} - \text{pf_bus} - \text{gs_bus} \times \text{vm}^2 </script></span>
+<span><span class="MathJax_Preview"> \text{q_viol} = \text{qg_bus} - \text{qd_bus} - \text{qt_bus} - \text{qf_bus} + \text{bs_bus} \times \text{vm}^2 </span><script type="math/tex; mode=display"> \text{q_viol} = \text{qg_bus} - \text{qd_bus} - \text{qt_bus} - \text{qf_bus} + \text{bs_bus} \times \text{vm}^2 </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pd</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power demand per bus. (batch_size, nbus)</dd>
+<dt><strong><code>qd</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power demand per bus. (batch_size, nbus)</dd>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power generation per generator. (batch_size, ngen)</dd>
+<dt><strong><code>qg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power generation per generator. (batch_size, ngen)</dd>
+<dt><strong><code>vm</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage magnitude per bus. (batch_size, nbus)</dd>
+<dt><strong><code>pf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power flow from bus per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>pt</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power flow to bus per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>qf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power flow from bus per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>qt</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power flow to bus per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Apply an absolute value to the residual. Defaults to False.</dd>
+<dt><strong><code>embed_method</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Embedding method for bus-level components. Defaults to 'pad'. Must be one of 'pad', 'dense_matrix', or 'matrix. See <code>IncidenceMixin.*_to_bus</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Power balance residual for active power. (batch_size, nbus)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Power balance residual for reactive power. (batch_size, nbus)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.calc_violations"><code class="name flex">
+<span>def <span class="ident">calc_violations</span></span>(<span>self,<br>pd: torch.Tensor,<br>qd: torch.Tensor,<br>pg: torch.Tensor,<br>qg: torch.Tensor,<br>vm: torch.Tensor,<br>va: torch.Tensor | None = None,<br>dva: torch.Tensor | None = None,<br>flows: tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor] | None = None,<br>reduction: str | None = 'mean',<br>clamp: bool = True) ‑> dict[str, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L234-L321" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the violation of all the constraints.</p>
+<p>The reduction is applied across the component dimension - e.g., 'mean' will do violation.mean(dim=1) where each violation is (batch, components)</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pd</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Real power demand. (batch, loads)</dd>
+<dt><strong><code>qd</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power demand. (batch, loads)</dd>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Real power generation. (batch, gens)</dd>
+<dt><strong><code>qg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power generation. (batch, gens)</dd>
+<dt><strong><code>vm</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage magnitude. (batch, buses)</dd>
+<dt><strong><code>va</code></strong> :&ensp;<code>Tensor</code>, optional</dt>
+<dd>Voltage angle. (batch, buses)</dd>
+<dt><strong><code>dva</code></strong> :&ensp;<code>Tensor</code>, optional</dt>
+<dd>Voltage angle difference. (batch, branches)</dd>
+<dt><strong><code>flows</code></strong> :&ensp;<code>tuple[Tensor, Tensor, Tensor, Tensor]</code>, optional</dt>
+<dd>Power flows. (pf, pt, qf, qt)</dd>
+<dt><strong><code>reduction</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Reduction method. Defaults to 'mean'. Must be one of 'mean', 'sum', 'none'.</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to True.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>dict[str, Tensor]: Dictionary of violations.</li>
+</ul>
+<p><code>vm_lower</code>: Voltage magnitude lower bound violation.</p>
+<p><code>vm_upper</code>: Voltage magnitude upper bound violation.</p>
+<p><code>pg_lower</code>: Real power generation lower bound violation.</p>
+<p><code>pg_upper</code>: Real power generation upper bound violation.</p>
+<p><code>qg_lower</code>: Reactive power generation lower bound violation.</p>
+<p><code>qg_upper</code>: Reactive power generation upper bound violation.</p>
+<p><code>thrm_1</code>: Thermal limit from violation.</p>
+<p><code>thrm_2</code>: Thermal limit to violation.</p>
+<p><code>p_balance</code>: Real power balance violation.</p>
+<p><code>q_balance</code>: Reactive power balance violation.</p>
+<p><code>dva_lower</code>: Voltage angle difference lower bound violation.</p>
+<p><code>dva_upper</code>: Voltage angle difference upper bound violation.</p></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.dva_bound_residual"><code class="name flex">
+<span>def <span class="ident">dva_bound_residual</span></span>(<span>self, dva: torch.Tensor, clamp: bool = False) ‑> tuple[torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L86-L100" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the voltage angle difference bound residual.</p>
+<p><span><span class="MathJax_Preview"> g_{\text{lower}} = \text{angmin} - \text{dva} </span><script type="math/tex; mode=display"> g_{\text{lower}} = \text{angmin} - \text{dva} </script></span>
+<span><span class="MathJax_Preview"> g_{\text{upper}} = \text{dva} - \text{angmax} </span><script type="math/tex; mode=display"> g_{\text{upper}} = \text{dva} - \text{angmax} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dva</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angle difference per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Lower bound residual. (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Upper bound residual. (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.flows_from_voltage"><code class="name flex">
+<span>def <span class="ident">flows_from_voltage</span></span>(<span>self, vm: torch.Tensor, dva: torch.Tensor) ‑> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L38-L65" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute the power flows given the voltage magnitude and angle differences.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>vm</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage magnitude per bus ( <span><span class="MathJax_Preview">\mathbf{v}</span><script type="math/tex">\mathbf{v}</script></span> ). (batch_size, nbus)</dd>
+<dt><strong><code>dva</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Angle differences per branch ( <span><span class="MathJax_Preview"> \boldsymbol{\theta}_f - \boldsymbol{\theta}_t </span><script type="math/tex"> \boldsymbol{\theta}_f - \boldsymbol{\theta}_t </script></span> ). (batch_size, nbranch)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Real power flow per branch ( <span><span class="MathJax_Preview">\mathbf{p}_f</span><script type="math/tex">\mathbf{p}_f</script></span> ). (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Real power flow per branch ( <span><span class="MathJax_Preview">\mathbf{p}_t</span><script type="math/tex">\mathbf{p}_t</script></span> ). (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Reactive power flow per branch ( <span><span class="MathJax_Preview">\mathbf{q}_f</span><script type="math/tex">\mathbf{q}_f</script></span> ). (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Reactive power flow per branch ( <span><span class="MathJax_Preview">\mathbf{q}_t</span><script type="math/tex">\mathbf{q}_t</script></span> ). (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.flows_from_voltage_bus"><code class="name flex">
+<span>def <span class="ident">flows_from_voltage_bus</span></span>(<span>self, vm: torch.Tensor, va: torch.Tensor) ‑> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L67-L84" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute the power flows given the voltage magnitude per bus and voltage angles per bus.</p>
+<p>This function computes angle differences then calls <code>ACPViolation.flows_from_voltage</code>.
+See the docstring of <code>ACPViolation.flows_from_voltage</code> for more details.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>vm</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage magnitude per bus ( <span><span class="MathJax_Preview">\mathbf{v}</span><script type="math/tex">\mathbf{v}</script></span> ). (batch_size, nbus)</dd>
+<dt><strong><code>va</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage angle per bus ( <span><span class="MathJax_Preview">\boldsymbol{\theta}</span><script type="math/tex">\boldsymbol{\theta}</script></span> ). (batch_size, nbus)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Real power flow per branch ( <span><span class="MathJax_Preview">\mathbf{p}_f</span><script type="math/tex">\mathbf{p}_f</script></span> ). (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Real power flow per branch ( <span><span class="MathJax_Preview">\mathbf{p}_t</span><script type="math/tex">\mathbf{p}_t</script></span> ). (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Reactive power flow per branch ( <span><span class="MathJax_Preview">\mathbf{q}_f</span><script type="math/tex">\mathbf{q}_f</script></span> ). (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Reactive power flow per branch ( <span><span class="MathJax_Preview">\mathbf{q}_t</span><script type="math/tex">\mathbf{q}_t</script></span> ). (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.objective"><code class="name flex">
+<span>def <span class="ident">objective</span></span>(<span>self, pg: torch.Tensor) ‑> torch.Tensor</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L27-L36" class="git-link">Browse git</a></div>
+<div class="desc"><p>Compute the objective function given the active power generation per generator.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power generation per generator. (batch_size, ngen)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Objective function value. (batch_size)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.pg_bound_residual"><code class="name flex">
+<span>def <span class="ident">pg_bound_residual</span></span>(<span>self, pg: torch.Tensor, clamp: bool = False) ‑> tuple[torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L118-L132" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the active power generation bound residual.</p>
+<p><span><span class="MathJax_Preview"> g_{\text{lower}} = \text{pmin} - \text{pg} </span><script type="math/tex; mode=display"> g_{\text{lower}} = \text{pmin} - \text{pg} </script></span>
+<span><span class="MathJax_Preview"> g_{\text{upper}} = \text{pg} - \text{pmax} </span><script type="math/tex; mode=display"> g_{\text{upper}} = \text{pg} - \text{pmax} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power generation per generator. (batch_size, ngen)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Lower bound residual. (batch_size, ngen)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Upper bound residual. (batch_size, ngen)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.qg_bound_residual"><code class="name flex">
+<span>def <span class="ident">qg_bound_residual</span></span>(<span>self, qg: torch.Tensor, clamp: bool = False) ‑> tuple[torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L134-L148" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the reactive power generation bound residual.</p>
+<p><span><span class="MathJax_Preview"> g_{\text{lower}} = \text{qmin} - \text{qg} </span><script type="math/tex; mode=display"> g_{\text{lower}} = \text{qmin} - \text{qg} </script></span>
+<span><span class="MathJax_Preview"> g_{\text{upper}} = \text{qg} - \text{qmax} </span><script type="math/tex; mode=display"> g_{\text{upper}} = \text{qg} - \text{qmax} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>qg</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power generation per generator. (batch_size, ngen)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Lower bound residual. (batch_size, ngen)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Upper bound residual. (batch_size, ngen)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.thermal_residual"><code class="name flex">
+<span>def <span class="ident">thermal_residual</span></span>(<span>self,<br>pf: torch.Tensor,<br>pt: torch.Tensor,<br>qf: torch.Tensor,<br>qt: torch.Tensor,<br>clamp: bool = False) ‑> tuple[torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L150-L174" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the thermal limit residual.</p>
+<p><span><span class="MathJax_Preview"> g_{\text{thrm}_1} = \text{pf}^2 + \text{qf}^2 - \text{s1max} </span><script type="math/tex; mode=display"> g_{\text{thrm}_1} = \text{pf}^2 + \text{qf}^2 - \text{s1max} </script></span>
+<span><span class="MathJax_Preview"> g_{\text{thrm}_2} = \text{pt}^2 + \text{qt}^2 - \text{s2max} </span><script type="math/tex; mode=display"> g_{\text{thrm}_2} = \text{pt}^2 + \text{qt}^2 - \text{s2max} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power flow from bus per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>pt</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Active power flow to bus per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>qf</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power flow from bus per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>qt</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Reactive power flow to bus per branch. (batch_size, nbranch)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Thermal limit residual for from branch. (batch_size, nbranch)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Thermal limit residual for to branch. (batch_size, nbranch)</dd>
+</dl></div>
+</dd>
+<dt id="ml4opf.formulations.ac.violation.ACViolation.vm_bound_residual"><code class="name flex">
+<span>def <span class="ident">vm_bound_residual</span></span>(<span>self, vm: torch.Tensor, clamp: bool = False) ‑> tuple[torch.Tensor, torch.Tensor]</span>
+</code></dt>
+<dd>
+<div class="git-link-div"><a href="https://github.com/AI4OPT/ML4OPF/blob/8f8e6125352203d112bba4c89092347fd7629c56/ml4opf/formulations/ac/violation.py#L102-L116" class="git-link">Browse git</a></div>
+<div class="desc"><p>Calculate the voltage magnitude bound residual.</p>
+<p><span><span class="MathJax_Preview"> g_{\text{lower}} = \text{vmin} - \text{vm} </span><script type="math/tex; mode=display"> g_{\text{lower}} = \text{vmin} - \text{vm} </script></span>
+<span><span class="MathJax_Preview"> g_{\text{upper}} = \text{vm} - \text{vmax} </span><script type="math/tex; mode=display"> g_{\text{upper}} = \text{vm} - \text{vmax} </script></span></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>vm</code></strong> :&ensp;<code>Tensor</code></dt>
+<dd>Voltage magnitude per bus. (batch_size, nbus)</dd>
+<dt><strong><code>clamp</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Clamp the residual to be non-negative (extract violations). Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tensor</code></dt>
+<dd>Lower bound residual. (batch_size, nbus)</dd>
+<dt><code>Tensor</code></dt>
+<dd>Upper bound residual. (batch_size, nbus)</dd>
+</dl></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ml4opf.formulations.violation.OPFViolation" href="../violation.html#ml4opf.formulations.violation.OPFViolation">OPFViolation</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.adjacency_matrix" href="../violation.html#ml4opf.formulations.violation.OPFViolation.adjacency_matrix">adjacency_matrix</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_from_incidence">branch_from_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_from_to_bus" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_from_to_bus">branch_from_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_incidence">branch_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_to_incidence">branch_to_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.branch_to_to_bus" href="../violation.html#ml4opf.formulations.violation.OPFViolation.branch_to_to_bus">branch_to_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.forward" href="../violation.html#ml4opf.formulations.violation.OPFViolation.forward">forward</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.gen_to_bus" href="../violation.html#ml4opf.formulations.violation.OPFViolation.gen_to_bus">gen_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.generator_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.generator_incidence">generator_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_incidence" href="../violation.html#ml4opf.formulations.violation.OPFViolation.load_incidence">load_incidence</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.load_to_bus" href="../violation.html#ml4opf.formulations.violation.OPFViolation.load_to_bus">load_to_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.reduce_violation" href="../violation.html#ml4opf.formulations.violation.OPFViolation.reduce_violation">reduce_violation</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.reduce_violations" href="../violation.html#ml4opf.formulations.violation.OPFViolation.reduce_violations">reduce_violations</a></code></li>
+<li><code><a title="ml4opf.formulations.violation.OPFViolation.violation_shapes" href="../violation.html#ml4opf.formulations.violation.OPFViolation.violation_shapes">violation_shapes</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ml4opf.formulations.ac" href="index.html">ml4opf.formulations.ac</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ml4opf.formulations.ac.violation.ACViolation" href="#ml4opf.formulations.ac.violation.ACViolation">ACViolation</a></code></h4>
+<ul class="">
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.angle_difference" href="#ml4opf.formulations.ac.violation.ACViolation.angle_difference">angle_difference</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.balance_residual" href="#ml4opf.formulations.ac.violation.ACViolation.balance_residual">balance_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.calc_violations" href="#ml4opf.formulations.ac.violation.ACViolation.calc_violations">calc_violations</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.dva_bound_residual" href="#ml4opf.formulations.ac.violation.ACViolation.dva_bound_residual">dva_bound_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.flows_from_voltage" href="#ml4opf.formulations.ac.violation.ACViolation.flows_from_voltage">flows_from_voltage</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.flows_from_voltage_bus" href="#ml4opf.formulations.ac.violation.ACViolation.flows_from_voltage_bus">flows_from_voltage_bus</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.objective" href="#ml4opf.formulations.ac.violation.ACViolation.objective">objective</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.pg_bound_residual" href="#ml4opf.formulations.ac.violation.ACViolation.pg_bound_residual">pg_bound_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.qg_bound_residual" href="#ml4opf.formulations.ac.violation.ACViolation.qg_bound_residual">qg_bound_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.thermal_residual" href="#ml4opf.formulations.ac.violation.ACViolation.thermal_residual">thermal_residual</a></code></li>
+<li><code><a title="ml4opf.formulations.ac.violation.ACViolation.vm_bound_residual" href="#ml4opf.formulations.ac.violation.ACViolation.vm_bound_residual">vm_bound_residual</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>
