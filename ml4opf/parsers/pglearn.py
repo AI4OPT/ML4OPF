@@ -202,7 +202,7 @@ class PGLearnParser:
             raise ValueError(f"JSON file not found: {self.json_path}")
 
     def parse_json(self, model_type: Union[str, Sequence[str]] = None):
-        """Parse the JSON file from OPFGenerator.
+        """Parse the JSON file from PGLearn.
 
         Args:
             model_type (Union[str, Sequence[str]]): The reference solutions to save. Default: [] (no reference solutions saved.)

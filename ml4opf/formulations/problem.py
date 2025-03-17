@@ -201,7 +201,7 @@ class OPFProblem(ABC):
         """Dictionary of keys and values to check feasibility of the problem.
 
         Each key is checked to have the corresponding value. If any of them
-        does not match, the sample is removed from the dataset in `OPFGeneratorH5Parser`.
+        does not match, the sample is removed from the dataset in `PGLearnParser`.
         See ACOPFProblem.feasibility_check for an example.
         """
 
